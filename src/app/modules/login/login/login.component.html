@@ -1,0 +1,51 @@
+<div class="login">
+  <figure class="login-bgr">
+    <img src="../../../../assets/login_bgr.jpg" />
+  </figure>
+  <form
+    class="login-form"
+    (submit)="onLoginFormSubmit()"
+    [formGroup]="loginForm"
+  >
+    <p class="login-form__header">Đăng nhập</p>
+    <p class="login-form__error" *ngIf="loginError !== ''">
+      {{ loginError }}
+    </p>
+    <div class="login-form__component login-form__phone">
+      <app-text-field
+        placeholder="VD: 0358.434.915"
+        type="number"
+        [required]="false"
+        [control]="$any(loginForm.get('phone'))"
+      ></app-text-field>
+      <p
+        class="login-form__component-error"
+        *ngIf="
+          loginForm.get('phone')!.invalid &&
+          (loginForm.get('phone')!.dirty || loginForm.get('phone')!.touched)
+        "
+      >
+        Hãy nhập số điện thoại
+      </p>
+    </div>
+    <div class="login-form__component login-form__password">
+      <app-text-field
+        type="password"
+        [required]="false"
+        [control]="$any(loginForm.get('password'))"
+        placeholder="Mật khẩu của bạn"
+      ></app-text-field>
+      <p
+        class="login-form__component-error"
+        *ngIf="
+          loginForm.get('password')!.invalid &&
+          (loginForm.get('password')!.dirty ||
+            loginForm.get('password')!.touched)
+        "
+      >
+        Hãy nhập mật khẩu
+      </p>
+    </div>
+    <app-button type="submit">Login</app-button>
+  </form>
+</div>

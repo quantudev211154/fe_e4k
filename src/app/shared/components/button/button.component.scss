@@ -1,0 +1,51 @@
+@import "../../../styles/color";
+@import "../../../styles/viewport";
+
+.button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  text-align: center;
+  color: $color-white;
+  background-color: $color-blue-50;
+
+  border-radius: 0.5rem;
+  padding: 1rem 0;
+  font-size: 1.2rem;
+  box-shadow: rgba(184, 131, 131, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  width: 100%;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: $color-blue-55;
+    transform: translateY(0.2rem);
+    box-shadow: none;
+  }
+
+  &:focus {
+    animation: translate;
+    animation-duration: 0.2s;
+  }
+}
+
+@keyframes translate {
+  0% {
+    transform: translate(0%, 10%);
+  }
+  100% {
+    transform: translate(0%, 10%);
+    box-shadow: none;
+  }
+}
+
+@include desktop-and-up {
+  .button {
+    border-radius: 0.5rem;
+  }
+}
