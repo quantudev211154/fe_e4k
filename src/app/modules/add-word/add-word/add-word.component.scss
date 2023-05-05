@@ -1,0 +1,119 @@
+@import "../../../styles/color";
+@import "../../../styles/mixins";
+
+$CHILD-LEFT-WIDTH: 15%;
+
+.add-word {
+  width: 100%;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 2rem;
+
+    &-title {
+      font-weight: bolder;
+      color: $color-blue-50;
+
+      font-size: 1.8rem;
+    }
+
+    ::ng-deep button {
+      padding: 0.8rem 1.3rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  &__child {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    width: 100%;
+    margin-bottom: 1rem;
+
+    &-left {
+      width: $CHILD-LEFT-WIDTH;
+
+      p {
+        font-size: 1.1rem;
+      }
+    }
+
+    &-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+
+      flex: 1 1 0%;
+      gap: 0.8rem;
+
+      input {
+        @include custom-input;
+      }
+
+      select {
+        width: 10rem;
+
+        padding: 0.8rem 0.5rem;
+        border-radius: 0.3rem;
+        font-size: 1rem;
+      }
+
+      &_vieVers {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        overflow-x: auto;
+
+        width: 100%;
+        gap: 1rem;
+
+        div {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          padding: 0.5rem 0.8rem;
+          border: 1px solid $color-gray-20;
+          border-radius: 1rem;
+          gap: 0.5rem;
+
+          & span:nth-child(2) {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            cursor: pointer;
+
+            width: 1.55rem;
+            height: 1.55rem;
+            border-radius: 50%;
+
+            &:hover {
+              background-color: $color-gray-60;
+            }
+
+            ::ng-deep .icon {
+              fill: black;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__error {
+    padding-left: $CHILD-LEFT-WIDTH;
+
+    margin-top: 0.3rem;
+    margin-bottom: 1rem;
+
+    & p {
+      color: $color-red-50;
+
+      font-size: 0.9rem;
+    }
+  }
+}

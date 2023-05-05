@@ -1,0 +1,69 @@
+<div class="add-word">
+  <div class="add-word__header">
+    <p class="add-word__header-title">Thêm từ mới</p>
+    <app-button (click)="onSaveWord()">Lưu</app-button>
+  </div>
+  <div class="add-word__child">
+    <div class="add-word__child-left">
+      <p>Từ tiếng Anh:</p>
+    </div>
+    <div class="add-word__child-right">
+      <input
+        class=".input"
+        placeholder="VD: You"
+        name="engVer"
+        value="{{ newWord.engVer }}"
+        (input)="onEngVerInput($event)"
+      />
+    </div>
+  </div>
+  <div class="add-word__error">
+    <p>Phải điền từ tiếng Anh</p>
+  </div>
+  <div class="add-word__child">
+    <div class="add-word__child-left">
+      <p>Nghĩa tiếng Việt:</p>
+    </div>
+    <div class="add-word__child-right">
+      <form [formGroup]="vieVerForm">
+        <input
+          class=".input"
+          placeholder="VD: Bạn"
+          formControlName="vieVer"
+          (keydown.enter)="onVieVerKeyEnterDown($event)"
+        />
+      </form>
+      <div class="add-word__child-right_vieVers">
+        <ng-container *ngFor="let vie of newWord.vieVers; let i = index">
+          <div>
+            <span>{{ vie }}</span>
+            <span (click)="removeOneVieVer(i)"
+              ><app-icon-close></app-icon-close
+            ></span>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="add-word__error">
+    <p>Phải điền từ tiếng Anh</p>
+  </div>
+  <div class="add-word__child">
+    <div class="add-word__child-left">
+      <p>Độ khó:</p>
+    </div>
+    <div class="add-word__child-right">
+      <select
+        name="level"
+        [value]="newWord.level"
+        (change)="onLevelChange($event)"
+      >
+        <ng-container *ngFor="let level of newWordLevels">
+          <option value="{{ level.value }}">
+            {{ level.label }}
+          </option>
+        </ng-container>
+      </select>
+    </div>
+  </div>
+</div>

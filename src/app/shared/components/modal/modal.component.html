@@ -1,0 +1,5 @@
+<ng-container *ngIf="isOpen">
+  <div (click)="sendEmitter($event)" class="custom-modal {{ modalId }}">
+    <ng-content></ng-content>
+  </div>
+</ng-container>

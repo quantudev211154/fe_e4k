@@ -1,0 +1,44 @@
+@import "./size";
+@import "./color";
+@import "./viewport";
+
+@mixin blured-component {
+  -webkit-backdrop-filter: blur($BLUR-LEVEL);
+  backdrop-filter: blur($BLUR-LEVEL);
+  background-color: $modal-blured;
+}
+
+@mixin custom-input {
+  outline: none;
+  -webkit-appearance: none;
+  -webkit-box-shadow: $color-gray-60 0px 0px 0px 2px;
+  -moz-box-shadow: $color-gray-60 0px 0px 0px 2px;
+  box-shadow: $color-gray-60 0px 0px 0px 2px;
+  background-color: $color-white;
+
+  width: 100%;
+  border-radius: 0.6rem;
+  padding: 0.8rem 0.9rem;
+  font-size: 1.2rem;
+  transition: 0.2s ease;
+  border: 2px solid transparent;
+
+  &:hover {
+    border: 2px solid $color-gray-45;
+    -webkit-box-shadow: $color-gray-60 0px 0px 0px 1px;
+    -moz-box-shadow: $color-gray-60 0px 0px 0px 1px;
+    box-shadow: $color-gray-60 0px 0px 0px px;
+  }
+
+  &:focus {
+    border: 2px solid $color-gray-10;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
+
+  @include desktop-and-up {
+    border-radius: 0.5rem;
+    padding: 0.8rem 0.9rem;
+  }
+}

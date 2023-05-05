@@ -1,9 +1,5 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import {
-  FormControl,
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-} from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-text-field',
@@ -15,6 +11,7 @@ export class TextFieldComponent {
   @Input() type: string = 'text';
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
+  @Input() autofocus: boolean = false;
 
   constructor() {}
 }

@@ -26,14 +26,14 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    Promise.resolve(null).then(() => this.loaderService.show());
+    this.loaderService.show();
 
     let authRequest = req;
     const token = this.tokenStorageService.getToken();
 
     if (token) {
       const headers = new HttpHeaders()
-        .append(COMMON_KEY.TOKEN_HEADER_KEY, token)
+        .append(COMMON_KEY.TOKEN_HEADER_KEY, `Bearer ${token}`)
         .append('Access-Control-Allow-Headers', 'Content-Type')
         .append(
           'Access-Control-Allow-Methods',

@@ -49,16 +49,14 @@ export class AuthService {
         const newAuthState: IAuthState = {
           isAuth: true,
           user: {
-            phone: data.phone,
-            role: data.role,
-            username: data.username,
-            _id: data._id,
-            registerDate: new Date(data.registerDate),
+            phone: data.user.phone,
+            role: data.user.role,
+            username: data.user.username,
+            _id: data.user._id,
+            registerDate: new Date(data.user.registerDate),
           },
         };
         this.setAuthState(newAuthState);
-
-        this.router.navigateByUrl('');
       },
       (error) => {
         this.tokenStorageService.removeToken();

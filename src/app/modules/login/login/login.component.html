@@ -15,7 +15,7 @@
       <app-text-field
         placeholder="VD: 0358.434.915"
         type="number"
-        [required]="false"
+        [required]="true"
         [control]="$any(loginForm.get('phone'))"
       ></app-text-field>
       <p
@@ -31,7 +31,7 @@
     <div class="login-form__component login-form__password">
       <app-text-field
         type="password"
-        [required]="false"
+        [required]="true"
         [control]="$any(loginForm.get('password'))"
         placeholder="Mật khẩu của bạn"
       ></app-text-field>

@@ -4,7 +4,7 @@ import { API } from '../../constants';
 import { IAuthState } from '../../models';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../token-service/token-storage.service';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../auth-service/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -49,6 +49,10 @@ export class LoginService {
   }
 
   public logout() {
+    const currentUserId = this.authService.authState.user?._id;
+
+    this.httpService.post(API.LOGOUT_URL, { id: currentUserId });
+
     this.tokenStorageService.removeToken();
     this.authService.resetAuthState();
 

@@ -9,7 +9,6 @@ import { TokenStorageService } from '../token-service/token-storage.service';
 export class HttpService {
   options = {
     headers: new HttpHeaders({
-      Authorization: `Bearer ${this.tokenStorageService.getToken()}`,
       observe: 'response' as 'body',
     }),
     withCredentials: true,

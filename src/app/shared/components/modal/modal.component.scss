@@ -1,0 +1,12 @@
+@import "../../../styles/_color.scss";
+
+.custom-modal {
+  position: fixed;
+  background-color: $modal-blured;
+
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 500;
+}

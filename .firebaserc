@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "e4k-db": {
+      "hosting": {
+        "fe_e4k": [
+          "e4k-db"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "e4k-db"
+  }
+}

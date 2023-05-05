@@ -1,0 +1,114 @@
+@import "../../../../styles/size";
+@import "../../../../styles/color";
+
+$SIDEBAR_ITEM_HEIGHT: 3.5rem;
+
+.sidebar {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: $SIDEBAR_MIN_WIDTH;
+  background-color: $color-gray-30;
+
+  top: 0;
+  left: 0;
+  height: 100%;
+  transition: 0.2s ease;
+
+  &-open {
+    width: $SIDEBAR_MAX_WIDTH;
+  }
+
+  &-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    width: 100%;
+
+    &__toggle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      width: 100%;
+      height: 3rem;
+
+      &-open {
+        justify-content: flex-end;
+
+        padding-right: 1rem;
+      }
+    }
+
+    &__item {
+      height: $SIDEBAR_ITEM_HEIGHT;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      outline: none;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+
+      width: 100%;
+      transition: 0.2s;
+
+      &:hover {
+        background-color: $color-gray-60;
+      }
+
+      &--selected {
+        background-color: $color-gray-60;
+      }
+
+      &-icon {
+        width: $SIDEBAR_MIN_WIDTH;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        height: 100%;
+      }
+
+      &-desc {
+        width: calc(100% - $SIDEBAR_ITEM_HEIGHT - 0.8rem);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: white;
+        text-align: left;
+
+        font-size: 1rem;
+      }
+    }
+  }
+
+  &-bot {
+    &__user {
+      &-info {
+        width: calc(100% - $SIDEBAR_ITEM_HEIGHT - 0.8rem);
+        gap: 0.2rem;
+
+        & p {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          color: white;
+          text-align: left;
+
+          &:first-child {
+            font-weight: bolder;
+            font-size: 1.2rem;
+          }
+
+          &:last-child {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+}

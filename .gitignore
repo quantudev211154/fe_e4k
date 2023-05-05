@@ -42,3 +42,8 @@ testem.log
 Thumbs.db
 package-lock.json
 .idea
+
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json

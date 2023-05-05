@@ -1,0 +1,46 @@
+<div class="sidebar {{ isOpenFullSidebar ? 'sidebar-open' : '' }}">
+  <div class="sidebar-child sidebar-top">
+    <div
+      class="sidebar-child__toggle {{
+        isOpenFullSidebar ? 'sidebar-child__toggle-open' : ''
+      }}"
+    >
+      <app-icon-close
+        *ngIf="isOpenFullSidebar"
+        (click)="minimizeSidebar()"
+      ></app-icon-close>
+      <app-icon-menu
+        *ngIf="!isOpenFullSidebar"
+        (click)="openFullSidebar()"
+      ></app-icon-menu>
+    </div>
+    <ng-container *ngFor="let item of sidebarItems">
+      <button
+        (click)="onClickSidebarItem(item)"
+        value="{{ item.value }}"
+        class="sidebar-child__item {{
+          item.value === selectedSidebarItem.value
+            ? 'sidebar-child__item--selected'
+            : ''
+        }}"
+        title="{{ item.description }}"
+      >
+        <figure class="sidebar-child__item-icon">
+          <ng-container *ngComponentOutlet="item.icon"></ng-container>
+        </figure>
+        <p class="sidebar-child__item-desc">{{ item.label }}</p>
+      </button>
+    </ng-container>
+  </div>
+  <div class="sidebar-child sidebar-bot">
+    <button class="sidebar-child__item sidebar-bot__user">
+      <figure class="sidebar-child__item-icon sidebar-bot__user-icon">
+        <app-icon-user-circle></app-icon-user-circle>
+      </figure>
+      <div class="sidebar-bot__user-info">
+        <p>{{ currentUser?.username }}</p>
+        <p>{{ currentUser?.role }}</p>
+      </div>
+    </button>
+  </div>
+</div>
