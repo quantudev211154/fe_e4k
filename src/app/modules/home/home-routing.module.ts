@@ -33,6 +33,14 @@ const routes: Routes = [
         loadChildren: () =>
           import('../add-word/add-word.module').then((m) => m.AddWordModule),
       },
+      {
+        path: 'course-detail/:courseId',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('../course-detail/course-detail.module').then(
+            (m) => m.CourseDetailModule
+          ),
+      },
     ],
   },
 ];

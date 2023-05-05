@@ -1,7 +1,10 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { EWordLevel, INewWord } from 'src/app/core/models';
+import { Router } from '@angular/router';
+import { INewWord } from 'src/app/core/models';
+import { FirebaseService } from 'src/app/core/services/firebase/firebase.service';
 import { WordService } from 'src/app/core/services/word-service/word.service';
+import { combineLatestWith } from 'rxjs';
 
 @Component({
   selector: 'app-add-word',
@@ -10,34 +13,22 @@ import { WordService } from 'src/app/core/services/word-service/word.service';
 })
 export class AddWordComponent implements OnInit {
   vieVerForm: FormGroup;
-  newWordLevels = [
-    {
-      label: 'Easy',
-      value: EWordLevel.EASY,
-    },
-    {
-      label: 'Medium',
-      value: EWordLevel.MEDIUM,
-    },
-    {
-      label: 'Hard',
-      value: EWordLevel.HARD,
-    },
-  ];
 
   newWord: INewWord = {
     engVer: '',
     vieVers: [],
-    level: EWordLevel.EASY,
     images: [],
     audios: [],
   };
   vieVerCurrentValue = '';
+  imageFiles: FileList;
+  audioFiles: FileList;
 
   constructor(
     private fb: FormBuilder,
-    private cd: ChangeDetectorRef,
-    private wordService: WordService
+    private wordService: WordService,
+    private router: Router,
+    private firebaseService: FirebaseService
   ) {}
 
   ngOnInit(): void {
@@ -85,7 +76,23 @@ export class AddWordComponent implements OnInit {
     this.newWord.vieVers = newVieVers;
   }
 
-  onSaveWord() {
+  onUploadImages(event: Event) {
+    const target = event.target as HTMLInputElement;
+
+    if (!target.files || target.files.length === 0) return;
+
+    this.imageFiles = target.files;
+  }
+
+  onUploadAudios(event: Event) {
+    const target = event.target as HTMLInputElement;
+
+    if (!target.files || target.files.length === 0) return;
+
+    this.audioFiles = target.files;
+  }
+
+  saveNewWord(imageUrls: string[], audioUrls: string[]) {
     if (this.newWord.engVer !== '' && this.newWord.vieVers.length !== 0) {
       const { engVer, vieVers, ...rest } = this.newWord;
 
@@ -94,8 +101,46 @@ export class AddWordComponent implements OnInit {
         vieVers: vieVers.map((vieVer) => vieVer.toLowerCase()),
         ...rest,
       };
+      word.images = imageUrls;
+      word.audios = audioUrls;
 
-      this.wordService.addNewWord(word);
+      console.log(word);
+
+      this.wordService.addNewWord(word).subscribe(() => {
+        this.router.navigateByUrl('/words');
+      });
+    }
+  }
+
+  onClickSaveWordBtn() {
+    if (this.imageFiles && this.imageFiles.length > 0) {
+      this.firebaseService
+        .pushListFileToStorage(this.imageFiles)
+        .subscribe((imageUrls) => {
+          if (imageUrls.length === this.imageFiles.length) {
+            if (this.audioFiles && this.audioFiles.length > 0) {
+              this.firebaseService
+                .pushListFileToStorage(this.audioFiles)
+                .subscribe((audioUrls) => {
+                  if (audioUrls.length === this.audioFiles.length) {
+                    this.saveNewWord(imageUrls, audioUrls);
+                  }
+                });
+            } else {
+              this.saveNewWord(imageUrls, []);
+            }
+          }
+        });
+    } else if (this.audioFiles && this.audioFiles.length > 0) {
+      this.firebaseService
+        .pushListFileToStorage(this.audioFiles)
+        .subscribe((audioUrls) => {
+          if (audioUrls.length === this.audioFiles.length) {
+            this.saveNewWord([], audioUrls);
+          }
+        });
+    } else {
+      this.saveNewWord([], []);
     }
   }
 }

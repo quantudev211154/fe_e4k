@@ -1,7 +1,7 @@
 <div class="add-word">
   <div class="add-word__header">
     <p class="add-word__header-title">Thêm từ mới</p>
-    <app-button (click)="onSaveWord()">Lưu</app-button>
+    <app-button (click)="onClickSaveWordBtn()">Lưu</app-button>
   </div>
   <div class="add-word__child">
     <div class="add-word__child-left">
@@ -17,9 +17,9 @@
       />
     </div>
   </div>
-  <div class="add-word__error">
+  <!-- <div class="add-word__error">
     <p>Phải điền từ tiếng Anh</p>
-  </div>
+  </div> -->
   <div class="add-word__child">
     <div class="add-word__child-left">
       <p>Nghĩa tiếng Việt:</p>
@@ -45,25 +45,41 @@
       </div>
     </div>
   </div>
-  <div class="add-word__error">
+  <!-- <div class="add-word__error">
     <p>Phải điền từ tiếng Anh</p>
+  </div> -->
+  <div class="add-word__child">
+    <div class="add-word__child-left">
+      <p>Ảnh minh hoạ:</p>
+    </div>
+    <div class="add-word__child-right">
+      <label class="add-word__child-right__upload">
+        Thêm ảnh
+        <input
+          type="file"
+          multiple
+          accept="image/png, image/gif, image/jpeg, image/svg, image/webp"
+          hidden
+          (change)="onUploadImages($event)"
+        />
+      </label>
+    </div>
   </div>
   <div class="add-word__child">
     <div class="add-word__child-left">
-      <p>Độ khó:</p>
+      <p>Phát âm:</p>
     </div>
     <div class="add-word__child-right">
-      <select
-        name="level"
-        [value]="newWord.level"
-        (change)="onLevelChange($event)"
-      >
-        <ng-container *ngFor="let level of newWordLevels">
-          <option value="{{ level.value }}">
-            {{ level.label }}
-          </option>
-        </ng-container>
-      </select>
+      <label class="add-word__child-right__upload">
+        Thêm audio
+        <input
+          type="file"
+          multiple
+          accept="audio/mp3,audio/*;capture=microphone"
+          hidden
+          (change)="onUploadAudios($event)"
+        />
+      </label>
     </div>
   </div>
 </div>

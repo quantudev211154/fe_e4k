@@ -1,5 +1,9 @@
 @import "../../../styles/color";
 
+$TABLE-TD-HEIGHT: 3.5rem;
+$CELL-INDEX-WIDTH: 8rem;
+$CELL-ENGVER-WIDTH: 20rem;
+
 .words {
   display: flex;
   flex-direction: column;
@@ -42,5 +46,69 @@
   &-main {
     flex: 1 1 0%;
     width: 100%;
+    margin-top: 2rem;
+
+    & .table {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+
+      width: 100%;
+
+      &-row {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        height: $TABLE-TD-HEIGHT;
+
+        &-cell {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+
+          padding-left: 1rem;
+        }
+      }
+
+      &-header,
+      &-data {
+        &-index {
+          width: $CELL-INDEX-WIDTH;
+        }
+
+        &-engVer {
+          width: $CELL-ENGVER-WIDTH;
+        }
+
+        &-vieVers {
+          width: calc(100% - $CELL-INDEX-WIDTH - $CELL-ENGVER-WIDTH);
+        }
+      }
+
+      &-header {
+        border-top: 1px solid $color-gray-80;
+        border-bottom: 1px solid $color-gray-80;
+
+        & > div {
+          font-weight: bolder;
+        }
+      }
+
+      &-data {
+        border-bottom: 1px solid $color-gray-80;
+
+        &-vieVers {
+          overflow-x: auto;
+
+          gap: 0.8rem;
+
+          span {
+            padding: 0.5rem 1rem;
+            border-radius: 1.2rem;
+            border: 1px solid $color-gray-45;
+          }
+        }
+      }
+    }
   }
 }

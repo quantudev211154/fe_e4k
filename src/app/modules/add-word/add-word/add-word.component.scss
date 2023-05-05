@@ -101,6 +101,16 @@ $CHILD-LEFT-WIDTH: 15%;
           }
         }
       }
+
+      &__upload {
+        @include custom-button;
+        width: max-content;
+        cursor: pointer;
+
+        border-radius: 0.5rem;
+        padding: 0.8rem;
+        font-size: 0.8rem;
+      }
     }
   }
 

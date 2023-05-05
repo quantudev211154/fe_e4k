@@ -8,16 +8,23 @@
     </div>
   </div>
   <div class="words-main">
-    <table>
-      <thead>
-        <tr>
-          <td>STT</td>
-          <td>Từ tiếng Anh</td>
-          <td>Nghĩa tiếng Việt</td>
-          <td>Độ khó</td>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <div class="table">
+      <div class="table-row table-header">
+        <div class="table-row-cell table-header-index">STT</div>
+        <div class="table-row-cell table-header-engVer">Từ tiếng Anh</div>
+        <div class="table-row-cell table-header-vieVers">Nghĩa tiếng Việt</div>
+      </div>
+      <ng-container *ngFor="let word of allWords; let i = index">
+        <div class="table-row table-data">
+          <div class="table-row-cell table-data-index">{{ i + 1 }}</div>
+          <div class="table-row-cell table-data-engVer">{{ word.engVer }}</div>
+          <div class="table-row-cell table-data-vieVers">
+            <ng-container *ngFor="let vie of word.vieVers">
+              <span>{{ vie }}</span>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
   </div>
 </div>

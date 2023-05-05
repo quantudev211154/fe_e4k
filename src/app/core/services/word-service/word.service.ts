@@ -14,14 +14,7 @@ export class WordService {
     return this.httpService.get(API.GET_ALL_WORDS_URL);
   }
 
-  public addNewWord(newWord: INewWord, onFailure?: Function) {
-    this.httpService.post(API.ADD_NEW_WORD_URL, newWord).subscribe(
-      (res: any) => {
-        console.log(res);
-      },
-      (err: any) => {
-        if (onFailure) onFailure();
-      }
-    );
+  public addNewWord(newWord: INewWord) {
+    return this.httpService.post(API.ADD_NEW_WORD_URL, newWord);
   }
 }

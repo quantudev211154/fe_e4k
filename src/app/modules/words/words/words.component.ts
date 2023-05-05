@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IWord } from 'src/app/core/models';
 import { WordService } from 'src/app/core/services/word-service/word.service';
 
 @Component({
@@ -8,26 +9,17 @@ import { WordService } from 'src/app/core/services/word-service/word.service';
   styleUrls: ['./words.component.scss'],
 })
 export class WordsComponent implements OnInit {
-  allWords = [];
+  allWords: IWord[] = [];
 
   constructor(private router: Router, private wordService: WordService) {}
 
   ngOnInit(): void {
-    this.getAllWords();
+    this.wordService.getAllWords().subscribe((res: any) => {
+      this.allWords = res.data.words;
+    });
   }
 
   goToAddWordRoute() {
     this.router.navigateByUrl('/add-word');
-  }
-
-  onGetAllWordsSuccess(words: any) {
-    console.log(words);
-    this.allWords = words;
-  }
-
-  getAllWords() {
-    this.wordService.getAllWords().subscribe((res: any) => {
-      this.allWords = res.data.words;
-    });
   }
 }

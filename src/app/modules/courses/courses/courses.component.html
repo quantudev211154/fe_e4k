@@ -1,1 +1,83 @@
-<p>courses works!</p>
+<div class="courses">
+  <div class="courses-header">
+    <div class="courses-header__left"></div>
+    <div class="courses-header__right">
+      <app-button (click)="showAddCourseModal()">Tạo khoá học</app-button>
+    </div>
+  </div>
+  <div class="courses-main">
+    <div class="table">
+      <div class="table-row table-header">
+        <div class="table-row-cell table-header-index">STT</div>
+        <div class="table-row-cell table-header-title">Khoá học</div>
+        <div class="table-row-cell table-header-lession">Số chương</div>
+        <div class="table-row-cell table-header-desc">Mô tả</div>
+      </div>
+      <ng-container *ngFor="let course of allCourses; let i = index">
+        <div
+          (click)="goToCourseDetailById(course._id)"
+          class="table-row table-data"
+        >
+          <div class="table-row-cell table-data-index">{{ i + 1 }}</div>
+          <div class="table-row-cell table-data-title">{{ course.title }}</div>
+          <div class="table-row-cell table-data-lession">
+            {{ course.lessions.length }}
+          </div>
+          <div class="table-row-cell table-data-desc">
+            {{ course.description }}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<app-modal [isOpen]="isShowAddCourseModal" (click)="hideAddCourseModal()">
+  <form
+    class="new-course-form"
+    (submit)="onNewCourseFormSubmit()"
+    [formGroup]="newCourseForm"
+  >
+    <p class="new-course-form__header">Tạo khoá học</p>
+    <p class="new-course-form__error" *ngIf="newCourseFormError !== ''">
+      {{ newCourseFormError }}
+    </p>
+    <div class="new-course-form__component new-course-form__title">
+      <app-text-field
+        [autofocus]="true"
+        placeholder="VD: Động vật"
+        type="text"
+        [required]="true"
+        [control]="$any(newCourseForm.get('title'))"
+      ></app-text-field>
+      <p
+        class="new-course-form__component-error"
+        *ngIf="
+          newCourseForm.get('title')!.invalid &&
+          (newCourseForm.get('title')!.dirty ||
+            newCourseForm.get('title')!.touched)
+        "
+      >
+        Hãy nhập tên khoá học
+      </p>
+    </div>
+    <div class="new-course-form__component new-course-form__description">
+      <textarea
+        cols="{{ 5 }}"
+        [required]="true"
+        formControlName="description"
+        placeholder="VD: Từ vựng tiếng Anh về thế giới động vật"
+      ></textarea>
+      <p
+        class="new-course-form__component-error"
+        *ngIf="
+          newCourseForm.get('description')!.invalid &&
+          (newCourseForm.get('description')!.dirty ||
+            newCourseForm.get('description')!.touched)
+        "
+      >
+        Hãy nhập mô tả của khoá học
+      </p>
+    </div>
+    <app-button type="submit">Tạo khoá học</app-button>
+  </form>
+</app-modal>
