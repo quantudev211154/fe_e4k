@@ -96,3 +96,18 @@ export const ROUND_TYPES_INFO = [
     initValue: ROUND_TYPE_6_INIT_VALUE,
   },
 ];
+
+export const ROUND_TYPE_2_QUESTION_TYPE = [
+  {
+    value: 1,
+    label: 'Hỏi từ tiếng Anh - Đáp từ Tiếng Việt',
+    description:
+      'Câu hỏi sẽ là từ tiếng Anh \n Người chơi cần chọn ảnh có chứa nghĩa tiếng Việt tương ứng',
+  },
+  {
+    value: 2,
+    label: 'Hỏi từ tiếng Việt - Đáp từ tiếng Anh',
+    description:
+      'Câu hỏi sẽ là từ tiếng Việt \n Người chơi cần chọn ảnh có chứa nghĩa tiếng Anh tương ứng',
+  },
+];

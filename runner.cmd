@@ -1,2 +1,2 @@
-ng serve
+npm run start
 pause

@@ -1,0 +1,111 @@
+<div class="one">
+  <div class="one__left">
+    <div class="one__left-pairs">
+      <button
+        (click)="onChangeRoundTotalPairs(2)"
+        class="one__left-pairs-btn {{
+          newRound.totalPairs === 2 ? 'one__left-pairs-btn_selected' : ''
+        }}"
+        value="2"
+      >
+        2 cặp ảnh
+      </button>
+      <button
+        (click)="onChangeRoundTotalPairs(4)"
+        class="one__left-pairs-btn  {{
+          newRound.totalPairs === 4 ? 'one__left-pairs-btn_selected' : ''
+        }}"
+        value="4"
+      >
+        4 cặp ảnh
+      </button>
+    </div>
+    <form class="one__left-form" [formGroup]="searchForm">
+      <input
+        autofocus
+        placeholder="Nhập từ tiếng Anh bạn cần tìm"
+        class="one__left-form-input"
+        formControlName="keyword"
+        (input)="onSearchChange($event)"
+      />
+      <div
+        class="one__left-form-suggestion"
+        *ngIf="searchSuggestionList.length > 0"
+      >
+        <ng-container *ngFor="let word of searchSuggestionList">
+          <div
+            (click)="setSelectedWordFromSearch(word)"
+            class="one__left-form-suggestion_item {{
+              word.images.length === 0
+                ? 'one__left-form-suggestion_item-disabled'
+                : ''
+            }}"
+          >
+            <p class="one__left-form-suggestion_item-eng">{{ word.engVer }}</p>
+            <p>
+              Ảnh minh hoạ: <span>{{ word.images.length }}</span>
+            </p>
+          </div>
+        </ng-container>
+      </div>
+    </form>
+    <div class="one__left-word" *ngIf="selectedWord">
+      <div class="one__left-word-eng">
+        <p>{{ selectedWord.engVer }}</p>
+      </div>
+      <div class="one__left-word-vies">
+        <ng-container *ngFor="let vie of selectedWord.vieVers">
+          <button
+            class="one__left-word-vies-vie {{
+              selectedWordDetail && selectedWordDetail.vie === vie
+                ? 'one__left-word-vies-vie_selected'
+                : ''
+            }}"
+            value="{{ vie }}"
+            (click)="onChangeCardVieWord(vie)"
+          >
+            {{ vie }}
+          </button>
+        </ng-container>
+      </div>
+      <div class="one__left-word-images">
+        <ng-container *ngFor="let image of selectedWord.images">
+          <button
+            value="{{ image }}"
+            class="one__left-word-images-img {{
+              selectedWordDetail && selectedWordDetail.imageUrl === image
+                ? 'one__left-word-images-img_selected'
+                : ''
+            }}"
+            (click)="onChangeCardImage(image)"
+          >
+            <img src="{{ image }}" />
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="one__right">
+    <div class="one__right-main">
+      <ng-container *ngFor="let card of newRound.cards">
+        <button
+          value="{{ card.pairId }}"
+          class="one__right-main_card {{
+            selectedPairId && selectedPairId === card.pairId
+              ? 'one__right-main_card-selected'
+              : ''
+          }}"
+          (click)="changeSelectedPairId(card.pairId)"
+        >
+          <figure class="one__right-main_card-image">
+            <img src="{{ card.imageUrl }}" />
+          </figure>
+          <p class="one__right-main_card-word">{{ card.word }}</p>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+  <div class="one__bot" *ngIf="isShowSaveRoundButton()">
+    <app-button (click)="onSaveRound()">Lưu màn chơi</app-button>
+  </div>
+</div>

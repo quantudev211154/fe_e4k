@@ -1,0 +1,266 @@
+@import "../../../styles/color";
+@import "../../../styles/mixins";
+
+$CARD_SIZE: 8rem;
+$CARD_GAP: 1rem;
+
+.one {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+
+  &__left,
+  &__right {
+    width: calc(100% / 2);
+
+    padding: 0.5rem;
+    height: 100%;
+  }
+
+  &__left {
+    &-pairs {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      padding: 1rem 0;
+      gap: 1rem;
+
+      &-btn {
+        @include custom-button;
+        background-color: $color-white;
+        color: black;
+        width: max-content;
+
+        padding: 0.6rem 0.8rem;
+        font-size: 0.8rem;
+
+        &:hover {
+          color: $color-white;
+        }
+
+        &_selected {
+          background-color: $color-blue-50;
+          color: $color-white;
+        }
+      }
+    }
+
+    &-form {
+      position: relative;
+
+      width: 100%;
+
+      &-input {
+        @include custom-input;
+
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+      }
+
+      &-suggestion {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        background-color: white;
+
+        top: 105%;
+        left: 0;
+        width: 100%;
+        z-index: 300;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
+          rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+        &_item {
+          cursor: pointer;
+
+          padding: 0.5rem;
+          border-bottom: 1px dashed $color-gray-90;
+
+          &-disabled {
+            pointer-events: none;
+
+            background-color: $color-gray-60;
+            opacity: 0.6;
+          }
+
+          &:hover {
+            background-color: $color-gray-90;
+          }
+
+          &:hover &-eng {
+            color: $color-blue-50;
+          }
+
+          & p {
+            font-size: 0.9rem;
+
+            span {
+              font-weight: bolder;
+            }
+          }
+
+          &-eng {
+            font-weight: bolder;
+
+            font-size: 1.8rem;
+            transition: 0.2s;
+            margin-bottom: 0.5rem;
+          }
+        }
+      }
+    }
+
+    &-word {
+      display: flex;
+      flex-direction: column;
+
+      gap: 1rem;
+
+      &-eng {
+        padding: 1rem 0;
+
+        & p {
+          color: $color-blue-50;
+          font-weight: bolder;
+
+          font-size: 2rem;
+        }
+      }
+
+      &-vies {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        gap: 1rem;
+
+        &-vie {
+          @include custom-button;
+          width: max-content;
+          background-color: $color-white;
+          color: black;
+          overflow-x: auto;
+
+          padding: 0.8rem 1rem;
+          font-size: 0.9rem;
+
+          &:hover {
+            color: $color-white;
+          }
+
+          &_selected {
+            background-color: $color-blue-50;
+            color: $color-white;
+          }
+        }
+      }
+
+      &-images {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        gap: 1rem;
+
+        &-img {
+          outline: none;
+          cursor: pointer;
+
+          width: 6rem;
+          height: 6rem;
+          border-radius: 0.3rem;
+          opacity: 0.8rem;
+          border: 3px solid transparent;
+
+          & img {
+            object-fit: cover;
+
+            width: 100%;
+            height: 100%;
+          }
+
+          &_selected {
+            border: 3px solid $color-blue-50;
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  &__right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-left: 1px dashed $color-gray-80;
+
+    &-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+
+      width: calc($CARD_SIZE * 2 + $CARD_GAP);
+      gap: $CARD_GAP;
+
+      &_card {
+        width: $CARD_SIZE;
+        height: $CARD_SIZE;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        outline: none;
+        cursor: pointer;
+
+        border-radius: 0.3rem;
+        border: 3px dashed $color-gray-60;
+        opacity: 0.8;
+
+        &-selected {
+          border: 3px solid $color-blue-50;
+          background-color: $color-white;
+          opacity: 1;
+        }
+
+        &-image {
+          width: 100%;
+          height: calc(100% - 1.6rem);
+
+          & img {
+            object-fit: cover;
+
+            width: 100%;
+            height: 100%;
+            border-radius: 0.3rem;
+          }
+        }
+
+        &-word {
+          font-weight: bolder;
+          text-align: center;
+
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  &__bot {
+    position: absolute;
+    transform: translateX(-50%);
+
+    bottom: 0;
+    left: 50%;
+    z-index: 300;
+
+    ::ng-deep .button {
+      padding: 0.8rem 1.2rem;
+      font-size: 0.9rem;
+    }
+  }
+}

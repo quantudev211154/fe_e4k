@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-  BASE_ROUND_INIT_VALUE,
   PLAY_TYPE_1_TOTAL_PAIRS,
   ROUND_TYPES_INFO,
   ROUND_TYPE_1_INIT_VALUE,
   ROUND_TYPE_2_INIT_VALUE,
+  ROUND_TYPE_2_QUESTION_TYPE,
   ROUND_TYPE_3_INIT_VALUE,
   ROUND_TYPE_4_INIT_VALUE,
   ROUND_TYPE_5_INIT_VALUE,
@@ -36,6 +36,8 @@ export class AddRoundComponent implements OnInit {
   newRoundType1ListSelectedWords: IWord[] = [];
 
   newRoundType2 = ROUND_TYPE_2_INIT_VALUE;
+  newRoundType2QuestionTypes = ROUND_TYPE_2_QUESTION_TYPE;
+  newRoundType2SelectedQuestionType = ROUND_TYPE_2_QUESTION_TYPE[0].value;
   newRoundType2SelectedCard: IType2Card | undefined = undefined;
   newRoundType2CardForm: FormGroup;
   newRoundType2SearchDebounce = -1;
@@ -264,22 +266,30 @@ export class AddRoundComponent implements OnInit {
   }
 
   onUpdateType2Card() {
+    const newCards = [];
+
     if (this.newRoundType2SelectedCard && this.newRoundType2TmpCardsInfo) {
       for (let i = 0; i < this.newRoundType2.cards.length; ++i) {
         let currentCard = this.newRoundType2.cards[i];
 
-        if (currentCard.cardId !== this.newRoundType2SelectedCard.cardId)
-          return;
+        if (currentCard.cardId === this.newRoundType2SelectedCard.cardId)
+          currentCard = {
+            ...currentCard,
+            imageUrl: this.newRoundType2TmpCardsInfo.image,
+            word: this.newRoundType2TmpCardsInfo.word,
+          };
 
-        currentCard = {
-          ...currentCard,
-          imageUrl: this.newRoundType2TmpCardsInfo.image,
-          word: this.newRoundType2TmpCardsInfo.word,
-        };
+        newCards.push(currentCard);
       }
     }
 
+    this.newRoundType2 = {
+      ...this.newRoundType2,
+      cards: newCards,
+    };
+
     this.newRoundType2SelectedCard = undefined;
+    this.newRoundType2TmpCardsInfo = undefined;
   }
 
   setSelectedWordForNewRound2(word: IWord) {
@@ -291,8 +301,18 @@ export class AddRoundComponent implements OnInit {
 
     this.newRoundType2TmpCardsInfo = {
       ...this.newRoundType2TmpCardsInfo,
-      word: word.vieVers[0],
+      word:
+        this.newRoundType2SelectedQuestionType ===
+        ROUND_TYPE_2_QUESTION_TYPE[0].value
+          ? word.vieVers[0]
+          : word.engVer,
       image: word.images[0],
     };
+  }
+
+  onType2QuestionSelectChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+
+    this.newRoundType2SelectedQuestionType = parseInt(target.value);
   }
 }

@@ -17,7 +17,7 @@ $TYPE_2_CARD_GAP: 1rem;
     justify-content: space-between;
     align-items: center;
 
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     border-top: 1px dashed $color-gray-60;
     border-bottom: 1px dashed $color-gray-60;
 
@@ -30,17 +30,6 @@ $TYPE_2_CARD_GAP: 1rem;
         padding: 0.8rem;
         border-radius: 0.3rem;
         font-size: 1rem;
-      }
-    }
-
-    &-right {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-
-      ::ng-deep .button {
-        font-size: 0.8rem;
-        padding: 0.8rem 1rem;
       }
     }
   }
@@ -296,6 +285,10 @@ $TYPE_2_CARD_GAP: 1rem;
       }
 
       &__left {
+        &-select {
+          margin-bottom: 1rem;
+        }
+
         &-question {
           &-input {
             @include custom-input;
@@ -466,6 +459,10 @@ $TYPE_2_CARD_GAP: 1rem;
             font-weight: bolder;
 
             font-size: 1.3rem;
+          }
+
+          &-none {
+            color: $color-gray-80;
           }
         }
 
