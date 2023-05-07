@@ -30,7 +30,7 @@ export class LessionDetailComponent implements OnInit {
     this.lessionService
       .getLessionById(courseId, lessionId)
       .subscribe((res: any) => {
-        this.currentLession = res.data.lession;
+        this.currentLession = res.data.lessions;
       });
   }
 

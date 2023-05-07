@@ -13,7 +13,7 @@
         </ng-container>
       </select>
     </div>
-    <div class="add-round__header-right">
+    <div class="add-round__header-right" *ngIf="isShowSaveRoundBtn()">
       <app-button (click)="onSaveRound()">Lưu</app-button>
     </div>
   </div>
@@ -49,7 +49,7 @@
           </div>
           <form class="type-1__left-form" [formGroup]="newRoundType1Form">
             <input
-              placeholder="Từ tiếng Anh bạn muốn thêm"
+              placeholder="Nhập từ tiếng Anh bạn muốn thêm"
               class="type-1__left-form-input"
               formControlName="engWord"
               (input)="onPlayType1FormInput($event)"
@@ -128,7 +128,113 @@
       </div>
     </ng-container>
     <ng-container *ngIf="currentPlayType === roundTypeInfo[1].value">
-      <p>Type 2</p>
+      <div class="type-2">
+        <div class="type-2__left">
+          <div class="type-2__left-question">
+            <input
+              placeholder="Hãy nhập câu hỏi"
+              class="type-2__left-question-input"
+              (input)="onRoundType2QuestionInputChange($event)"
+            />
+          </div>
+          <div *ngIf="newRoundType2SelectedCard" class="type-2__left-settings">
+            <div class="type-2__left-settings-header">
+              <p>Chỉnh sửa lựa chọn</p>
+              <app-button (click)="onUpdateType2Card()">Cập nhật</app-button>
+            </div>
+            <form
+              class="type-2__left-settings-form"
+              [formGroup]="newRoundType2CardForm"
+            >
+              <input
+                placeholder="Nhập từ tiếng Anh bạn muốn thêm"
+                class="type-2__left-settings-form-input"
+                formControlName="type2EngWord"
+                (input)="onPlayType2FormInput($event)"
+              />
+              <div class="type-2__left-settings-form__suggestion">
+                <ng-container *ngIf="newRoundType2SuggestWords.length > 0">
+                  <ng-container *ngFor="let word of newRoundType2SuggestWords">
+                    <div
+                      (click)="setSelectedWordForNewRound2(word)"
+                      class="type-2__left-settings-form__suggestion-word"
+                    >
+                      <p>{{ word.engVer }}</p>
+                      <p>Ảnh: {{ word.images.length }}</p>
+                      <p>Audio: {{ word.audios.length }}</p>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </form>
+            <div
+              class="type-2__left-settings-options"
+              *ngIf="newRoundType2TmpCardsInfo"
+            >
+              <div class="type-2__left-settings-options-eng">
+                <span>{{ newRoundType2TmpCardsInfo.engVer }}</span>
+              </div>
+              <div class="type-2__left-settings-options-vieVers">
+                <ng-container
+                  *ngFor="let vie of newRoundType2TmpCardsInfo.vieVers"
+                >
+                  <button
+                    class="type-2__left-settings-options-vieVers-btn {{
+                      newRoundType1TmpCardsInfo.vieVer === vie
+                        ? 'type-2__left-settings-options-vieVers-btn-selected'
+                        : ''
+                    }}"
+                    value="{{ vie }}"
+                  >
+                    {{ vie }}
+                  </button>
+                </ng-container>
+              </div>
+              <div class="type-2__left-settings-options-images">
+                <ng-container
+                  *ngFor="let image of newRoundType2TmpCardsInfo.images"
+                >
+                  <button
+                    class="type-2__left-settings-options-images-img {{
+                      newRoundType1TmpCardsInfo.image === image
+                        ? 'type-2__left-settings-options-images-img-selected'
+                        : ''
+                    }}"
+                    value="{{ image }}"
+                  >
+                    <img src="{{ image }}" />
+                  </button>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="type-2__right">
+          <div class="type-2__right-question">
+            <p>{{ newRoundType2.question }}</p>
+          </div>
+          <div class="type-2__right-cards">
+            <ng-container *ngFor="let card of newRoundType2.cards">
+              <div
+                (click)="setSelectedNewRoundType2Card(card)"
+                class="type-2__right-cards-card {{
+                  newRoundType2SelectedCard &&
+                  newRoundType2SelectedCard.cardId === card.cardId
+                    ? 'type-2__right-cards-card-selected'
+                    : ''
+                }} {{
+                  newRoundType2.correctAns === card.cardId
+                    ? 'type-2__right-cards-card-right'
+                    : ''
+                }}"
+              >
+                <img src="{{ card.imageUrl }}" />
+                <p>{{ card.word }}</p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
     </ng-container>
     <ng-container *ngIf="currentPlayType === roundTypeInfo[2].value">
       <p>Type 3</p>

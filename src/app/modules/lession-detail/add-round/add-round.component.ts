@@ -12,7 +12,7 @@ import {
   ROUND_TYPE_5_INIT_VALUE,
   ROUND_TYPE_6_INIT_VALUE,
 } from 'src/app/core/constants';
-import { IType1Card, IWord } from 'src/app/core/models';
+import { IType1Card, IType2Card, IWord } from 'src/app/core/models';
 import { ArrayService } from 'src/app/core/services/array-service/array.service';
 import { RandomService } from 'src/app/core/services/random-service/random.service';
 import { RoundService } from 'src/app/core/services/round-service/round.service';
@@ -36,6 +36,13 @@ export class AddRoundComponent implements OnInit {
   newRoundType1ListSelectedWords: IWord[] = [];
 
   newRoundType2 = ROUND_TYPE_2_INIT_VALUE;
+  newRoundType2SelectedCard: IType2Card | undefined = undefined;
+  newRoundType2CardForm: FormGroup;
+  newRoundType2SearchDebounce = -1;
+  newRoundType2SuggestWords: IWord[] = [];
+  newRoundType2SelectedWord: IWord | undefined = undefined;
+  newRoundType2TmpCardsInfo: any = undefined;
+
   newRoundType3 = ROUND_TYPE_3_INIT_VALUE;
   newRoundType4 = ROUND_TYPE_4_INIT_VALUE;
   newRoundType5 = ROUND_TYPE_5_INIT_VALUE;
@@ -59,6 +66,10 @@ export class AddRoundComponent implements OnInit {
     this.newRoundType1Form = this.fb.group({
       engWord: '',
     });
+
+    this.newRoundType2CardForm = this.fb.group({
+      type2EngWord: '',
+    });
   }
 
   onPlayTypeSelectChange(event: Event) {
@@ -79,7 +90,7 @@ export class AddRoundComponent implements OnInit {
       this.newRoundType1 = ROUND_TYPE_1_INIT_VALUE;
       this.newRound = this.newRoundType1;
     } else if (selectedType === ROUND_TYPES_INFO[1].value) {
-      this.newRoundType2 = ROUND_TYPE_2_INIT_VALUE;
+      this.newRoundType2 = this.initValueForNewRoundType2();
       this.newRound = this.newRoundType2;
     } else if (selectedType === ROUND_TYPES_INFO[2].value) {
       this.newRoundType3 = ROUND_TYPE_3_INIT_VALUE;
@@ -133,10 +144,6 @@ export class AddRoundComponent implements OnInit {
       vieVer: word.vieVers[0],
       image: word.images[0],
     };
-
-    if (word.images.length === 0) {
-      return;
-    }
   }
 
   addCardPair() {
@@ -187,8 +194,105 @@ export class AddRoundComponent implements OnInit {
       this.roundService
         .createNewRound(courseId, lessionId, this.newRound)
         .subscribe((res: any) => {
-          this.router.navigateByUrl(`/lession-detail/${courseId}/${lessionId}`);
+          this.router.navigate(['lession-detail', courseId, lessionId]);
         });
     });
+  }
+
+  isShowSaveRoundBtn() {
+    if (this.currentPlayType === ROUND_TYPE_1_INIT_VALUE.playType) {
+      if (this.newRoundType1.cards.length === this.newRoundType1.totalPairs * 2)
+        return true;
+    }
+    if (this.currentPlayType === ROUND_TYPE_2_INIT_VALUE.playType) {
+      return true;
+    }
+
+    return false;
+  }
+
+  initValueForNewRoundType2() {
+    const cards: IType2Card[] = [];
+
+    for (let i = 0; i < 4; ++i) {
+      const card: IType2Card = {
+        cardId: this.randomService.generateRandomUUID(),
+        imageUrl: '',
+        word: '',
+      };
+
+      cards.push(card);
+    }
+
+    return {
+      ...this.newRoundType2,
+      cards,
+    };
+  }
+
+  setSelectedNewRoundType2Card(card: IType2Card | undefined) {
+    this.newRoundType2SelectedCard = card;
+  }
+
+  onRoundType2QuestionInputChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+
+    this.newRoundType2 = {
+      ...this.newRoundType2,
+      question: target.value,
+    };
+  }
+
+  onPlayType2FormInput(event: Event) {
+    const target = event.target as HTMLInputElement;
+
+    window.clearTimeout(this.newRoundType2SearchDebounce);
+
+    if (target.value === '') {
+      this.newRoundType2SelectedWord = undefined;
+      this.newRoundType2SuggestWords = [];
+      return;
+    }
+
+    this.newRoundType2SearchDebounce = window.setTimeout(() => {
+      this.wordService
+        .searchWordByKeyword(target.value)
+        .subscribe((res: any) => {
+          this.newRoundType2SuggestWords = res.data.words;
+        });
+    }, 500);
+  }
+
+  onUpdateType2Card() {
+    if (this.newRoundType2SelectedCard && this.newRoundType2TmpCardsInfo) {
+      for (let i = 0; i < this.newRoundType2.cards.length; ++i) {
+        let currentCard = this.newRoundType2.cards[i];
+
+        if (currentCard.cardId !== this.newRoundType2SelectedCard.cardId)
+          return;
+
+        currentCard = {
+          ...currentCard,
+          imageUrl: this.newRoundType2TmpCardsInfo.image,
+          word: this.newRoundType2TmpCardsInfo.word,
+        };
+      }
+    }
+
+    this.newRoundType2SelectedCard = undefined;
+  }
+
+  setSelectedWordForNewRound2(word: IWord) {
+    this.newRoundType2SelectedWord = word;
+    this.newRoundType2SuggestWords = [];
+    this.newRoundType2CardForm.setValue({
+      type2EngWord: '',
+    });
+
+    this.newRoundType2TmpCardsInfo = {
+      ...this.newRoundType2TmpCardsInfo,
+      word: word.vieVers[0],
+      image: word.images[0],
+    };
   }
 }
