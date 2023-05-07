@@ -1,7 +1,16 @@
 <div class="add-word">
   <div class="add-word__header">
-    <p class="add-word__header-title">Thêm từ mới</p>
-    <app-button (click)="onClickSaveWordBtn()">Lưu</app-button>
+    <div class="add-word__header-left">
+      <p class="add-word__header-left-title">
+        {{ wordId ? "Cập nhật thông tin của từ" : "Thêm từ mới" }}
+      </p>
+    </div>
+    <div class="add-word__header-right">
+      <app-button
+        (click)="wordId ? onClickUpdateWordBtn() : onClickSaveWordBtn()"
+        >{{ wordId ? "Cập nhật" : "Lưu" }}</app-button
+      >
+    </div>
   </div>
   <div class="add-word__child">
     <div class="add-word__child-left">
@@ -53,6 +62,14 @@
       <p>Ảnh minh hoạ:</p>
     </div>
     <div class="add-word__child-right">
+      <div
+        class="add-word__child-right_images"
+        *ngIf="wordId && newWord.images.length > 0"
+      >
+        <ng-container *ngFor="let image of newWord.images">
+          <img class="add-word__child-right_images-img" src="{{ image }}" />
+        </ng-container>
+      </div>
       <label class="add-word__child-right__upload">
         Thêm ảnh
         <input

@@ -35,6 +35,7 @@ export interface IRound {
   _id: string;
   title: string;
   type: ECLRStatus;
+  level: number;
   playType: ERoundPlayType;
   score: number;
   audio: IRoundAudio[];
@@ -49,6 +50,7 @@ export interface ILession {
   _id: string;
   title: string;
   type: ECLRStatus;
+  level: number;
   description: string;
   creator: IUser;
   rounds: IRound[];
@@ -60,9 +62,14 @@ export interface ICourse {
   description: string;
   creator: IUser;
   type: ECLRStatus;
+  level: number;
   lessions: ILession[];
   isDeleted?: boolean;
   deletedBy?: IUser;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface INewRound {
+  playType: number;
 }

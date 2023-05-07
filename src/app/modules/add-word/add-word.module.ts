@@ -13,7 +13,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     AddWordRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    ReactiveFormsModule,
   ],
 })
 export class AddWordModule {}

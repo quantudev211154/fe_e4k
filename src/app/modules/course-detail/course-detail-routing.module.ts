@@ -7,6 +7,7 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [AuthGuard],
+    title: 'Chi tiết khoá học',
     component: CourseDetailComponent,
   },
 ];

@@ -1,0 +1,37 @@
+@import "../../../styles/color";
+
+.lession-detail {
+  width: 100%;
+  height: 100%;
+
+  &__header {
+    &-course {
+      color: $color-blue-50;
+      font-weight: bolder;
+
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+
+    &-lession {
+      font-weight: bolder;
+      color: $color-gray-40;
+
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+
+      & span {
+        color: $color-blue-50;
+      }
+    }
+
+    &-desc {
+      color: $color-gray-40;
+    }
+  }
+}

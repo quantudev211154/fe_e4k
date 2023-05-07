@@ -5,11 +5,86 @@
       <p class="course-detail__header-desc">{{ currentCourse.description }}</p>
     </div>
     <div class="course-detail__tools">
-      <!-- <app-button>Thêm chương mới</app-button> -->
+      <app-button (click)="showAddLessionModal()">Thêm chương</app-button>
     </div>
     <div class="course-detail__main">
-      <p></p>
-      <p></p>
+      <div class="table">
+        <div class="table-row table-header">
+          <div class="table-row-cell table-header-index">STT</div>
+          <div class="table-row-cell table-header-title">Tên chương</div>
+          <div class="table-row-cell table-header-lession">Số chương</div>
+          <div class="table-row-cell table-header-desc">Mô tả</div>
+        </div>
+        <ng-container
+          *ngFor="let lession of currentCourse.lessions; let i = index"
+        >
+          <div
+            (click)="goToLessionDetail(lession._id)"
+            class="table-row table-data"
+          >
+            <div class="table-row-cell table-data-index">{{ i + 1 }}</div>
+            <div class="table-row-cell table-data-title">
+              {{ lession.title }}
+            </div>
+            <div class="table-row-cell table-data-lession">
+              {{ lession.rounds.length }}
+            </div>
+            <div class="table-row-cell table-data-desc">
+              {{ lession.description }}
+            </div>
+          </div>
+        </ng-container>
+      </div>
     </div>
   </ng-container>
 </div>
+<app-modal [isOpen]="isShowAddLessionModal" (click)="hideAddLessionModal()">
+  <form
+    class="new-lession-form"
+    (submit)="onNewLessionFormSubmit()"
+    [formGroup]="newLessionForm"
+  >
+    <p class="new-lession-form__header">Tạo chương mới</p>
+    <p class="new-lession-form__error" *ngIf="newLessionFormError !== ''">
+      {{ newLessionFormError }}
+    </p>
+    <div class="new-lession-form__component new-lession-form__title">
+      <app-text-field
+        [autofocus]="true"
+        placeholder="VD: Chào hỏi"
+        type="text"
+        [required]="true"
+        [control]="$any(newLessionForm.get('title'))"
+      ></app-text-field>
+      <p
+        class="new-lession-form__component-error"
+        *ngIf="
+          newLessionForm.get('title')!.invalid &&
+          (newLessionForm.get('title')!.dirty ||
+            newLessionForm.get('title')!.touched)
+        "
+      >
+        Hãy nhập tên của chương
+      </p>
+    </div>
+    <div class="new-lession-form__component new-lession-form__description">
+      <textarea
+        cols="{{ 5 }}"
+        [required]="true"
+        formControlName="description"
+        placeholder="VD: Những cụm từ chào hỏi thông dụng"
+      ></textarea>
+      <p
+        class="new-lession-form__component-error"
+        *ngIf="
+          newLessionForm.get('description')!.invalid &&
+          (newLessionForm.get('description')!.dirty ||
+            newLessionForm.get('description')!.touched)
+        "
+      >
+        Hãy nhập mô tả của chương
+      </p>
+    </div>
+    <app-button type="submit">Tạo chương</app-button>
+  </form>
+</app-modal>

@@ -12,6 +12,8 @@ import { IconUserCircleComponent } from './icons/icon-user-circle/icon-user-circ
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 import { IconDatabaseComponent } from './icons/icon-database/icon-database.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { BackLeftComponent } from './icons/back-left/back-left.component';
+import { ForwardRightComponent } from './icons/forward-right/forward-right.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { ModalComponent } from './components/modal/modal.component';
     LoadingIndicatorComponent,
     IconDatabaseComponent,
     ModalComponent,
+    BackLeftComponent,
+    ForwardRightComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [
@@ -39,6 +43,8 @@ import { ModalComponent } from './components/modal/modal.component';
     IconUserCircleComponent,
     LoadingIndicatorComponent,
     ModalComponent,
+    BackLeftComponent,
+    ForwardRightComponent,
   ],
 })
 export class SharedModule {}

@@ -1,0 +1,16 @@
+<div class="lession-detail">
+  <ng-container *ngIf="currentLession">
+    <div class="lession-detail__header">
+      <p (click)="goToCourseDetail()" class="lession-detail__header-course">
+        {{ currentCourseName }}
+      </p>
+      <p class="lession-detail__header-lession">
+        Chương: <span>{{ currentLession.title }}</span>
+      </p>
+      <p class="lession-detail__header-desc">
+        {{ currentLession.description }}
+      </p>
+    </div>
+    <router-outlet></router-outlet>
+  </ng-container>
+</div>

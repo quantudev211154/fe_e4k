@@ -1,4 +1,5 @@
 @import "../../../styles/color";
+@import "../../../styles/mixins";
 
 $TABLE-TD-HEIGHT: 3.5rem;
 $CELL-INDEX-WIDTH: 8rem;
@@ -23,11 +24,64 @@ $CELL-ENGVER-WIDTH: 20rem;
       justify-content: flex-start;
       align-items: center;
 
+      flex: 1 1 0%;
+      gap: 2rem;
+
       &-title {
         font-weight: bolder;
 
         font-size: 1.5rem;
         color: $color-blue-50;
+      }
+
+      &-form {
+        position: relative;
+
+        width: 20rem;
+        padding: 1rem 0;
+
+        &-input {
+          @include custom-input;
+          padding: 0.5rem 0.8rem;
+        }
+
+        &__suggestion {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          background-color: $color-white;
+
+          width: 100%;
+          top: 90%;
+          left: 0;
+          z-index: 100;
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+          &-word {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+
+            width: 100%;
+            gap: 0.5rem;
+            padding: 0.5rem 0.8rem;
+            border-bottom: 1px dashed $color-gray-90;
+
+            &:hover {
+              background-color: $color-gray-90;
+            }
+
+            & p {
+              font-size: 0.8rem;
+            }
+
+            & p:first-child {
+              font-weight: bolder;
+
+              font-size: 1.1rem;
+            }
+          }
+        }
       }
     }
 
@@ -95,7 +149,13 @@ $CELL-ENGVER-WIDTH: 20rem;
       }
 
       &-data {
+        cursor: pointer;
+
         border-bottom: 1px solid $color-gray-80;
+
+        &:hover {
+          background-color: $color-gray-90;
+        }
 
         &-vieVers {
           overflow-x: auto;
@@ -106,6 +166,36 @@ $CELL-ENGVER-WIDTH: 20rem;
             padding: 0.5rem 1rem;
             border-radius: 1.2rem;
             border: 1px solid $color-gray-45;
+          }
+        }
+      }
+
+      &-pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        gap: 1rem;
+        padding: 1rem 0;
+
+        &__btn {
+          @include custom-button;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          width: 2rem;
+          height: 2rem;
+          background-color: $color-blue-55;
+
+          ::ng-deep .icon {
+            font-size: 2rem;
+          }
+
+          &:hover {
+            background-color: $color-blue-50;
           }
         }
       }

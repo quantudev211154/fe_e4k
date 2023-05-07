@@ -1,4 +1,10 @@
 @import "../../../styles/color";
+@import "../../../styles/mixins";
+
+$TABLE-TD-HEIGHT: 3.5rem;
+$CELL-INDEX-WIDTH: 5rem;
+$CELL-TITLE-WIDTH: 23rem;
+$CELL-ROUNDS-WIDTH: 8rem;
 
 .course-detail {
   display: flex;
@@ -29,5 +35,127 @@
     align-items: center;
 
     padding: 1rem 0;
+
+    ::ng-deep .button {
+      padding: 0.8rem 1rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  &__main {
+    width: 100%;
+
+    & .table {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+
+      width: 100%;
+
+      &-row {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        height: $TABLE-TD-HEIGHT;
+
+        &-cell {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+
+          padding-left: 1rem;
+        }
+      }
+
+      &-header,
+      &-data {
+        &-index {
+          width: $CELL-INDEX-WIDTH;
+        }
+
+        &-title {
+          width: $CELL-TITLE-WIDTH;
+        }
+
+        &-lession {
+          width: $CELL-ROUNDS-WIDTH;
+        }
+
+        &-desc {
+          width: calc(
+            100% - $CELL-INDEX-WIDTH - $CELL-TITLE-WIDTH - $CELL-ROUNDS-WIDTH
+          );
+        }
+      }
+
+      &-header {
+        border-top: 1px solid $color-gray-80;
+        border-bottom: 1px solid $color-gray-80;
+
+        & > div {
+          font-weight: bolder;
+        }
+      }
+
+      &-data {
+        border-bottom: 1px solid $color-gray-80;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $color-gray-90;
+        }
+
+        &-desc {
+          gap: 0.8rem;
+
+          span {
+            padding: 0.5rem 1rem;
+            border-radius: 1.2rem;
+            border: 1px solid $color-gray-45;
+          }
+        }
+      }
+    }
+  }
+}
+
+.new-lession-form {
+  @include absolute-center;
+  display: flex;
+  flex-direction: column;
+  background-color: $color-white;
+
+  gap: 1rem;
+  width: 50%;
+  padding: 2rem;
+  border-radius: 0.8rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  z-index: 100;
+
+  &__header {
+    font-weight: bolder;
+    color: $color-blue-50;
+
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+
+  &__error {
+    text-align: center;
+    color: $color-red-50;
+
+    font-size: 1.2rem;
+  }
+
+  &__component {
+    &-error {
+      color: $color-red-50;
+
+      margin-top: 0.5rem;
+    }
+
+    textarea {
+      @include custom-input;
+    }
   }
 }

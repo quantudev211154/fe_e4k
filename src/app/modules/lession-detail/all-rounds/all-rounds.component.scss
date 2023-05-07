@@ -1,0 +1,95 @@
+@import "../../../styles/color";
+
+$TABLE-TD-HEIGHT: 3.5rem;
+$CELL-INDEX-WIDTH: 5rem;
+$CELL-TITLE-WIDTH: 23rem;
+$CELL-ROUNDS-WIDTH: 8rem;
+
+.lession-detail__tools {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  padding: 1rem 0;
+
+  ::ng-deep .button {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.8rem;
+  }
+}
+
+.lession-detail__main {
+  width: 100%;
+
+  & .table {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    width: 100%;
+
+    &-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: $TABLE-TD-HEIGHT;
+
+      &-cell {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        padding-left: 1rem;
+      }
+    }
+
+    &-header,
+    &-data {
+      &-index {
+        width: $CELL-INDEX-WIDTH;
+      }
+
+      &-title {
+        width: $CELL-TITLE-WIDTH;
+      }
+
+      &-lession {
+        width: $CELL-ROUNDS-WIDTH;
+      }
+
+      &-desc {
+        width: calc(
+          100% - $CELL-INDEX-WIDTH - $CELL-TITLE-WIDTH - $CELL-ROUNDS-WIDTH
+        );
+      }
+    }
+
+    &-header {
+      border-top: 1px solid $color-gray-80;
+      border-bottom: 1px solid $color-gray-80;
+
+      & > div {
+        font-weight: bolder;
+      }
+    }
+
+    &-data {
+      border-bottom: 1px solid $color-gray-80;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $color-gray-90;
+      }
+
+      &-desc {
+        gap: 0.8rem;
+
+        span {
+          padding: 0.5rem 1rem;
+          border-radius: 1.2rem;
+          border: 1px solid $color-gray-45;
+        }
+      }
+    }
+  }
+}

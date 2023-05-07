@@ -22,6 +22,13 @@ $CELL-LESSION-WIDTH: 8rem;
       display: flex;
       justify-content: flex-start;
       align-items: center;
+
+      &-title {
+        color: $color-blue-50;
+        font-weight: bolder;
+
+        font-size: 2rem;
+      }
     }
 
     &__right {

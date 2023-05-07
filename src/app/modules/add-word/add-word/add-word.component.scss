@@ -13,16 +13,28 @@ $CHILD-LEFT-WIDTH: 15%;
 
     margin-bottom: 2rem;
 
-    &-title {
-      font-weight: bolder;
-      color: $color-blue-50;
+    &-left {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
 
-      font-size: 1.8rem;
+      &-title {
+        font-weight: bolder;
+        color: $color-blue-50;
+
+        font-size: 1.8rem;
+      }
     }
 
-    ::ng-deep button {
-      padding: 0.8rem 1.3rem;
-      font-size: 0.8rem;
+    &-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      ::ng-deep button {
+        padding: 0.8rem 1.3rem;
+        font-size: 0.8rem;
+      }
     }
   }
 
@@ -49,6 +61,20 @@ $CHILD-LEFT-WIDTH: 15%;
 
       flex: 1 1 0%;
       gap: 0.8rem;
+
+      &_images {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        gap: 1rem;
+
+        &-img {
+          width: 5rem;
+          height: 6rem;
+          border-radius: 0.5rem;
+        }
+      }
 
       input {
         @include custom-input;
