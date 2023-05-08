@@ -1,0 +1,10 @@
+<div
+  *ngIf="snackbarInfo.isOpen"
+  class="snackbar {{
+    snackbarInfo.status === snackbarStatus.SUCCESS ? 'snackbar-success' : ''
+  }} {{
+    snackbarInfo.status === snackbarStatus.WARNING ? 'snackbar-warning' : ''
+  }} {{ snackbarInfo.status === snackbarStatus.ERROR ? 'snackbar-error' : '' }}"
+>
+  <p>{{ snackbarInfo.message }}</p>
+</div>

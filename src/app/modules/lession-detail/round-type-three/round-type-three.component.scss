@@ -1,0 +1,108 @@
+@import "../../../styles/color";
+@import "../../../styles/mixins";
+
+.three {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+
+  &__left,
+  &__right {
+    width: calc(100% / 2);
+
+    padding: 1rem;
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+
+    border-right: 1px dashed $color-gray-60;
+
+    &-top,
+    &-bot,
+    &-flash {
+      margin-top: 3rem;
+      &-form {
+        & input {
+          @include custom-input;
+
+          padding: 0.6rem 0.8rem;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 7rem;
+
+    &-top {
+      &-question {
+        font-weight: bolder;
+        text-align: center;
+
+        font-size: 1.5rem;
+
+        &-disabled {
+          color: $color-gray-45;
+          opacity: 0.6;
+        }
+      }
+    }
+
+    &-bot {
+      &-disabled {
+        color: $color-gray-45;
+        font-weight: bolder;
+        text-align: center;
+
+        font-size: 1.5rem;
+        opacity: 0.6;
+      }
+
+      &-words {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+        gap: 0.5rem;
+
+        &_word,
+        &_flash {
+          font-weight: bolder;
+
+          border: 2px solid $color-blue-50;
+          border-radius: 0.6rem;
+          padding: 0.4rem 0.6rem;
+        }
+
+        &_flash {
+          background-color: $color-gray-60;
+
+          border: 2px solid $color-gray-40;
+        }
+      }
+    }
+  }
+
+  &__bot {
+    position: absolute;
+
+    bottom: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    ::ng-deep .button {
+      padding: 0.6rem 0.8rem;
+      font-size: 0.8rem;
+    }
+  }
+}

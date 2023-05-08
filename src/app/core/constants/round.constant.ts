@@ -26,7 +26,6 @@ export const ROUND_TYPE_2_INIT_VALUE: IRoundType2 = {
   playType: ROUND_TYPES[1],
   cards: [],
   correctAns: '',
-  isAudio: false,
   question: '',
 };
 
@@ -111,3 +110,5 @@ export const ROUND_TYPE_2_QUESTION_TYPE = [
       'Câu hỏi sẽ là từ tiếng Việt \n Người chơi cần chọn ảnh có chứa nghĩa tiếng Anh tương ứng',
   },
 ];
+
+export const ROUND_TYPE_2_MAX_CARDS = 4;

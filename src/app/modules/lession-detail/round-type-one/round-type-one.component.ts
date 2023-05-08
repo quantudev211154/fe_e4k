@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ROUND_TYPE_1_INIT_VALUE } from 'src/app/core/constants';
-import { IType1Card, IWord } from 'src/app/core/models';
+import { ESnackbarStatus, IType1Card, IWord } from 'src/app/core/models';
 import { RandomService } from 'src/app/core/services/random-service/random.service';
 import { WordService } from 'src/app/core/services/word-service/word.service';
 import { map } from 'rxjs';
 import { ArrayService } from 'src/app/core/services/array-service/array.service';
 import { RoundService } from 'src/app/core/services/round-service/round.service';
+import { SnackbarService } from 'src/app/core/services/snackbar-service/snackbar.service';
 
 @Component({
   selector: 'app-round-type-one',
@@ -33,7 +34,8 @@ export class RoundTypeOneComponent implements OnInit {
     private wordService: WordService,
     private activatedRoute: ActivatedRoute,
     private arrayService: ArrayService,
-    private roundService: RoundService
+    private roundService: RoundService,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -78,11 +80,25 @@ export class RoundTypeOneComponent implements OnInit {
     return cards;
   }
 
-  isShowSaveRoundButton() {
+  isNewRoundValid(): boolean {
     for (let i = 0; i < this.newRound.cards.length; ++i) {
       const currentCard = this.newRound.cards[i];
 
-      if (currentCard.imageUrl === '' || currentCard.word === '') return false;
+      if (currentCard.imageUrl === '') {
+        this.snackbarService.showSnackbar(
+          ESnackbarStatus.WARNING,
+          'Hãy bổ sung hình minh hoạ cho các ảnh'
+        );
+        return false;
+      }
+
+      if (currentCard.word === '') {
+        this.snackbarService.showSnackbar(
+          ESnackbarStatus.WARNING,
+          'Hãy bổ sung đầy đủ từ cho các ảnh'
+        );
+        return false;
+      }
     }
 
     return true;
@@ -267,7 +283,9 @@ export class RoundTypeOneComponent implements OnInit {
   }
 
   onSaveRound() {
-    console.log(this.newRound);
+    if (!this.isNewRoundValid()) {
+      return;
+    }
 
     this.getCourseIdAndLessionId().subscribe((params: any) => {
       const { courseId, lessionId } = params;

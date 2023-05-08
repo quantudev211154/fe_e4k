@@ -1,1 +1,62 @@
-<p>round-type-three works!</p>
+<div class="three">
+  <div class="three__left">
+    <div class="three__left-top">
+      <form class="three__left-top-form" [formGroup]="questionForm">
+        <input
+          (input)="onQuestionInputChange($event)"
+          formControlName="question"
+          placeholder="Nhập câu hỏi của bạn"
+        />
+      </form>
+    </div>
+    <div class="three__left-bot">
+      <form class="three__left-bot-form" [formGroup]="answerForm">
+        <input
+          (input)="onAnswerInputChange($event)"
+          formControlName="answer"
+          placeholder="Nhập câu trả lời đúng tương ứng"
+        />
+      </form>
+    </div>
+    <div class="three__left-flash">
+      <form class="three__left-flash-form" [formGroup]="flashForm">
+        <input
+          (input)="onFlashWordInputChange($event)"
+          formControlName="flash"
+          placeholder="Nhập 3 từ gây nhiễu, mỗi từ cách nhau bằng dấu cách"
+        />
+      </form>
+    </div>
+  </div>
+  <div class="three__right">
+    <div class="three__right-top">
+      <p
+        class="three__right-top-question three__right-top-question-disabled"
+        *ngIf="newRound.question === ''"
+      >
+        Câu hỏi của bạn
+      </p>
+      <p class="three__right-top-question" *ngIf="newRound.question !== ''">
+        {{ newRound.question }}
+      </p>
+    </div>
+    <div class="three__right-bot">
+      <p class="three__right-bot-disabled" *ngIf="newRound.correctAns === ''">
+        Câu trả lời sẽ được hiển thị ở đây
+      </p>
+      <div class="three__right-bot-words">
+        <ng-container *ngFor="let item of allWords">
+          <span
+            class="three__right-bot-words_word {{
+              !item.isRightAnswer ? 'three__right-bot-words_flash' : ''
+            }}"
+            >{{ item.word }}</span
+          >
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="three__bot">
+    <app-button (click)="onSaveRound()">Lưu màn chơi</app-button>
+  </div>
+</div>

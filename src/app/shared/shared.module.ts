@@ -14,6 +14,7 @@ import { IconDatabaseComponent } from './icons/icon-database/icon-database.compo
 import { ModalComponent } from './components/modal/modal.component';
 import { BackLeftComponent } from './icons/back-left/back-left.component';
 import { ForwardRightComponent } from './icons/forward-right/forward-right.component';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ForwardRightComponent } from './icons/forward-right/forward-right.compo
     ModalComponent,
     BackLeftComponent,
     ForwardRightComponent,
+    SnackbarComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [
@@ -45,6 +47,7 @@ import { ForwardRightComponent } from './icons/forward-right/forward-right.compo
     ModalComponent,
     BackLeftComponent,
     ForwardRightComponent,
+    SnackbarComponent,
   ],
 })
 export class SharedModule {}
