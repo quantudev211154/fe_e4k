@@ -1,1 +1,40 @@
-<p>round-type-four works!</p>
+<div class="four">
+  <div class="four__left">
+    <div class="four__left-input">
+      <input
+        placeholder="Hãy nhập câu hỏi của bạn (đánh dấu vị trí cần điền bằng dấu ...)"
+        (input)="onQuestionInputChange($event)"
+      />
+    </div>
+    <div class="four__left-input">
+      <input
+        placeholder="Nhập câu trả lời"
+        (input)="onAnswerInputChange($event)"
+      />
+    </div>
+  </div>
+  <div class="four__right">
+    <div class="four__right-component">
+      <p class="four__right-component-empty" *ngIf="newRound.question === ''">
+        Câu hỏi của bạn
+      </p>
+      <p *ngIf="newRound.question !== ''">{{ newRound.question }}</p>
+    </div>
+    <div class="four__right-component four__right-answer">
+      <p class="four__right-component-empty" *ngIf="newRound.correctAns === ''">
+        Câu trả lời tương ứng
+      </p>
+      <div
+        class="four__right-answer-words"
+        *ngIf="correctAnsSplited.length > 0"
+      >
+        <ng-container *ngFor="let word of correctAnsSplited">
+          <span>{{ word }}</span>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="four__bot">
+    <app-button (click)="onSaveRound()">Lưu màn chơi</app-button>
+  </div>
+</div>

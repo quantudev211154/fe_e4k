@@ -53,7 +53,6 @@ export interface IRoundType3 extends IBaseRound {
 
 export interface IRoundType4 extends IBaseRound {
   question: string; // has 1 unfill position
-  isAudio: boolean;
   correctAns: string;
 }
 

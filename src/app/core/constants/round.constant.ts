@@ -39,7 +39,6 @@ export const ROUND_TYPE_3_INIT_VALUE: IRoundType3 = {
 
 export const ROUND_TYPE_4_INIT_VALUE: IRoundType4 = {
   playType: ROUND_TYPES[3],
-  isAudio: false,
   correctAns: '',
   question: '',
 };

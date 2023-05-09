@@ -1,0 +1,99 @@
+@import "../../../styles/color";
+@import "../../../styles/mixins";
+
+.four {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+
+  width: 100%;
+
+  &__left,
+  &__right {
+    width: calc(100% / 2);
+
+    padding: 0.5rem;
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+
+    border-right: 1px dashed $color-gray-60;
+
+    &-input {
+      margin-top: 3rem;
+
+      & input {
+        @include custom-input;
+
+        padding: 0.6rem 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+
+    &-component {
+      margin-top: 3rem;
+
+      & p {
+        font-weight: bolder;
+        text-align: center;
+
+        font-size: 1.8rem;
+        opacity: 1;
+      }
+
+      &-empty {
+        color: $color-gray-60;
+        opacity: 0.8;
+      }
+    }
+
+    &-answer {
+      margin-top: 4rem;
+
+      & .four__right-component-empty {
+        font-size: 1.6rem;
+        color: $color-gray-60;
+      }
+
+      &-words {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+        gap: 1rem;
+
+        & span {
+          font-weight: bolder;
+
+          font-size: 1.1rem;
+          padding: 0.4rem 0.6rem;
+          border-radius: 0.5rem;
+          border: 2px solid $color-blue-50;
+        }
+      }
+    }
+  }
+
+  &__bot {
+    position: absolute;
+
+    bottom: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    ::ng-deep .button {
+      width: max-content;
+
+      padding: 0.6rem 0.8rem;
+      font-size: 0.8rem;
+    }
+  }
+}
