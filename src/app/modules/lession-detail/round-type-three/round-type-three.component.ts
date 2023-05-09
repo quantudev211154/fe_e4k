@@ -145,7 +145,7 @@ export class RoundTypeThreeComponent implements OnInit {
       return false;
     }
 
-    if (this.newRound.randomWords.length === 0) {
+    if (this.flashWordsSplited.length === 0) {
       this.snackbarService.showSnackbar(
         ESnackbarStatus.WARNING,
         'Hãy cung cấp 3 từ gây nhiễu để màn chơi thú vị hơn'
