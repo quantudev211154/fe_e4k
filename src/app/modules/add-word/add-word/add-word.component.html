@@ -2,10 +2,12 @@
   <div class="add-word__header">
     <div class="add-word__header-left">
       <p class="add-word__header-left-title">
-        {{ wordId ? "Cập nhật thông tin của từ" : "Thêm từ mới" }}
+        {{ !mode ? "Thêm từ mới" : "" }}
+        {{ mode && mode === "edit" ? "Cập nhật thông tin của từ" : "" }}
+        {{ mode && mode === "view" ? "Xem thông tin của từ" : "" }}
       </p>
     </div>
-    <div class="add-word__header-right">
+    <div class="add-word__header-right" *ngIf="mode && mode != 'view'">
       <app-button
         (click)="wordId ? onClickUpdateWordBtn() : onClickSaveWordBtn()"
         >{{ wordId ? "Cập nhật" : "Lưu" }}</app-button
@@ -26,27 +28,25 @@
       />
     </div>
   </div>
-  <!-- <div class="add-word__error">
-    <p>Phải điền từ tiếng Anh</p>
-  </div> -->
   <div class="add-word__child">
     <div class="add-word__child-left">
       <p>Nghĩa tiếng Việt:</p>
     </div>
     <div class="add-word__child-right">
-      <form [formGroup]="vieVerForm">
+      <form [formGroup]="vieVerForm" *ngIf="mode && mode != 'view'">
         <input
           class=".input"
           placeholder="VD: Bạn"
           formControlName="vieVer"
           (keydown.enter)="onVieVerKeyEnterDown($event)"
+          [disabled]="mode && mode === 'view' ? true : false"
         />
       </form>
       <div class="add-word__child-right_vieVers">
         <ng-container *ngFor="let vie of newWord.vieVers; let i = index">
           <div>
             <span>{{ vie }}</span>
-            <span (click)="removeOneVieVer(i)"
+            <span *ngIf="mode && mode != 'view'" (click)="removeOneVieVer(i)"
               ><app-icon-close></app-icon-close
             ></span>
           </div>
@@ -54,9 +54,6 @@
       </div>
     </div>
   </div>
-  <!-- <div class="add-word__error">
-    <p>Phải điền từ tiếng Anh</p>
-  </div> -->
   <div class="add-word__child">
     <div class="add-word__child-left">
       <p>Ảnh minh hoạ:</p>
@@ -70,7 +67,10 @@
           <img class="add-word__child-right_images-img" src="{{ image }}" />
         </ng-container>
       </div>
-      <label class="add-word__child-right__upload">
+      <label
+        class="add-word__child-right__upload"
+        *ngIf="mode && mode != 'view'"
+      >
         Thêm ảnh
         <input
           type="file"
@@ -87,7 +87,10 @@
       <p>Phát âm:</p>
     </div>
     <div class="add-word__child-right">
-      <label class="add-word__child-right__upload">
+      <label
+        class="add-word__child-right__upload"
+        *ngIf="mode && mode != 'view'"
+      >
         Thêm audio
         <input
           type="file"

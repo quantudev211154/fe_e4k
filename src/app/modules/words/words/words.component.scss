@@ -4,6 +4,7 @@
 $TABLE-TD-HEIGHT: 3.5rem;
 $CELL-INDEX-WIDTH: 8rem;
 $CELL-ENGVER-WIDTH: 20rem;
+$CELL-ACTIONS-WIDTH: 8rem;
 
 .words {
   display: flex;
@@ -135,7 +136,13 @@ $CELL-ENGVER-WIDTH: 20rem;
         }
 
         &-vieVers {
-          width: calc(100% - $CELL-INDEX-WIDTH - $CELL-ENGVER-WIDTH);
+          width: calc(
+            100% - $CELL-INDEX-WIDTH - $CELL-ENGVER-WIDTH - $CELL-ACTIONS-WIDTH
+          );
+        }
+
+        &-actions {
+          width: $CELL-ACTIONS-WIDTH;
         }
       }
 
@@ -166,6 +173,22 @@ $CELL-ENGVER-WIDTH: 20rem;
             padding: 0.5rem 1rem;
             border-radius: 1.2rem;
             border: 1px solid $color-gray-45;
+          }
+        }
+
+        &-actions {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          gap: 1rem;
+
+          & button {
+            @include custom-button;
+            width: max-content;
+
+            padding: 0.5rem 0.6rem;
+            font-size: 0.8rem;
           }
         }
       }

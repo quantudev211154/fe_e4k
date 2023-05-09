@@ -79,9 +79,15 @@ export class WordsComponent implements OnInit {
     this.getWords(this.currentPage);
   }
 
-  goToEditWord(wordId: string) {
+  goToEditWordPage(wordId: string) {
     this.router.navigateByUrl(
-      `${RouteConstant.ROUTE_WORDS}/customize-word?wordId=${wordId}`
+      `${RouteConstant.ROUTE_WORDS}/customize-word?wordId=${wordId}&mode=edit`
+    );
+  }
+
+  goToViewWordPage(wordId: string) {
+    this.router.navigateByUrl(
+      `${RouteConstant.ROUTE_WORDS}/customize-word?wordId=${wordId}&mode=view`
     );
   }
 

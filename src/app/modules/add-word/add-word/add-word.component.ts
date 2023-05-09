@@ -13,6 +13,7 @@ import { combineLatestWith } from 'rxjs';
 })
 export class AddWordComponent implements OnInit {
   wordId: string | undefined = undefined;
+  mode: string | undefined = undefined;
   vieVerForm: FormGroup;
 
   newWord: INewWord = {
@@ -40,10 +41,13 @@ export class AddWordComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe((params) => {
       const wordId = params['wordId'];
+      const mode = params['mode'];
 
       if (!wordId) {
         return;
       }
+
+      this.mode = mode;
 
       this.wordService.getWordById(wordId).subscribe((res: any) => {
         console.log(res.data.word);

@@ -13,7 +13,7 @@
           <ng-container *ngIf="searchSuggestions.length > 0">
             <ng-container *ngFor="let word of searchSuggestions">
               <div
-                (click)="goToEditWord(word._id)"
+                (click)="goToViewWordPage(word._id)"
                 class="words-top__left-form__suggestion-word"
               >
                 <p>{{ word.engVer }}</p>
@@ -35,15 +35,19 @@
         <div class="table-row-cell table-header-index">STT</div>
         <div class="table-row-cell table-header-engVer">Từ tiếng Anh</div>
         <div class="table-row-cell table-header-vieVers">Nghĩa tiếng Việt</div>
+        <div class="table-row-cell table-header-actions"></div>
       </div>
       <ng-container *ngFor="let word of allWords; let i = index">
-        <div (click)="goToEditWord(word._id)" class="table-row table-data">
+        <div (click)="goToViewWordPage(word._id)" class="table-row table-data">
           <div class="table-row-cell table-data-index">{{ i + 1 }}</div>
           <div class="table-row-cell table-data-engVer">{{ word.engVer }}</div>
           <div class="table-row-cell table-data-vieVers">
             <ng-container *ngFor="let vie of word.vieVers">
               <span>{{ vie }}</span>
             </ng-container>
+          </div>
+          <div class="table-row-cell table-data-actions">
+            <button (click)="goToEditWordPage(word._id)">Chỉnh sửa</button>
           </div>
         </div>
       </ng-container>
