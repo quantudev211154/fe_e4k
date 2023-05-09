@@ -47,7 +47,7 @@ export const ROUND_TYPE_5_INIT_VALUE: IRoundType5 = {
   playType: ROUND_TYPES[4],
   cards: [],
   correctAns: '',
-  isAudio: false,
+  isAudio: true,
   question: '',
 };
 
@@ -111,3 +111,20 @@ export const ROUND_TYPE_2_QUESTION_TYPE = [
 ];
 
 export const ROUND_TYPE_2_MAX_CARDS = 4;
+
+export const ROUND_TYPE_5_MAX_CARDS = 4;
+
+export const ROUND_TYPE_5_QUESTION_TYPE = [
+  {
+    value: 1,
+    label: 'Audio tiếng Anh - Đáp tiếng Việt',
+    description:
+      'Câu hỏi sẽ là audio tiếng Anh \n Người chơi cần chọn ảnh có chứa nghĩa tiếng Việt tương ứng',
+  },
+  {
+    value: 2,
+    label: 'Audio tiếng Anh - Đáp tiếng Anh',
+    description:
+      'Câu hỏi sẽ là audio tiếng Anh \n Người chơi cần chọn ảnh có chứa từ được nhắc tới trong đoạn audio',
+  },
+];

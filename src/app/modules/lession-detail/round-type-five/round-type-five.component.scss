@@ -1,0 +1,369 @@
+@import "../../../styles/color";
+@import "../../../styles/mixins";
+
+$CARD_SIZE: 8rem;
+$CARD_GAP: 1rem;
+
+.five {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+
+  width: 100%;
+
+  &__left,
+  &__right {
+    width: calc(100% / 2);
+
+    padding: 0.5rem;
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+
+    gap: 1rem;
+
+    &-select {
+      margin-top: 1rem;
+
+      & select {
+        padding: 0.6rem 0.8rem;
+      }
+    }
+
+    &-form {
+      position: relative;
+
+      & input {
+        @include custom-input;
+
+        padding: 0.6rem 0.8rem;
+        font-size: 0.8rem;
+      }
+
+      &_suggestion {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        background-color: $color-white;
+
+        top: 105%;
+        left: 0;
+        width: 100%;
+        z-index: 300;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
+          rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+        &-item {
+          cursor: pointer;
+
+          padding: 0.5rem;
+          border-bottom: 1px dashed $color-gray-90;
+
+          &-disabled {
+            pointer-events: none;
+
+            background-color: $color-gray-60;
+            opacity: 0.6;
+          }
+
+          &:hover {
+            background-color: $color-gray-90;
+          }
+
+          &:hover &-eng {
+            color: $color-blue-50;
+          }
+
+          & p {
+            font-size: 0.9rem;
+
+            span {
+              font-weight: bolder;
+            }
+          }
+
+          &-eng {
+            font-weight: bolder;
+
+            font-size: 1.8rem;
+            transition: 0.2s;
+            margin-bottom: 0.5rem;
+          }
+        }
+      }
+    }
+
+    &-word {
+      &_eng {
+        font-weight: bolder;
+        color: $color-blue-50;
+
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+      }
+
+      &_audios {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
+        overflow-y: auto;
+
+        max-height: 10rem;
+        gap: 1rem;
+
+        &_audio {
+          outline: none;
+          cursor: pointer;
+
+          padding: 0.5rem;
+          border: 2px dashed $color-gray-60;
+          border-radius: 0.3rem;
+          opacity: 0.6;
+
+          &-selected {
+            border: 2px solid $color-blue-50;
+            opacity: 1;
+          }
+
+          & audio {
+            width: 8rem;
+            height: 2rem;
+          }
+        }
+      }
+    }
+
+    &-config {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      margin-top: 1rem;
+      border-top: 1px dashed $color-gray-45;
+
+      &-title {
+        color: $color-blue-50;
+        font-weight: bolder;
+
+        margin-top: 1rem;
+        font-size: 1.3rem;
+      }
+
+      &-form {
+        position: relative;
+
+        & input {
+          @include custom-input;
+
+          padding: 0.6rem 0.8rem;
+          font-size: 0.8rem;
+        }
+
+        &_suggestion {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          background-color: $color-white;
+
+          top: 105%;
+          left: 0;
+          width: 100%;
+          z-index: 300;
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
+            rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+          &-item {
+            cursor: pointer;
+
+            padding: 0.5rem;
+            border-bottom: 1px dashed $color-gray-90;
+
+            &-disabled {
+              pointer-events: none;
+
+              background-color: $color-gray-60;
+              opacity: 0.6;
+            }
+
+            &:hover {
+              background-color: $color-gray-90;
+            }
+
+            &:hover &-eng {
+              color: $color-blue-50;
+            }
+
+            & p {
+              font-size: 0.9rem;
+
+              span {
+                font-weight: bolder;
+              }
+            }
+
+            &-eng {
+              font-weight: bolder;
+
+              font-size: 1.8rem;
+              transition: 0.2s;
+              margin-bottom: 0.5rem;
+            }
+
+            &-vies {
+              & span {
+                font-weight: bolder;
+              }
+            }
+          }
+        }
+      }
+
+      &-word {
+        display: flex;
+        flex-direction: column;
+
+        gap: 1rem;
+
+        &-eng {
+          font-weight: bolder;
+          color: $color-blue-50;
+
+          font-size: 1.8rem;
+        }
+
+        &-vieVers {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+
+          gap: 1rem;
+
+          &-vie {
+            @include custom-button;
+            font-weight: bolder;
+            background-color: $color-white;
+            color: black;
+            width: max-content;
+
+            padding: 0.5rem 0.7rem;
+            font-size: 0.9rem;
+            opacity: 0.6;
+            border-radius: 0.5rem;
+            border: 2px dashed $color-gray-60;
+
+            &-selected {
+              background-color: $color-blue-50;
+              color: $color-white;
+
+              opacity: 1;
+              border: 2px solid $color-blue-50;
+            }
+          }
+        }
+
+        &-correctAns {
+          & label {
+            font-size: 1.1rem;
+          }
+        }
+      }
+    }
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 3rem;
+    border-left: 1px dashed $color-gray-90;
+
+    &-top {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      margin-top: 2rem;
+
+      &-empty {
+        text-align: center;
+        font-weight: bolder;
+
+        opacity: 0.6;
+        font-size: 2rem;
+      }
+    }
+
+    &-bot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: $CARD_GAP;
+
+      width: calc($CARD_SIZE * 2 + $CARD_GAP);
+
+      &_card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: $CARD_SIZE;
+        height: $CARD_SIZE;
+        outline: none;
+        cursor: pointer;
+
+        border: 3px dashed $color-gray-60;
+        opacity: 0.8;
+        border-radius: 0.3rem;
+
+        & p {
+          font-weight: bolder;
+
+          color: black;
+          font-size: 1.5rem;
+        }
+
+        &-selected {
+          background-color: $color-white;
+
+          border: 3px solid $color-blue-50;
+          opacity: 1;
+
+          & p {
+            color: $color-blue-50;
+          }
+        }
+
+        &-right {
+          background-color: $color-white;
+
+          border: 3px solid $color-green-50;
+          opacity: 1;
+
+          & p {
+            color: $color-green-50;
+          }
+        }
+      }
+    }
+  }
+
+  &__bot {
+    position: absolute;
+
+    bottom: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    ::ng-deep .button {
+      width: max-content;
+
+      padding: 0.6rem 0.8rem;
+      font-size: 0.8rem;
+    }
+  }
+}

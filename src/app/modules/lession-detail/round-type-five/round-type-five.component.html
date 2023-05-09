@@ -1,1 +1,159 @@
-<p>round-type-five works!</p>
+<div class="five">
+  <div class="five__left">
+    <div class="five__left-select">
+      <select
+        (change)="onChangeQuestionType($event)"
+        [value]="currentQuestionType"
+      >
+        <ng-container *ngFor="let type of questionType">
+          <option value="{{ type.value }}" title="{{ type.description }}">
+            {{ type.label }}
+          </option>
+        </ng-container>
+      </select>
+    </div>
+    <form class="five__left-form" [formGroup]="questionForm">
+      <input
+        formControlName="question"
+        placeholder="Nhập từ tiếng Anh bạn đang tìm"
+        (input)="onQuestionInputChange($event)"
+      />
+      <div class="five__left-form_suggestion">
+        <ng-container *ngFor="let word of suggestionFromQuestionSearch">
+          <div
+            (click)="onChangeSelectedWordFromQuestionSearch(word)"
+            class="five__left-form_suggestion-item {{
+              word.audios.length === 0
+                ? 'five__left-form_suggestion-item-disabled'
+                : ''
+            }}"
+          >
+            <p class="five__left-form_suggestion-item-eng">{{ word.engVer }}</p>
+            <p>
+              Audio: <span>{{ word.audios.length }}</span>
+            </p>
+          </div>
+        </ng-container>
+      </div>
+    </form>
+    <div class="five__left--word" *ngIf="selectedWordFromSearchQuestion">
+      <p class="five__left-word_eng">
+        {{ selectedWordFromSearchQuestion.engVer }}
+      </p>
+      <div class="five__left-word_audios">
+        <ng-container
+          *ngFor="let audio of selectedWordFromSearchQuestion.audios"
+        >
+          <button
+            (click)="onChangeQuestionAudio(audio)"
+            class="five__left-word_audios_audio {{
+              newRound.question === audio
+                ? 'five__left-word_audios_audio-selected'
+                : ''
+            }}"
+          >
+            <audio controls>
+              <source src="{{ audio }}" type="audio/mpeg" />
+            </audio>
+          </button>
+        </ng-container>
+      </div>
+    </div>
+    <div class="five__left-config">
+      <p class="five__left-config-title">Cập nhật câu trả lời</p>
+      <form class="five__left-config-form" [formGroup]="answerForm">
+        <input
+          placeholder="{{
+            currentQuestionType === questionType[0].value
+              ? 'Enter word what you are finding'
+              : 'Hãy điền từ tiếng Anh bạn cần tìm'
+          }}"
+          formControlName="answer"
+          (input)="onAnswerInputChange($event)"
+        />
+        <div class="five__left-config-form_suggestion">
+          <ng-container *ngFor="let word of suggestionFromAnswerSearch">
+            <div
+              (click)="onChangeSelectedWordAnswerSearch(word)"
+              class="five__left-config-form_suggestion-item {{
+                word.vieVers.length === 0
+                  ? 'five__left-config-form_suggestion-item-disabled'
+                  : ''
+              }}"
+            >
+              <p class="five__left-config-form_suggestion-item-eng">
+                {{ word.engVer }}
+              </p>
+              <p class="five__left-config-form_suggestion-item-vies">
+                Số nghĩa tiếng Việt: <span>{{ word.vieVers.length }}</span>
+              </p>
+            </div>
+          </ng-container>
+        </div>
+      </form>
+      <div class="five__left-config-word" *ngIf="selectedWordFromAnswer">
+        <p class="five__left-config-word-eng">
+          {{ selectedWordFromAnswer.engVer }}
+        </p>
+        <div
+          class="five__left-config-word-vieVers"
+          *ngIf="currentQuestionType === questionType[0].value"
+        >
+          <ng-container *ngFor="let vie of selectedWordFromAnswer.vieVers">
+            <button
+              (click)="onChangeWordForCard(vie)"
+              class="five__left-config-word-vieVers-vie {{
+                selectedCard.word === vie
+                  ? 'five__left-config-word-vieVers-vie-selected'
+                  : ''
+              }}"
+            >
+              {{ vie }}
+            </button>
+          </ng-container>
+        </div>
+        <div class="five__left-config-word-correctAns">
+          <label>
+            Đánh dấu rằng đây là đáp án đúng:
+            <input
+              (change)="onMarkAsCorrectAnsInputChange($event)"
+              type="checkbox"
+              [checked]="newRound.correctAns === selectedCard.cardId"
+            />
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="five__right">
+    <div class="five__right-top">
+      <p *ngIf="newRound.question === ''" class="five__right-top-empty">
+        Audio câu hỏi
+      </p>
+      <audio #audioElement controls *ngIf="newRound.question !== ''">
+        <source src="{{ newRound.question }}" type="audio/mpeg" />
+      </audio>
+    </div>
+    <div class="five__right-bot">
+      <ng-container *ngFor="let card of newRound.cards">
+        <button
+          class="five__right-bot_card {{
+            card.cardId === selectedCard.cardId
+              ? 'five__right-bot_card-selected'
+              : ''
+          }} {{
+            card.cardId === newRound.correctAns
+              ? 'five__right-bot_card-right'
+              : ''
+          }}"
+          (click)="onChangeSelectedCard(card)"
+        >
+          <p>{{ card.word }}</p>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+  <div class="five__bot">
+    <app-button (click)="onSaveRound()">Lưu màn chơi</app-button>
+  </div>
+</div>
