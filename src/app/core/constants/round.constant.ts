@@ -51,9 +51,13 @@ export const ROUND_TYPE_5_INIT_VALUE: IRoundType5 = {
   question: '',
 };
 
+export const ROUND_TYPE_6_BASED_CARDS_PAIR = 3;
+export const ROUND_TYPE_6_MAX_CARDS_PAIR = 4;
+
 export const ROUND_TYPE_6_INIT_VALUE: IRoundType6 = {
   playType: ROUND_TYPES[5],
   cards: [],
+  totalPairs: ROUND_TYPE_6_BASED_CARDS_PAIR,
 };
 
 export const ROUND_TYPES_INFO = [
@@ -128,9 +132,6 @@ export const ROUND_TYPE_5_QUESTION_TYPE = [
       'Câu hỏi sẽ là audio tiếng Anh \n Người chơi cần chọn ảnh có chứa từ được nhắc tới trong đoạn audio',
   },
 ];
-
-export const ROUND_TYPE_6_BASED_CARDS_PAIR = 3;
-export const ROUND_TYPE_6_MAX_CARDS_PAIR = 4;
 
 export const ROUND_TYPE_6_QUESTIONS_TYPE = [
   {

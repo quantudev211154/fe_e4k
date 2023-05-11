@@ -344,6 +344,7 @@ export class RoundTypeSixComponent implements OnInit {
       this.newRound = {
         ...this.newRound,
         cards: this.shuffleCardsByPosition(),
+        totalPairs: this.currentCardPair,
       };
 
       this.roundService
