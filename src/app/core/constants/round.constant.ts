@@ -128,3 +128,21 @@ export const ROUND_TYPE_5_QUESTION_TYPE = [
       'Câu hỏi sẽ là audio tiếng Anh \n Người chơi cần chọn ảnh có chứa từ được nhắc tới trong đoạn audio',
   },
 ];
+
+export const ROUND_TYPE_6_BASED_CARDS_PAIR = 3;
+export const ROUND_TYPE_6_MAX_CARDS_PAIR = 4;
+
+export const ROUND_TYPE_6_QUESTIONS_TYPE = [
+  {
+    value: 1,
+    label: 'Audio Anh - từ Việt',
+    description:
+      'Một cặp ảnh sẽ gồm 1 ảnh chứa audio tiếng Anh, ảnh còn lại chứa từ tiếng Việt tương ứng',
+  },
+  {
+    value: 3,
+    label: 'Audio Anh - từ Anh',
+    description:
+      'Một cặp ảnh sẽ gồm 1 ảnh chứa audio tiếng Anh, ảnh còn lại chứa từ tiếng Anh tương ứng',
+  },
+];

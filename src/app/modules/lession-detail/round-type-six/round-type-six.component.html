@@ -1,1 +1,119 @@
-<p>round-type-six works!</p>
+<div class="six">
+  <div class="six__left">
+    <div class="six__left-select">
+      <select
+        (change)="onQuestionTypeSelectChange($event)"
+        [value]="selectedQuestionType"
+      >
+        <ng-container *ngFor="let type of questionType">
+          <option value="{{ type.value }}" title="{{ type.description }}">
+            {{ type.label }}
+          </option>
+        </ng-container>
+      </select>
+      <button
+        class="six__left-select-btn {{
+          currentCardPair === 3 ? 'six__left-select-btn-selected' : ''
+        }}"
+        (click)="onChangeCardPairQty(3)"
+        value="3"
+      >
+        3 cặp ảnh
+      </button>
+      <button
+        class="six__left-select-btn {{
+          currentCardPair === 4 ? 'six__left-select-btn-selected' : ''
+        }}"
+        (click)="onChangeCardPairQty(4)"
+        value="4"
+      >
+        4 cặp ảnh
+      </button>
+    </div>
+    <form class="six__left-form" [formGroup]="searchForm">
+      <input
+        placeholder="Nhập từ tiếng Anh bạn cần tìm"
+        formControlName="eng"
+        (input)="onSearchInputChange($event)"
+      />
+      <div
+        class="six__left-form-suggestion"
+        *ngIf="suggestionFromSearch.length > 0"
+      >
+        <ng-container *ngFor="let word of suggestionFromSearch">
+          <div
+            (click)="onClickOnSearchSuggestionItem(word)"
+            class="six__left-form-suggestion_item {{
+              word.audios.length === 0
+                ? 'six__left-form-suggestion_item-disabled'
+                : ''
+            }}"
+          >
+            <p class="six__left-form-suggestion_item-eng">{{ word.engVer }}</p>
+            <p>
+              Audios: <span>{{ word.audios.length }}</span>
+            </p>
+          </div>
+        </ng-container>
+      </div>
+    </form>
+    <div class="six__left-word" *ngIf="selectedWord">
+      <div class="six__left-word-eng">
+        <p>{{ selectedWord.engVer }}</p>
+      </div>
+      <div class="six__left-word-vies" *ngIf="selectedQuestionType !== 2">
+        <ng-container *ngFor="let vie of selectedWord.vieVers">
+          <button
+            class="six__left-word-vies-vie {{
+              selectedWordDetail && selectedWordDetail.vie === vie
+                ? 'six__left-word-vies-vie_selected'
+                : ''
+            }}"
+            value="{{ vie }}"
+            (click)="onChangeCardVieWord(vie)"
+          >
+            {{ vie }}
+          </button>
+        </ng-container>
+      </div>
+      <div class="six__left-word-audios">
+        <ng-container *ngFor="let audio of selectedWord.audios">
+          <button
+            (click)="onChangeCardAudio(audio)"
+            class="six__left-word-audios_audio {{
+              selectedWordDetail && selectedWordDetail.audio === audio
+                ? 'six__left-word-audios_audio-selected'
+                : ''
+            }}"
+          >
+            <audio controls>
+              <source src="{{ audio }}" type="audio/mpeg" />
+            </audio>
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="six__right">
+    <div class="six__right-main">
+      <ng-container *ngFor="let card of newRound.cards">
+        <button
+          (click)="onChangeSelectedCardPair(card.pairId)"
+          class="six__right-main_card {{
+            card.pairId === selectedCardPairId
+              ? 'six__right-main_card-selected'
+              : ''
+          }}"
+        >
+          <audio controls *ngIf="card.isAudio">
+            <source src="{{ card.answer }}" type="audio/mpeg" />
+          </audio>
+          <p *ngIf="!card.isAudio">{{ card.answer }}</p>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+  <div class="six__bot">
+    <app-button (click)="onSaveRound()">Lưu màn chơi</app-button>
+  </div>
+</div>
