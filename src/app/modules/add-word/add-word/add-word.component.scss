@@ -44,7 +44,7 @@ $CHILD-LEFT-WIDTH: 15%;
     align-items: center;
 
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 
     &-left {
       width: $CHILD-LEFT-WIDTH;
@@ -62,6 +62,13 @@ $CHILD-LEFT-WIDTH: 15%;
       flex: 1 1 0%;
       gap: 0.8rem;
 
+      &_word {
+        font-weight: bolder;
+        color: $color-blue-50;
+
+        font-size: 2rem;
+      }
+
       &_images {
         display: flex;
         justify-content: flex-start;
@@ -70,10 +77,27 @@ $CHILD-LEFT-WIDTH: 15%;
         gap: 1rem;
 
         &-img {
-          width: 5rem;
-          height: 6rem;
+          width: 7rem;
+          height: 8rem;
           border-radius: 0.5rem;
         }
+      }
+
+      &_audios {
+        display: flex;
+        justify-content: flex-st_audiosart;
+        align-items: center;
+
+        gap: 1rem;
+
+        & audio {
+          width: 9rem;
+        }
+      }
+
+      &_noImg,
+      &_noAudio {
+        font-size: 1.2rem;
       }
 
       input {

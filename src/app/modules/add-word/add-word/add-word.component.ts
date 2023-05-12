@@ -5,6 +5,7 @@ import { INewWord, IWord } from 'src/app/core/models';
 import { FirebaseService } from 'src/app/core/services/firebase/firebase.service';
 import { WordService } from 'src/app/core/services/word-service/word.service';
 import { combineLatestWith } from 'rxjs';
+import { RouteConstant } from 'src/app/core/constants';
 
 @Component({
   selector: 'app-add-word',
@@ -43,17 +44,14 @@ export class AddWordComponent implements OnInit {
       const wordId = params['wordId'];
       const mode = params['mode'];
 
-      if (!wordId) {
-        return;
+      if (mode === 'edit') {
+        this.wordService.getWordById(wordId).subscribe((res: any) => {
+          this.wordId = wordId;
+          this.newWord = res.data.word;
+        });
       }
 
       this.mode = mode;
-
-      this.wordService.getWordById(wordId).subscribe((res: any) => {
-        console.log(res.data.word);
-        this.wordId = wordId;
-        this.newWord = res.data.word;
-      });
     });
   }
 
@@ -202,7 +200,10 @@ export class AddWordComponent implements OnInit {
                   }
                 });
             } else {
-              this.updateWord([...this.newWord.images, ...imageUrls], []);
+              this.updateWord(
+                [...this.newWord.images, ...imageUrls],
+                [...this.newWord.audios]
+              );
             }
           }
         });
@@ -211,11 +212,31 @@ export class AddWordComponent implements OnInit {
         .pushListFileToStorage(this.audioFiles)
         .subscribe((audioUrls) => {
           if (audioUrls.length === this.audioFiles.length) {
-            this.updateWord([], [...this.newWord.audios, ...audioUrls]);
+            this.updateWord(
+              [...this.newWord.images],
+              [...this.newWord.audios, ...audioUrls]
+            );
           }
         });
     } else {
-      this.updateWord([], []);
+      this.updateWord([...this.newWord.images], [...this.newWord.audios]);
     }
+  }
+
+  goToEditWord() {
+    this.activatedRoute.queryParams.subscribe((params) => {
+      const wordId = params['wordId'];
+      const mode = params['mode'];
+
+      if (!wordId) {
+        return;
+      }
+
+      this.mode = mode;
+
+      this.router.navigateByUrl(
+        `${RouteConstant.ROUTE_WORDS}/customize-word?wordId=${wordId}&mode=edit`
+      );
+    });
   }
 }

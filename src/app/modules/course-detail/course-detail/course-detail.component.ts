@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ERR_MUST_PROVIDE_LESSION_INFO } from 'src/app/core/constants';
-import { ICourse } from 'src/app/core/models/course.model';
+import {
+  COURSE_TYPE,
+  ERR_MUST_PROVIDE_LESSION_INFO,
+} from 'src/app/core/constants';
+import { ECLRStatus, ICourse } from 'src/app/core/models/course.model';
 import { CourseService } from 'src/app/core/services/course-service/course.service';
 import { LessionService } from 'src/app/core/services/lession-service/lession.service';
 
@@ -13,6 +16,13 @@ import { LessionService } from 'src/app/core/services/lession-service/lession.se
 })
 export class CourseDetailComponent implements OnInit {
   currentCourse: ICourse;
+
+  isShowEditCourseModal = false;
+
+  editCourseForm: FormGroup;
+  editingCourse: ICourse;
+
+  allCourseType = COURSE_TYPE;
 
   isShowAddLessionModal = false;
   newLessionForm: FormGroup;
@@ -36,11 +46,19 @@ export class CourseDetailComponent implements OnInit {
 
     this.courseService.getCourseById(courseId).subscribe((res: any) => {
       this.currentCourse = res.data.course;
-    });
+      this.editingCourse = res.data.course;
 
-    this.newLessionForm = this.fb.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
+      console.log(this.editingCourse);
+
+      this.newLessionForm = this.fb.group({
+        title: ['', Validators.required],
+        description: ['', Validators.required],
+      });
+
+      this.editCourseForm = this.fb.group({
+        title: [this.editingCourse?.title, Validators.required],
+        description: [this.editingCourse?.description, Validators.required],
+      });
     });
   }
 
@@ -106,5 +124,49 @@ export class CourseDetailComponent implements OnInit {
     }
 
     this.router.navigate(['lession-detail', courseId, selectedLessionId]);
+  }
+
+  hideEditCourseModal() {
+    this.isShowEditCourseModal = false;
+  }
+
+  showEditCourseModal() {
+    this.isShowEditCourseModal = true;
+  }
+
+  onChangeEditingCourseType(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const value = target.value as ECLRStatus;
+
+    console.log(value);
+
+    if (this.editingCourse) {
+      this.editingCourse = {
+        ...this.editingCourse,
+        type: value,
+      };
+    }
+  }
+
+  onEditCourseSubmit() {
+    const { title, description } = this.editCourseForm.value;
+
+    if (this.editingCourse) {
+      this.editingCourse = {
+        ...this.editingCourse,
+        title,
+        description,
+      };
+
+      console.log(this.editingCourse);
+
+      this.courseService
+        .updateCourse(this.editingCourse)
+        .subscribe((res: any) => {
+          this.currentCourse = res.data.editedCourse;
+
+          this.hideEditCourseModal();
+        });
+    }
   }
 }

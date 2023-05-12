@@ -50,7 +50,9 @@ export class WordsComponent implements OnInit {
   }
 
   goToAddWordRoute() {
-    this.router.navigateByUrl(`${RouteConstant.ROUTE_WORDS}/customize-word`);
+    this.router.navigateByUrl(
+      `${RouteConstant.ROUTE_WORDS}/customize-word?mode=add`
+    );
   }
 
   goToNextPage() {

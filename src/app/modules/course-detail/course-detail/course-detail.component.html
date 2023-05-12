@@ -5,6 +5,9 @@
       <p class="course-detail__header-desc">{{ currentCourse.description }}</p>
     </div>
     <div class="course-detail__tools">
+      <app-button (click)="showEditCourseModal()"
+        >Cập nhật thông tin khoá học</app-button
+      >
       <app-button (click)="showAddLessionModal()">Thêm chương</app-button>
     </div>
     <div class="course-detail__main">
@@ -86,5 +89,66 @@
       </p>
     </div>
     <app-button type="submit">Tạo chương</app-button>
+  </form>
+</app-modal>
+<app-modal [isOpen]="isShowEditCourseModal" (click)="hideEditCourseModal()">
+  <form
+    class="edit-course-form"
+    (submit)="onEditCourseSubmit()"
+    [formGroup]="editCourseForm"
+  >
+    <p class="edit-course-form__header">Cập nhật thông tin khoá học</p>
+    <div class="edit-course-form__component edit-course-form__title">
+      <app-text-field
+        [autofocus]="true"
+        placeholder="VD: Động vật"
+        type="text"
+        [required]="true"
+        [control]="$any(editCourseForm.get('title'))"
+      ></app-text-field>
+      <p
+        class="edit-course-form__component-error"
+        *ngIf="
+          editCourseForm.get('title')!.invalid &&
+          (editCourseForm.get('title')!.dirty ||
+            editCourseForm.get('title')!.touched)
+        "
+      >
+        Hãy nhập tên khoá học
+      </p>
+    </div>
+    <div class="edit-course-form__component edit-course-form__description">
+      <textarea
+        cols="{{ 5 }}"
+        [required]="true"
+        formControlName="description"
+        placeholder="VD: Từ vựng tiếng Anh về thế giới động vật"
+      ></textarea>
+      <p
+        class="edit-course-form__component-error"
+        *ngIf="
+          editCourseForm.get('description')!.invalid &&
+          (editCourseForm.get('description')!.dirty ||
+            editCourseForm.get('description')!.touched)
+        "
+      >
+        Hãy nhập mô tả của khoá học
+      </p>
+    </div>
+    <div *ngIf="editingCourse" class="edit-course-form-select">
+      <span>Trạng thái khoá học: &nbsp;</span>
+      <select
+        (change)="onChangeEditingCourseType($event)"
+        [value]="editingCourse.type"
+      >
+        <option value="PUBLISHED" title="{{ allCourseType[0].description }}">
+          Đã ra mắt
+        </option>
+        <option value="DRAFT" title="{{ allCourseType[1].description }}">
+          Đang thử nghiệm
+        </option>
+      </select>
+    </div>
+    <app-button type="submit">Cập nhật khoá học</app-button>
   </form>
 </app-modal>

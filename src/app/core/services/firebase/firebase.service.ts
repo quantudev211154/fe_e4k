@@ -45,7 +45,7 @@ export class FirebaseService {
       const uploadedListUrl: string[] = [];
 
       for (let i = 0; i < fileList.length; ++i) {
-        this.pushFileToStorage(fileList[0]).subscribe((url) => {
+        this.pushFileToStorage(fileList[i]).subscribe((url) => {
           uploadedListUrl.push(url);
           observer.next(uploadedListUrl);
         });

@@ -4,34 +4,35 @@ import { API, AUTH_STATE_INIT_VALUE } from '../../constants';
 import { HttpService } from '../http-services/http.service';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../token-service/token-storage.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  authState: IAuthState;
+  authState: BehaviorSubject<IAuthState> = new BehaviorSubject<IAuthState>(
+    AUTH_STATE_INIT_VALUE
+  );
 
   constructor(
     private httpService: HttpService,
     private router: Router,
     private tokenStorageService: TokenStorageService
-  ) {
-    this.authState = AUTH_STATE_INIT_VALUE;
-  }
+  ) {}
 
   public setAuthState(newAuthState: IAuthState): void {
-    this.authState = {
-      ...this.authState,
+    this.authState.next({
+      ...this.authState.value,
       ...newAuthState,
-    };
+    });
   }
 
-  public getAuthState(): IAuthState {
+  public getAuthState() {
     return this.authState;
   }
 
   public resetAuthState() {
-    this.authState = AUTH_STATE_INIT_VALUE;
+    this.authState.next(AUTH_STATE_INIT_VALUE);
   }
 
   public checkSSO() {
@@ -56,6 +57,7 @@ export class AuthService {
             registerDate: new Date(data.user.registerDate),
           },
         };
+
         this.setAuthState(newAuthState);
       },
       (error) => {

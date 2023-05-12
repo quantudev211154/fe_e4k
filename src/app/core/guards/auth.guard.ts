@@ -3,8 +3,10 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth-service/auth.service';
+import { IAuthState } from '../models';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,13 +17,7 @@ export class AuthGuard {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean {
-    if (this.authService.authState.isAuth) {
-      return true;
-    }
-
-    this.router.navigateByUrl('/login');
-
-    return false;
+  ): Observable<boolean> | boolean {
+    return this.authService.authState.getValue().isAuth;
   }
 }

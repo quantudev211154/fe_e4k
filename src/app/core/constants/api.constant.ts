@@ -15,8 +15,10 @@ export const GET_WORD_BY_ID_URL = BASE_URL + '/word';
 export const UPDATE_WORD_BY_ID_URL = BASE_URL + '/word';
 
 export const GET_ALL_COURSE_URL = BASE_URL + '/course';
+export const UPDATE_COURSE_URL = BASE_URL + '/course';
 export const GET_COURSE_BY_ID_URL = BASE_URL + '/course/';
 export const CREATE_DRAFT_COURSE_URL = BASE_URL + '/course';
+export const SEARCH_COURSE_BY_KEYWORD_URL = BASE_URL + '/course/search';
 
 export const CREATE_LESSION_URL = BASE_URL + '/lession';
 export const GET_LESSION_BY_ID_URL = BASE_URL + '/lession';

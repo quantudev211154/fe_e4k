@@ -5,3 +5,4 @@ export * from './auth.constant';
 export * as RouteConstant from './route.constant';
 export * from './round.constant';
 export * from './snackbar.constant';
+export * from './course.constant';

@@ -38,7 +38,7 @@ export class LoginService {
         };
         this.authService.setAuthState(newAuthState);
 
-        this.router.navigateByUrl('');
+        this.router.navigateByUrl('/');
       },
       (err: any) => {
         this.tokenStorageService.removeToken();
@@ -49,13 +49,15 @@ export class LoginService {
   }
 
   public logout() {
-    const currentUserId = this.authService.authState.user?._id;
+    this.authService.authState.subscribe((data: IAuthState) => {
+      const currentUserId = data.user?._id;
 
-    this.httpService.post(API.LOGOUT_URL, { id: currentUserId });
+      this.httpService.post(API.LOGOUT_URL, { id: currentUserId });
 
-    this.tokenStorageService.removeToken();
-    this.authService.resetAuthState();
+      this.tokenStorageService.removeToken();
+      this.authService.resetAuthState();
 
-    this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/login');
+    });
   }
 }

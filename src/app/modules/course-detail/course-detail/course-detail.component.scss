@@ -35,6 +35,7 @@ $CELL-ROUNDS-WIDTH: 8rem;
     align-items: center;
 
     padding: 1rem 0;
+    gap: 1rem;
 
     ::ng-deep .button {
       padding: 0.8rem 1rem;
@@ -156,6 +157,53 @@ $CELL-ROUNDS-WIDTH: 8rem;
 
     textarea {
       @include custom-input;
+    }
+  }
+}
+
+.edit-course-form {
+  @include absolute-center;
+  display: flex;
+  flex-direction: column;
+  background-color: $color-white;
+
+  gap: 1rem;
+  width: 50%;
+  padding: 2rem;
+  border-radius: 0.8rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  z-index: 100;
+
+  &__header {
+    font-weight: bolder;
+    color: $color-blue-50;
+
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+
+  &__error {
+    text-align: center;
+    color: $color-red-50;
+
+    font-size: 1.2rem;
+  }
+
+  &__component {
+    &-error {
+      color: $color-red-50;
+
+      margin-top: 0.5rem;
+    }
+
+    textarea {
+      @include custom-input;
+    }
+  }
+
+  &-select {
+    & select {
+      padding: 0.6rem 0.8rem;
     }
   }
 }

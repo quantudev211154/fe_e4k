@@ -1,14 +1,74 @@
 <div class="courses">
   <div class="courses-header">
     <div class="courses-header__left">
-      <p class="courses-header__left-title">Tất cả khoá học</p>
+      <p class="courses-header__left-title">
+        Các khoá học
+        {{
+          currentCourseType === allCourseTypes[0].value
+            ? "đã ra mắt"
+            : "đang thử nghiệm"
+        }}
+      </p>
     </div>
     <div class="courses-header__right">
       <app-button (click)="showAddCourseModal()">Tạo khoá học</app-button>
     </div>
   </div>
+  <div class="courses-tools">
+    <div class="courses-tools-select">
+      <select [value]="currentCourseType" (change)="onChangeCourseType($event)">
+        <ng-container *ngFor="let courseType of allCourseTypes">
+          <option
+            value="{{ courseType.value }}"
+            title="{{ courseType.description }}"
+          >
+            {{ courseType.label }}
+          </option>
+        </ng-container>
+      </select>
+    </div>
+    <form class="courses-tools-form" [formGroup]="searchForm">
+      <input
+        (input)="onSearchInputChange($event)"
+        placeholder="Tìm khoá học theo tên"
+        formControlName="keyword"
+      />
+      <div class="courses-tools-form-suggestion">
+        <div *ngIf="suggestionFormSearch.length !== 0">
+          <ng-container *ngFor="let course of suggestionFormSearch">
+            <div
+              (click)="goToCourseDetail(course._id)"
+              class="courses-tools-form-suggestion-item"
+            >
+              <div class="courses-tools-form-suggestion-item-top">
+                <p class="courses-tools-form-suggestion-item-top-title">
+                  {{ course.title }}
+                </p>
+                <span
+                  class="courses-tools-form-suggestion-item-top-type {{
+                    course.type === allCourseTypes[0].value
+                      ? 'courses-tools-form-suggestion-item-top-type-published'
+                      : ''
+                  }}"
+                >
+                  {{
+                    course.type === allCourseTypes[0].value
+                      ? "Đã ra mắt"
+                      : "Thử nghiệm"
+                  }}
+                </span>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </form>
+  </div>
   <div class="courses-main">
-    <div class="table">
+    <div class="courses-main-empty" *ngIf="allCourses.length === 0">
+      <p>Không tìm thấy khoá học nào</p>
+    </div>
+    <div class="table" *ngIf="allCourses.length !== 0">
       <div class="table-row table-header">
         <div class="table-row-cell table-header-index">STT</div>
         <div class="table-row-cell table-header-title">Khoá học</div>

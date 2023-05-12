@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouteConstant } from 'src/app/core/constants';
-import { ISidebarItem } from 'src/app/core/models';
+import { IAuthState, ISidebarItem, IUser } from 'src/app/core/models';
 import { AuthService } from 'src/app/core/services/auth-service/auth.service';
 import { IconAllCourseComponent } from 'src/app/shared/icons/icon-all-course/icon-all-course.component';
 import { IconDatabaseComponent } from 'src/app/shared/icons/icon-database/icon-database.component';
@@ -13,7 +13,7 @@ import { IconUserComponent } from 'src/app/shared/icons/icon-user/icon-user.comp
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  currentUser = this.authService.authState.user;
+  currentUser: IUser | null = null;
   isOpenFullSidebar = false;
   sidebarItems: ISidebarItem[] = [
     {
@@ -60,6 +60,10 @@ export class SidebarComponent implements OnInit {
     //   return;
     // }
     // this.selectedSidebarItem = specifiedRoute;
+
+    this.authService.authState.subscribe((data: IAuthState) => {
+      this.currentUser = data.user;
+    });
   }
 
   openFullSidebar() {

@@ -2,23 +2,31 @@
   <div class="add-word__header">
     <div class="add-word__header-left">
       <p class="add-word__header-left-title">
-        {{ !mode ? "Thêm từ mới" : "" }}
+        {{ mode && mode === "add" ? "Thêm từ mới" : "" }}
         {{ mode && mode === "edit" ? "Cập nhật thông tin của từ" : "" }}
         {{ mode && mode === "view" ? "Xem thông tin của từ" : "" }}
       </p>
     </div>
-    <div class="add-word__header-right" *ngIf="mode && mode != 'view'">
-      <app-button
-        (click)="wordId ? onClickUpdateWordBtn() : onClickSaveWordBtn()"
-        >{{ wordId ? "Cập nhật" : "Lưu" }}</app-button
-      >
+    <div class="add-word__header-right">
+      <ng-container *ngIf="mode && mode !== 'view'">
+        <app-button
+          (click)="wordId ? onClickUpdateWordBtn() : onClickSaveWordBtn()"
+          >{{ wordId ? "Cập nhật" : "Lưu" }}</app-button
+        >
+      </ng-container>
+      <ng-container *ngIf="mode && mode === 'view'">
+        <app-button (click)="goToEditWord()">Chỉnh sửa từ này</app-button>
+      </ng-container>
     </div>
   </div>
   <div class="add-word__child">
     <div class="add-word__child-left">
       <p>Từ tiếng Anh:</p>
     </div>
-    <div class="add-word__child-right">
+    <div class="add-word__child-right" *ngIf="mode && mode === 'view'">
+      <p class="add-word__child-right_word">{{ newWord.engVer }}</p>
+    </div>
+    <div class="add-word__child-right" *ngIf="mode && mode !== 'view'">
       <input
         class=".input"
         placeholder="VD: You"
@@ -39,7 +47,6 @@
           placeholder="VD: Bạn"
           formControlName="vieVer"
           (keydown.enter)="onVieVerKeyEnterDown($event)"
-          [disabled]="mode && mode === 'view' ? true : false"
         />
       </form>
       <div class="add-word__child-right_vieVers">
@@ -67,6 +74,12 @@
           <img class="add-word__child-right_images-img" src="{{ image }}" />
         </ng-container>
       </div>
+      <p
+        class="add-word__child-right_noImg"
+        *ngIf="wordId && newWord.images.length === 0"
+      >
+        Chưa có ảnh nào
+      </p>
       <label
         class="add-word__child-right__upload"
         *ngIf="mode && mode != 'view'"
@@ -84,9 +97,25 @@
   </div>
   <div class="add-word__child">
     <div class="add-word__child-left">
-      <p>Phát âm:</p>
+      <p>Audio:</p>
     </div>
     <div class="add-word__child-right">
+      <div
+        class="add-word__child-right_audios"
+        *ngIf="wordId && newWord.audios.length > 0"
+      >
+        <ng-container *ngFor="let audio of newWord.audios">
+          <audio controls>
+            <source src="{{ audio }}" type="audio/mpeg" />
+          </audio>
+        </ng-container>
+      </div>
+      <p
+        class="add-word__child-right_noAudio"
+        *ngIf="wordId && newWord.audios.length === 0"
+      >
+        Chưa có audio nào
+      </p>
       <label
         class="add-word__child-right__upload"
         *ngIf="mode && mode != 'view'"

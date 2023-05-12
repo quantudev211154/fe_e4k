@@ -43,10 +43,110 @@ $CELL-LESSION-WIDTH: 8rem;
     }
   }
 
+  &-tools {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    padding: 1rem 0;
+    gap: 1rem;
+
+    &-form {
+      position: relative;
+
+      width: 20rem;
+
+      & input {
+        @include custom-input;
+
+        width: 100%;
+        font-size: 0.8rem;
+        padding: 0.8rem;
+      }
+
+      &-suggestion {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        background-color: $color-white;
+
+        top: 105%;
+        left: 0;
+        width: 100%;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        z-index: 100;
+
+        &-empty {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          font-weight: bolder;
+
+          font-size: 1.1rem;
+          width: 100%;
+          height: 3rem;
+        }
+
+        &-item {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          cursor: pointer;
+
+          gap: 0.3rem;
+          width: 100%;
+          height: 4rem;
+          padding: 0.5rem;
+          border-bottom: 1px dashed $color-gray-60;
+
+          &:hover {
+            background-color: $color-gray-90;
+          }
+
+          &-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            width: 100%;
+
+            &-title {
+              font-weight: bolder;
+
+              font-size: 1rem;
+            }
+
+            &-type {
+              background-color: $color-gray-60;
+              color: $color-white;
+
+              padding: 0.3rem 0.5rem;
+              border-radius: 0.3rem;
+              font-size: 0.8rem;
+
+              &-published {
+                background-color: $color-green-50;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   &-main {
     flex: 1 1 0%;
     width: 100%;
     margin-top: 2rem;
+
+    &-empty {
+      & p {
+        font-weight: bolder;
+
+        font-size: 1.3rem;
+      }
+    }
 
     & .table {
       display: flex;
