@@ -44,7 +44,7 @@ export class AddWordComponent implements OnInit {
       const wordId = params['wordId'];
       const mode = params['mode'];
 
-      if (mode === 'edit') {
+      if (mode === 'edit' || mode === 'view') {
         this.wordService.getWordById(wordId).subscribe((res: any) => {
           this.wordId = wordId;
           this.newWord = res.data.word;
