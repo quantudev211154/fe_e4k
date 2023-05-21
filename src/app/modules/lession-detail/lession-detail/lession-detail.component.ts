@@ -9,7 +9,7 @@ import { LessionService } from 'src/app/core/services/lession-service/lession.se
   styleUrls: ['./lession-detail.component.scss'],
 })
 export class LessionDetailComponent implements OnInit {
-  currentCourseName: string = 'Test tam thoi, xiu tinh sau';
+  currentCourseName: string = '';
   currentLession: ILession;
 
   constructor(
@@ -23,6 +23,10 @@ export class LessionDetailComponent implements OnInit {
     const lessionId = this.activatedRoute.snapshot.paramMap.get('lessionId');
 
     if (!courseId || !lessionId) {
+      console.log(
+        'Rs: No CourseId or LessionId - lession detai component - 26'
+      );
+
       this.router.navigateByUrl('/');
       return;
     }
@@ -31,6 +35,7 @@ export class LessionDetailComponent implements OnInit {
       .getLessionById(courseId, lessionId)
       .subscribe((res: any) => {
         this.currentLession = res.data.lessions;
+        this.currentCourseName = res.data.courseName;
       });
   }
 
@@ -38,6 +43,8 @@ export class LessionDetailComponent implements OnInit {
     const courseId = this.activatedRoute.snapshot.paramMap.get('courseId');
 
     if (!courseId) {
+      console.log('Rs: No courseId - Lession detail component - 45');
+
       this.router.navigateByUrl('/');
       return;
     }

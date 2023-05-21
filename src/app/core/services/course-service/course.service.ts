@@ -19,8 +19,8 @@ export class CourseService {
     return this.httpService.get(API.GET_COURSE_BY_ID_URL + courseId);
   }
 
-  public createDraftCourse(title: string, description: string) {
-    const body = { title, description };
+  public createDraftCourse(title: string, description: string, level: string) {
+    const body = { title, description, level };
 
     return this.httpService.post(API.CREATE_DRAFT_COURSE_URL, body);
   }

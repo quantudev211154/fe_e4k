@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-  COURSE_TYPE,
+  COURSE_TYPES,
   ERR_MUST_PROVIDE_LESSION_INFO,
 } from 'src/app/core/constants';
 import { ECLRStatus, ICourse } from 'src/app/core/models/course.model';
@@ -22,7 +22,7 @@ export class CourseDetailComponent implements OnInit {
   editCourseForm: FormGroup;
   editingCourse: ICourse;
 
-  allCourseType = COURSE_TYPE;
+  allCourseType = COURSE_TYPES;
 
   isShowAddLessionModal = false;
   newLessionForm: FormGroup;
@@ -40,6 +40,8 @@ export class CourseDetailComponent implements OnInit {
     const courseId = this.activateRoute.snapshot.paramMap.get('courseId');
 
     if (!courseId) {
+      console.log('Rs: No Course Id - Course detail page');
+
       this.router.navigateByUrl('/');
       return;
     }
@@ -47,8 +49,6 @@ export class CourseDetailComponent implements OnInit {
     this.courseService.getCourseById(courseId).subscribe((res: any) => {
       this.currentCourse = res.data.course;
       this.editingCourse = res.data.course;
-
-      console.log(this.editingCourse);
 
       this.newLessionForm = this.fb.group({
         title: ['', Validators.required],
@@ -94,6 +94,8 @@ export class CourseDetailComponent implements OnInit {
     const courseId = this.activateRoute.snapshot.paramMap.get('courseId');
 
     if (!courseId) {
+      console.log('Rs: No Course Id - Course detail page 98');
+
       this.router.navigateByUrl('/');
       return;
     }
@@ -119,6 +121,8 @@ export class CourseDetailComponent implements OnInit {
     const courseId = this.activateRoute.snapshot.paramMap.get('courseId');
 
     if (!courseId) {
+      console.log('Rs: No Course Id - Course detail page - 124');
+
       this.router.navigateByUrl('/');
       return;
     }
@@ -138,8 +142,6 @@ export class CourseDetailComponent implements OnInit {
     const target = event.target as HTMLSelectElement;
     const value = target.value as ECLRStatus;
 
-    console.log(value);
-
     if (this.editingCourse) {
       this.editingCourse = {
         ...this.editingCourse,
@@ -157,8 +159,6 @@ export class CourseDetailComponent implements OnInit {
         title,
         description,
       };
-
-      console.log(this.editingCourse);
 
       this.courseService
         .updateCourse(this.editingCourse)

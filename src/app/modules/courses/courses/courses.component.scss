@@ -5,6 +5,7 @@ $TABLE-TD-HEIGHT: 3.5rem;
 $CELL-INDEX-WIDTH: 5rem;
 $CELL-TITLE-WIDTH: 20rem;
 $CELL-LESSION-WIDTH: 8rem;
+$CELL-LESSION-LEVEL: 8rem;
 
 .courses {
   display: flex;
@@ -184,9 +185,14 @@ $CELL-LESSION-WIDTH: 8rem;
           width: $CELL-LESSION-WIDTH;
         }
 
+        &-level {
+          width: $CELL-LESSION-LEVEL;
+        }
+
         &-desc {
           width: calc(
-            100% - $CELL-INDEX-WIDTH - $CELL-TITLE-WIDTH - $CELL-LESSION-WIDTH
+            100% - $CELL-INDEX-WIDTH - $CELL-TITLE-WIDTH - $CELL-LESSION-WIDTH -
+              $CELL-LESSION-LEVEL
           );
         }
       }

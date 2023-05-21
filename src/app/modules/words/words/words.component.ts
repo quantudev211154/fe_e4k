@@ -58,8 +58,6 @@ export class WordsComponent implements OnInit {
   goToNextPage() {
     this.currentPage++;
 
-    console.log(this.currentPage);
-
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
       queryParams: { page: this.currentPage },

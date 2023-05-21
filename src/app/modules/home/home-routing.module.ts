@@ -35,6 +35,18 @@ const routes: Routes = [
           import('../add-word/add-word.module').then((m) => m.AddWordModule),
       },
       {
+        path: `${RouteConstant.ROUTE_TEST_BANK}`,
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('../all-tests/all-tests.module').then((m) => m.AllTestsModule),
+      },
+      {
+        path: `${RouteConstant.ROUTE_TEST_BANK}/customize-test`,
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('../add-test/add-test.module').then((m) => m.AddTestModule),
+      },
+      {
         path: 'course-detail/:courseId',
         canActivate: [AuthGuard],
         loadChildren: () =>

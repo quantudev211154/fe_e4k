@@ -1,4 +1,5 @@
 @import "../../../styles/color";
+@import "../../../styles/mixins";
 
 $TABLE-TD-HEIGHT: 3.5rem;
 $CELL-INDEX-WIDTH: 5rem;
@@ -20,6 +21,13 @@ $CELL-ROUNDS-WIDTH: 8rem;
 
 .lession-detail__main {
   width: 100%;
+
+  &-empty {
+    font-weight: bolder;
+
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+  }
 
   & .table {
     display: flex;
@@ -53,7 +61,7 @@ $CELL-ROUNDS-WIDTH: 8rem;
         width: $CELL-TITLE-WIDTH;
       }
 
-      &-lession {
+      &-type {
         width: $CELL-ROUNDS-WIDTH;
       }
 
@@ -61,6 +69,22 @@ $CELL-ROUNDS-WIDTH: 8rem;
         width: calc(
           100% - $CELL-INDEX-WIDTH - $CELL-TITLE-WIDTH - $CELL-ROUNDS-WIDTH
         );
+      }
+
+      &-actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        flex: 1 1 0%;
+
+        & button {
+          @include custom-button;
+          width: max-content;
+
+          padding: 0.6rem 0.8rem;
+          font-size: 0.8rem;
+        }
       }
     }
 

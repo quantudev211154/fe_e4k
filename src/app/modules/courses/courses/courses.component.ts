@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
-  COURSE_TYPE,
+  COURSE_LEVELS,
+  COURSE_TYPES,
   ERR_MUST_PROVIDE_COURSE_INFO,
 } from 'src/app/core/constants';
-import { ICourse } from 'src/app/core/models/course.model';
+import { ECourseLevel, ICourse } from 'src/app/core/models/course.model';
 import { CourseService } from 'src/app/core/services/course-service/course.service';
 
 @Component({
@@ -16,8 +17,11 @@ import { CourseService } from 'src/app/core/services/course-service/course.servi
 export class CoursesComponent implements OnInit {
   allCourses: ICourse[] = [];
 
-  allCourseTypes = COURSE_TYPE;
+  allCourseTypes = COURSE_TYPES;
   currentCourseType = this.allCourseTypes[0].value;
+
+  allCourseLevels = COURSE_LEVELS;
+  currentCourseLevel = this.allCourseLevels[0].value;
 
   isShowAddCourseModal = false;
   newCourseForm: FormGroup;
@@ -76,7 +80,7 @@ export class CoursesComponent implements OnInit {
       return this.setNewCourseErrorMessage(ERR_MUST_PROVIDE_COURSE_INFO);
 
     this.courseService
-      .createDraftCourse(title, description)
+      .createDraftCourse(title, description, this.currentCourseLevel)
       .subscribe((res) => {
         this.router.navigate(['course-detail', res.data.newCourse._id]);
       });
@@ -115,5 +119,19 @@ export class CoursesComponent implements OnInit {
 
   goToCourseDetail(courseId: string) {
     this.router.navigateByUrl(`/course-detail/${courseId}`);
+  }
+
+  onChangeNewCourseType(event: Event) {
+    const target = event.target as HTMLSelectElement;
+
+    this.currentCourseLevel = target.value as ECourseLevel;
+  }
+
+  getCourseLevelFromEnum(value: string) {
+    const foundLevel = this.allCourseLevels.find(
+      (level) => level.value === value
+    );
+
+    return foundLevel ? foundLevel.label : this.allCourseLevels[0].label;
   }
 }

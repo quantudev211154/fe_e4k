@@ -46,6 +46,13 @@ $CELL-ROUNDS-WIDTH: 8rem;
   &__main {
     width: 100%;
 
+    &-empty {
+      font-weight: bolder;
+
+      font-size: 1.5rem;
+      margin-top: 2rem;
+    }
+
     & .table {
       display: flex;
       flex-direction: column;

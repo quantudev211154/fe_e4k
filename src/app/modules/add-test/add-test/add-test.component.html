@@ -1,0 +1,188 @@
+<div class="new-test">
+  <div class="new-test__header">
+    <div class="new-test__header-left">
+      <p class="new-test__header-left-title">Thêm đề mới</p>
+    </div>
+    <div class="new-test__header-right">
+      <button
+        (click)="existThisPage()"
+        class="new-test__header-right-btn new-test__header-right-exit"
+      >
+        Thoát
+      </button>
+      <button class="new-test__header-right-btn" (click)="onSaveTest()">
+        Lưu đề
+      </button>
+    </div>
+  </div>
+  <form class="new-test__form" [formGroup]="newTestForm">
+    <div class="new-test__form_select">
+      <span>Mức độ khó của đề này: </span>
+      <select
+        (change)="onChangeNewTestLevel($event)"
+        [value]="newTest.level"
+        formControlName="level"
+      >
+        <option
+          *ngFor="let level of allTestLevels"
+          value="{{ level.value }}"
+          title="{{ level.description }}"
+        >
+          {{ level.label }}
+        </option>
+      </select>
+    </div>
+    <div class="new-test__form_main">
+      <div class="new-test__form_main-left">
+        <div class="new-test__form_main-left-input">
+          <input
+            (input)="onQuestionInputChange($event)"
+            formControlName="question"
+            placeholder="Nhập câu hỏi của bạn"
+          />
+        </div>
+        <div class="new-test__form_main-left-attachmentType">
+          <span>Đính kèm tệp:</span>
+          <div class="new-test__form_main-left-attachmentType-btns">
+            <button
+              *ngFor="let type of allTestAttachmentType"
+              (click)="onChangeNewTestAttachmentType(type.value)"
+              value="{{ type.value }}"
+              class="new-test__form_main-left-attachmentType-btns-btn {{
+                newTest.attachmentType === type.value
+                  ? 'new-test__form_main-left-attachmentType-btns-btn-selected'
+                  : ''
+              }}"
+            >
+              {{ type.label }}
+            </button>
+          </div>
+        </div>
+        <div class="new-test__form_main-left-answerQty">
+          <span>Số lượng đáp án:</span>
+          <div class="new-test__form_main-left-answerQty-btns">
+            <button
+              (click)="onChangeNewTestAnswerQty(4)"
+              class="new-test__form_main-left-answerQty-btns-btn {{
+                newTest.answers.length === 4
+                  ? 'new-test__form_main-left-answerQty-btns-btn-selected'
+                  : ''
+              }}"
+            >
+              4 đáp án
+            </button>
+            <button
+              (click)="onChangeNewTestAnswerQty(2)"
+              class="new-test__form_main-left-answerQty-btns-btn {{
+                newTest.answers.length === 2
+                  ? 'new-test__form_main-left-answerQty-btns-btn-selected'
+                  : ''
+              }}"
+            >
+              2 đáp án
+            </button>
+          </div>
+        </div>
+        <div class="new-test__form_main-left-answer">
+          <input
+            (input)="onAnswerInputChange($event)"
+            formControlName="answer"
+            placeholder="Nhập câu trả lời cho đáp án được chọn"
+          />
+        </div>
+        <div class="new-test__form_main-left-mark">
+          <label>
+            Đánh dấu rằng đây là câu trả lời đúng: &nbsp;
+            <input
+              (change)="onMarkAsCorrectAnswerChange($event)"
+              type="checkbox"
+              [checked]="newTest.correctAnswer === selectedAnswerId"
+            />
+          </label>
+        </div>
+      </div>
+      <div class="new-test__form_main-right">
+        <div class="new-test__form_main-right-question">
+          <p
+            class="new-test__form_main-right-question-empty"
+            *ngIf="newTest.question === ''"
+          >
+            Câu hỏi của bạn
+          </p>
+          <p>{{ newTest.question }}</p>
+        </div>
+        <div class="new-test__form_main-right-attachment">
+          <p *ngIf="newTest.attachmentType === allTestAttachmentType[0].value">
+            Không có tệp đính kèm nào
+          </p>
+          <label
+            class="new-test__form_main-right-attachment-attach"
+            *ngIf="
+              newTest.attachmentType !== allTestAttachmentType[0].value &&
+              newTest.attachment === ''
+            "
+          >
+            Click để thêm tệp đính kèm
+            <input
+              type="file"
+              hidden
+              (change)="onChangeAttachmentFile($event)"
+              accept="{{
+                newTest.attachmentType === allTestAttachmentType[1].value
+                  ? 'image/png, image/gif, image/jpeg, image/svg, image/webp'
+                  : 'audio/mp3,audio/*;capture=microphone'
+              }}"
+            />
+          </label>
+          <img
+            src="{{ imageSrc }}"
+            *ngIf="
+              newTest.attachmentType === allTestAttachmentType[1].value &&
+              imageSrc !== ''
+            "
+          />
+          <audio
+            #figAudio
+            controls
+            *ngIf="
+              newTest.attachmentType === allTestAttachmentType[2].value &&
+              audioSrc !== ''
+            "
+          >
+            <source src="{{ audioSrc }}" type="audio/mpeg" />
+          </audio>
+          <button
+            (click)="onClearAttachment()"
+            class="new-test__form_main-right-attachment-clear"
+            *ngIf="
+              newTest.attachmentType !== allTestAttachmentType[0].value &&
+              (audioSrc !== '' || imageSrc !== '')
+            "
+          >
+            <app-icon-close></app-icon-close>
+          </button>
+        </div>
+        <div class="new-test__form_main-right-answers">
+          <div class="new-test__form_main-right-answers-wrapper">
+            <button
+              (click)="onChangeSelectedAnswer($event)"
+              class="new-test__form_main-right-answers-wrapper-btn {{
+                selectedAnswerId === answer.answerId
+                  ? 'new-test__form_main-right-answers-wrapper-btn-selected'
+                  : ''
+              }} {{
+                newTest.correctAnswer === answer.answerId
+                  ? 'new-test__form_main-right-answers-wrapper-btn-correct'
+                  : ''
+              }}"
+              *ngFor="let answer of newTest.answers"
+              value="{{ answer.answerId }}"
+            >
+              {{ answer.content }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

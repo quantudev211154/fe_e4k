@@ -122,8 +122,6 @@ export class AddWordComponent implements OnInit {
       word.images = imageUrls;
       word.audios = audioUrls;
 
-      console.log(word);
-
       this.wordService.addNewWord(word).subscribe(() => {
         this.router.navigateByUrl('/words');
       });
@@ -141,8 +139,6 @@ export class AddWordComponent implements OnInit {
       };
       word.images = imageUrls;
       word.audios = audioUrls;
-
-      console.log(word);
 
       this.wordService.updateWord(word, this.wordId as string).subscribe(() => {
         this.router.navigateByUrl('/words');

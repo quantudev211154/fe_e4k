@@ -6,12 +6,18 @@
     </div>
     <div class="course-detail__tools">
       <app-button (click)="showEditCourseModal()"
-        >Cập nhật thông tin khoá học</app-button
+        >Cập nhật thông tin phần học</app-button
       >
-      <app-button (click)="showAddLessionModal()">Thêm chương</app-button>
+      <app-button (click)="showAddLessionModal()">Thêm cửa</app-button>
     </div>
     <div class="course-detail__main">
-      <div class="table">
+      <div
+        class="course-detail__main-empty"
+        *ngIf="currentCourse.lessions.length === 0"
+      >
+        Phần này hiện chưa có cửa nào
+      </div>
+      <div class="table" *ngIf="currentCourse.lessions.length !== 0">
         <div class="table-row table-header">
           <div class="table-row-cell table-header-index">STT</div>
           <div class="table-row-cell table-header-title">Tên chương</div>
@@ -47,7 +53,7 @@
     (submit)="onNewLessionFormSubmit()"
     [formGroup]="newLessionForm"
   >
-    <p class="new-lession-form__header">Tạo chương mới</p>
+    <p class="new-lession-form__header">Tạo cửa mới</p>
     <p class="new-lession-form__error" *ngIf="newLessionFormError !== ''">
       {{ newLessionFormError }}
     </p>
@@ -67,7 +73,7 @@
             newLessionForm.get('title')!.touched)
         "
       >
-        Hãy nhập tên của chương
+        Hãy nhập tên cửa cửa này
       </p>
     </div>
     <div class="new-lession-form__component new-lession-form__description">
@@ -85,10 +91,10 @@
             newLessionForm.get('description')!.touched)
         "
       >
-        Hãy nhập mô tả của chương
+        Hãy nhập mô tả của cửa này
       </p>
     </div>
-    <app-button type="submit">Tạo chương</app-button>
+    <app-button type="submit">Tạo cửa mới</app-button>
   </form>
 </app-modal>
 <app-modal [isOpen]="isShowEditCourseModal" (click)="hideEditCourseModal()">
@@ -97,7 +103,7 @@
     (submit)="onEditCourseSubmit()"
     [formGroup]="editCourseForm"
   >
-    <p class="edit-course-form__header">Cập nhật thông tin khoá học</p>
+    <p class="edit-course-form__header">Cập nhật thông tin phần học</p>
     <div class="edit-course-form__component edit-course-form__title">
       <app-text-field
         [autofocus]="true"
@@ -114,7 +120,7 @@
             editCourseForm.get('title')!.touched)
         "
       >
-        Hãy nhập tên khoá học
+        Hãy nhập tên của phần này
       </p>
     </div>
     <div class="edit-course-form__component edit-course-form__description">
@@ -132,11 +138,11 @@
             editCourseForm.get('description')!.touched)
         "
       >
-        Hãy nhập mô tả của khoá học
+        Hãy nhập mô tả của phần này
       </p>
     </div>
     <div *ngIf="editingCourse" class="edit-course-form-select">
-      <span>Trạng thái khoá học: &nbsp;</span>
+      <span>Trạng thái của phần học: &nbsp;</span>
       <select
         (change)="onChangeEditingCourseType($event)"
         [value]="editingCourse.type"
@@ -149,6 +155,6 @@
         </option>
       </select>
     </div>
-    <app-button type="submit">Cập nhật khoá học</app-button>
+    <app-button type="submit">Cập nhật</app-button>
   </form>
 </app-modal>

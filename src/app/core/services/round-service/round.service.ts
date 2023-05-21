@@ -13,4 +13,16 @@ export class RoundService {
 
     return this.httpService.post(fullUrl, { round });
   }
+
+  getAllRounds(courseId: string, lessionId: string) {
+    const fullUrl = `${API.CREATE_NEW_ROUND_URL}?courseId=${courseId}&lessionId=${lessionId}`;
+
+    return this.httpService.get(fullUrl);
+  }
+
+  deleteRound(courseId: string, lessionId: string, roundId: string) {
+    const fullUrl = `${API.DELETE_ROUND_URL}/${courseId}/${lessionId}/${roundId}`;
+
+    return this.httpService.delete(fullUrl);
+  }
 }

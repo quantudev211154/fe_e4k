@@ -2,30 +2,35 @@
   <app-button (click)="goToAddRoundPage()">Thêm màn chơi</app-button>
 </div>
 <div class="lession-detail__main">
-  <div class="table">
+  <div class="lession-detail__main-empty" *ngIf="allRounds.length === 0">
+    Cửa này chưa có màn chơi nào
+  </div>
+  <div *ngIf="allRounds.length !== 0" class="table">
     <div class="table-row table-header">
       <div class="table-row-cell table-header-index">STT</div>
-      <div class="table-row-cell table-header-title">Tên chương</div>
-      <div class="table-row-cell table-header-lession">Số màn chơi</div>
-      <div class="table-row-cell table-header-desc">Mô tả</div>
+      <div class="table-row-cell table-header-title">Vị trí</div>
+      <div class="table-row-cell table-header-type">Kiểu chơi</div>
+      <div class="table-row-cell table-header-date">Thời gian tạo</div>
+      <div class="table-row-cell table-header-actions"></div>
     </div>
-    <!-- <ng-container
-            *ngFor="let round of currentLession.rounds; let i = index"
-          >
-            <div
-              class="table-row table-data"
-            >
-              <div class="table-row-cell table-data-index">{{ i + 1 }}</div>
-              <div class="table-row-cell table-data-title">
-                {{ round.title }}
-              </div>
-              <div class="table-row-cell table-data-lession">
-                {{ lession.rounds.length }}
-              </div>
-              <div class="table-row-cell table-data-desc">
-                {{ lession.description }}
-              </div>
-            </div>
-          </ng-container> -->
+    <ng-container *ngFor="let round of allRounds; let i = index">
+      <div class="table-row table-data">
+        <div class="table-row-cell table-data-index">{{ i + 1 }}</div>
+        <div class="table-row-cell table-data-title">
+          Màn chơi số {{ i + 1 }}
+        </div>
+        <div class="table-row-cell table-data-type">
+          {{ round.playType }}
+        </div>
+        <div class="table-row-cell table-data-date">
+          {{ dateService.formatToDateTime(round.createdAt) }}
+        </div>
+        <div class="table-row-cell table-data-actions">
+          <button value="{{ round.roundId }}" (click)="onDeleteRound($event)">
+            Xoá
+          </button>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>

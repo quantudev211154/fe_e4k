@@ -41,8 +41,8 @@ export class AuthService {
       return;
     }
 
-    this.httpService.get(API.CHECK_SSO_URL).subscribe(
-      (res) => {
+    this.httpService.get(API.CHECK_SSO_URL).subscribe({
+      next: (res: any) => {
         const { data } = res;
 
         this.tokenStorageService.saveToken(data.accessToken);
@@ -60,11 +60,11 @@ export class AuthService {
 
         this.setAuthState(newAuthState);
       },
-      (error) => {
+      error: () => {
         this.tokenStorageService.removeToken();
 
         this.router.navigateByUrl('/login');
-      }
-    );
+      },
+    });
   }
 }

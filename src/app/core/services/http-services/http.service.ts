@@ -38,6 +38,6 @@ export class HttpService {
   }
 
   delete(url: string): Observable<any> {
-    return this.httpClient.delete<any>(url);
+    return this.httpClient.delete<any>(url, this.options);
   }
 }

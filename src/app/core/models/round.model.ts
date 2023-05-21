@@ -85,3 +85,19 @@ export interface IRoundType6 extends IBaseRound {
   cards: IType6Card[]; // even position: isAudio = false, odd position: isAudio = true
   totalPairs: number;
 }
+
+export enum EType7AttachmentType {
+  IMAGE = 'IMAGE',
+  AUDIO = 'AUDIO'
+}
+
+export interface IType7Card extends IBaseCard {
+  word: string
+}
+
+export interface IRoundType7 extends IBaseRound {
+  description: string;
+  attachment: string;
+  attachmentType: EType7AttachmentType
+  cards: IType7Card[]
+}

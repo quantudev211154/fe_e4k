@@ -2,7 +2,7 @@
   <div class="courses-header">
     <div class="courses-header__left">
       <p class="courses-header__left-title">
-        Các khoá học
+        Các phần
         {{
           currentCourseType === allCourseTypes[0].value
             ? "đã ra mắt"
@@ -11,7 +11,7 @@
       </p>
     </div>
     <div class="courses-header__right">
-      <app-button (click)="showAddCourseModal()">Tạo khoá học</app-button>
+      <app-button (click)="showAddCourseModal()">Tạo phần mới</app-button>
     </div>
   </div>
   <div class="courses-tools">
@@ -66,13 +66,14 @@
   </div>
   <div class="courses-main">
     <div class="courses-main-empty" *ngIf="allCourses.length === 0">
-      <p>Không tìm thấy khoá học nào</p>
+      <p>Không tìm thấy kết quả nào</p>
     </div>
     <div class="table" *ngIf="allCourses.length !== 0">
       <div class="table-row table-header">
         <div class="table-row-cell table-header-index">STT</div>
-        <div class="table-row-cell table-header-title">Khoá học</div>
-        <div class="table-row-cell table-header-lession">Số chương</div>
+        <div class="table-row-cell table-header-title">Phần</div>
+        <div class="table-row-cell table-header-lession">Số cửa</div>
+        <div class="table-row-cell table-header-level">Cấp độ</div>
         <div class="table-row-cell table-header-desc">Mô tả</div>
       </div>
       <ng-container *ngFor="let course of allCourses; let i = index">
@@ -84,6 +85,9 @@
           <div class="table-row-cell table-data-title">{{ course.title }}</div>
           <div class="table-row-cell table-data-lession">
             {{ course.lessions.length }}
+          </div>
+          <div class="table-row-cell table-data-level">
+            {{ getCourseLevelFromEnum(course.level) }}
           </div>
           <div class="table-row-cell table-data-desc">
             {{ course.description }}
@@ -99,7 +103,7 @@
     (submit)="onNewCourseFormSubmit()"
     [formGroup]="newCourseForm"
   >
-    <p class="new-course-form__header">Tạo khoá học</p>
+    <p class="new-course-form__header">Tạo phần mới</p>
     <p class="new-course-form__error" *ngIf="newCourseFormError !== ''">
       {{ newCourseFormError }}
     </p>
@@ -119,7 +123,7 @@
             newCourseForm.get('title')!.touched)
         "
       >
-        Hãy nhập tên khoá học
+        Hãy nhập tên phần học mới
       </p>
     </div>
     <div class="new-course-form__component new-course-form__description">
@@ -137,9 +141,22 @@
             newCourseForm.get('description')!.touched)
         "
       >
-        Hãy nhập mô tả của khoá học
+        Hãy nhập mô tả của phần học
       </p>
     </div>
-    <app-button type="submit">Tạo khoá học</app-button>
+    <div class="new-course-form__component">
+      <span>Cấp độ: </span>
+      <select
+        [value]="currentCourseType"
+        (change)="onChangeNewCourseType($event)"
+      >
+        <ng-container *ngFor="let level of allCourseLevels">
+          <option value="{{ level.value }}" title="{{ level.description }}">
+            {{ level.label }}
+          </option>
+        </ng-container>
+      </select>
+    </div>
+    <app-button type="submit">Tạo phần mới</app-button>
   </form>
 </app-modal>

@@ -17,7 +17,7 @@ export class FirebaseService {
     private randomService: RandomService
   ) {}
 
-  private pushFileToStorage(file: File) {
+  public pushFileToStorage(file: File) {
     const urlSubject: Subject<string> = new Subject();
 
     const filePath = `${

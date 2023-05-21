@@ -38,6 +38,8 @@ export class LoginService {
         };
         this.authService.setAuthState(newAuthState);
 
+        console.log('Rs: Login failed - Login.service');
+
         this.router.navigateByUrl('/');
       },
       (err: any) => {

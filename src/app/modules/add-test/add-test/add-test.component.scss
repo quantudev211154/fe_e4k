@@ -1,0 +1,313 @@
+@import "../../../styles/color";
+@import "../../../styles/mixins";
+
+.new-test {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-left {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      gap: 1rem;
+
+      &-title {
+        font-weight: bolder;
+        color: $color-blue-50;
+
+        font-size: 1.5rem;
+      }
+    }
+
+    &-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      gap: 1rem;
+
+      &-btn {
+        @include custom-button;
+        width: max-content;
+
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+      }
+
+      &-exit {
+        background-color: $color-white;
+        color: black;
+
+        &:hover {
+          background-color: $color-orange-50;
+          color: white;
+        }
+      }
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 1rem;
+
+    &_select {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      gap: 1rem;
+    }
+
+    &_main {
+      display: flex;
+      justify-content: space-between;
+
+      &-left,
+      &-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: calc(100% / 2);
+
+        gap: 1rem;
+      }
+
+      &-left {
+        gap: 2rem;
+
+        &-input {
+          width: 80%;
+
+          & input {
+            @include custom-input;
+            padding: 0.6rem 0.8rem;
+            font-size: 0.9rem;
+          }
+        }
+
+        &-attachmentType {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+
+          gap: 1rem;
+          width: 80%;
+
+          &-btns {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            gap: 1rem;
+
+            &-btn {
+              @include custom-button;
+              width: max-content;
+              color: black;
+              background-color: white;
+
+              font-size: 0.9rem;
+              padding: 0.6rem 0.8rem;
+
+              &-selected {
+                background-color: $color-blue-50 !important;
+                color: $color-white !important;
+              }
+            }
+          }
+        }
+
+        &-answerQty {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+
+          gap: 1rem;
+          width: 80%;
+
+          &-btns {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            gap: 1rem;
+
+            &-btn {
+              @include custom-button;
+              width: max-content;
+
+              padding: 0.6rem 0.8rem;
+              font-size: 0.8rem;
+              color: black;
+              background-color: white;
+
+              &-selected {
+                background-color: $color-blue-50;
+                color: white;
+              }
+            }
+          }
+        }
+
+        &-answer {
+          width: 80%;
+          padding: 1rem 0;
+          border-top: 1px dashed $color-gray-45;
+
+          & input {
+            @include custom-input;
+
+            padding: 0.6rem 0.8rem;
+            font-size: 0.8rem;
+          }
+        }
+
+        &-mark {
+          width: 80%;
+        }
+      }
+
+      &-right {
+        border-left: 1px dashed $color-gray-90;
+
+        &-question {
+          font-weight: bolder;
+          color: $color-blue-50;
+          text-align: center;
+
+          font-size: 1.8rem;
+
+          &-empty {
+            color: $color-gray-45;
+            opacity: 0.6;
+          }
+
+          & p {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: pre-wrap;
+            word-break: break-all;
+          }
+        }
+
+        &-attachment {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          gap: 1.5rem;
+
+          margin-top: 2rem;
+
+          & p {
+            font-weight: bolder;
+            color: $color-gray-45;
+
+            opacity: 0.6;
+            font-size: 1.5rem;
+          }
+
+          & label {
+            font-weight: bolder;
+            cursor: pointer;
+            color: $color-blue-50;
+
+            font-size: 1.3rem;
+            border-radius: 0.5rem;
+            border: 2px dashed $color-blue-50;
+            padding: 1rem;
+          }
+
+          & img {
+            object-fit: cover;
+
+            border-radius: 0.5rem;
+            width: 8rem;
+            height: 8rem;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          }
+
+          &-clear {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 3rem;
+            height: 3rem;
+            border: 1px dashed $color-gray-45;
+            border-radius: 50%;
+
+            &:hover {
+              border: 1px solid $color-gray-45;
+            }
+
+            ::ng-deep .icon {
+              font-size: 2rem;
+              fill: black;
+            }
+          }
+        }
+
+        &-answers {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          margin-top: 3rem;
+          width: 100%;
+
+          &-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+
+            width: 100%;
+
+            &-btn {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 80%;
+              height: 4rem;
+              cursor: pointer;
+
+              border-radius: 0.8rem;
+              border: 3px dashed $color-gray-45;
+              opacity: 0.8;
+              font-size: 1.1rem;
+
+              &-selected {
+                background-color: white;
+
+                border: 3px solid $color-blue-50;
+                opacity: 1;
+              }
+
+              &-correct {
+                background-color: white;
+
+                border: 3px solid $color-green-50;
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

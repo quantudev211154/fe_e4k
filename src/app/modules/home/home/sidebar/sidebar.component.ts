@@ -29,6 +29,12 @@ export class SidebarComponent implements OnInit {
       description: 'Kho từ vựng',
     },
     {
+      value: '/' + RouteConstant.ROUTE_TEST_BANK + '?page=1',
+      icon: IconAllCourseComponent,
+      label: 'Ngân hàng đề',
+      description: 'Ngân hàng đề',
+    },
+    {
       value: '/' + RouteConstant.ROUTE_USERS + '?page=1',
       icon: IconUserComponent,
       label: 'Tất cả người dùng',
@@ -40,30 +46,38 @@ export class SidebarComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
+    this.authService.authState.subscribe((data: IAuthState) => {
+      this.currentUser = data.user;
+    });
+
     // const currentUrl = this.router.url;
-    // let currentRoute = currentUrl.split('/')[1];
+
+    // let currentRoute = currentUrl.split('/')[1].split('?')[0];
+
     // const matchResult = RouteConstant.ALL_ROUTES.find(
     //   (route) => route === currentRoute
     // );
+
     // if (!matchResult) {
+    //   console.log('Rs: No match result - Sidebar component - 62');
+
     //   this.router.navigateByUrl('/');
     //   this.selectedSidebarItem = this.sidebarItems[0];
     //   return;
     // }
     // const specifiedRoute = this.sidebarItems.find((item) => {
-    //   const itemRoute = item.value.substring(1, item.value.length);
+    //   const itemRoute = item.value.substring(1, matchResult.length + 1);
+
     //   return itemRoute === matchResult;
     // });
     // if (!specifiedRoute) {
+    //   console.log('Rs: No match result - Sidebar component -74');
+
     //   this.router.navigateByUrl('/');
     //   this.selectedSidebarItem = this.sidebarItems[0];
     //   return;
     // }
     // this.selectedSidebarItem = specifiedRoute;
-
-    this.authService.authState.subscribe((data: IAuthState) => {
-      this.currentUser = data.user;
-    });
   }
 
   openFullSidebar() {

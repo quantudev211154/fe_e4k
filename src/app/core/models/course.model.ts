@@ -15,6 +15,12 @@ export enum ERoundPlayType {
   SIX = 6,
 }
 
+export enum ECourseLevel {
+  EASY = 'EASY',
+  MEDIUM = 'MEDIUM',
+  HARD = 'HARD',
+}
+
 export interface IRoundAudio {
   _id: string;
   url: string;
@@ -59,10 +65,11 @@ export interface ILession {
 export interface ICourse {
   _id: string;
   title: string;
-  description: string;
+  description?: string;
   creator: IUser;
   type: ECLRStatus;
-  level: number;
+  position: number;
+  level: ECourseLevel;
   lessions: ILession[];
   isDeleted?: boolean;
   deletedBy?: IUser;

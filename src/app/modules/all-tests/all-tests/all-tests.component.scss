@@ -1,0 +1,134 @@
+@import "../../../styles/mixins";
+@import "../../../styles/color";
+
+$TABLE_CELL_HEIGHT: 3rem;
+$CELL_INDEX_WIDTH: 5rem;
+$CELL_LEVEL_WIDTH: 8rem;
+$CELL_TIME_WIDTH: 15rem;
+$CELL_ACTIONS_WIDTH: 8rem;
+
+.tests {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-left {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      gap: 1rem;
+
+      &-title {
+        font-weight: bolder;
+        color: $color-blue-50;
+
+        font-size: 1.5rem;
+      }
+    }
+
+    &-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      gap: 1rem;
+
+      &-btn {
+        @include custom-button;
+        width: max-content;
+
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  &__main {
+    & .table {
+      &-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &-cell {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          height: $TABLE_CELL_HEIGHT;
+
+          padding-left: 1rem;
+          border-bottom: 1px solid $color-gray-90;
+        }
+      }
+
+      &-header {
+        & div {
+          font-weight: bolder;
+        }
+      }
+
+      &-data {
+        cursor: pointer;
+
+        &:hover {
+          background-color: $color-gray-90;
+        }
+      }
+
+      &-header,
+      &-data {
+        &-index {
+          width: $CELL_INDEX_WIDTH;
+        }
+
+        &-level {
+          width: $CELL_LEVEL_WIDTH;
+        }
+
+        &-time {
+          width: $CELL_TIME_WIDTH;
+        }
+
+        &-actions {
+          width: $CELL_ACTIONS_WIDTH;
+        }
+
+        &-question {
+          flex: 1 1 0%;
+        }
+      }
+
+      &-pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        gap: 1rem;
+        padding: 1rem 0;
+
+        &__btn {
+          @include custom-button;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          width: 2rem;
+          height: 2rem;
+          background-color: $color-blue-55;
+
+          ::ng-deep .icon {
+            font-size: 2rem;
+          }
+
+          &:hover {
+            background-color: $color-blue-50;
+          }
+        }
+      }
+    }
+  }
+}
