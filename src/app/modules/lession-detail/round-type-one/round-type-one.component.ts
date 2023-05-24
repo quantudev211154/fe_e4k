@@ -1,8 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ROUND_TYPE_1_INIT_VALUE } from 'src/app/core/constants';
-import { ESnackbarStatus, IType1Card, IWord } from 'src/app/core/models';
+import {
+  ESnackbarStatus,
+  IRound,
+  IRoundType1,
+  IType1Card,
+  IWord,
+} from 'src/app/core/models';
 import { RandomService } from 'src/app/core/services/random-service/random.service';
 import { WordService } from 'src/app/core/services/word-service/word.service';
 import { map } from 'rxjs';
@@ -16,6 +22,8 @@ import { SnackbarService } from 'src/app/core/services/snackbar-service/snackbar
   styleUrls: ['./round-type-one.component.scss'],
 })
 export class RoundTypeOneComponent implements OnInit {
+  @Input() currentRound: IRoundType1;
+
   newRound = ROUND_TYPE_1_INIT_VALUE;
   selectedPairId: string | undefined = undefined;
   cardPairsAndWordList: any = [];
@@ -44,6 +52,8 @@ export class RoundTypeOneComponent implements OnInit {
     this.searchForm = this.fb.group({
       keyword: '',
     });
+
+    if (this.currentRound) this.newRound = this.currentRound;
   }
 
   genInitCardsBasedOnTotalPairs() {

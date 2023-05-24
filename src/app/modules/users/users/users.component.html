@@ -1,1 +1,98 @@
-<p>users works!</p>
+<div class="users">
+  <div class="users__header">
+    <div class="users__header_left">
+      <p>Các người dùng cấp cao</p>
+      <div class="users__header_left_search">
+        <input
+          (input)="onSearchUserInputChange($event)"
+          placeholder="Tìm người dùng theo tên hoặc số điện thoại"
+        />
+        <div *ngIf="searchResult.length > 0" class="search-suggestion">
+          <div class="search-suggestion-item" *ngFor="let user of searchResult">
+            <p>{{ user.username }} - {{ user.phone }}</p>
+            <p>{{ user.role }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="users__header_right">
+      <button
+        (click)="showModalAddUser()"
+        *ngIf="currentUser && currentUser.role === 'ADMIN'"
+      >
+        Thêm người dùng
+      </button>
+    </div>
+  </div>
+  <div class="users__main">
+    <div class="table">
+      <div class="table__row table__header">
+        <div class="table__row__cell table__row__index">STT</div>
+        <div class="table__row__cell table__row__name">Tên người dùng</div>
+        <div class="table__row__cell table__row__role">Quyền</div>
+        <div class="table__row__cell table__row__date">Ngày được thêm</div>
+        <div
+          *ngIf="currentUser && currentUser.role === 'ADMIN'"
+          class="table__row__cell table__row__action"
+        ></div>
+      </div>
+      <div class="table__row" *ngFor="let user of allUsers; let i = index">
+        <div class="table__row__cell table__row__index">{{ i + 1 }}</div>
+        <div class="table__row__cell table__row__name">{{ user.username }}</div>
+        <div class="table__row__cell table__row__role">{{ user.role }}</div>
+        <div class="table__row__cell table__row__date">
+          {{ dateService.formatDataToDateTime(user.registerDate) }}
+        </div>
+        <div
+          *ngIf="currentUser && currentUser.role === 'ADMIN'"
+          class="table__row__cell table__row__action"
+        >
+          <button (click)="deleteUser(user._id)">Xoá người dùng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-modal [isOpen]="isShowAddUserModal" (click)="hideModalAddUser()">
+  <form (submit)="onAddNewUser()" class="form" [formGroup]="addUserForm">
+    <div class="form__header">
+      <p>Thêm người dùng mới</p>
+    </div>
+    <div *ngIf="formError !== ''" class="form__error">
+      <p>{{ formError }}</p>
+    </div>
+    <div class="form__main">
+      <div>
+        <input
+          formControlName="username"
+          placeholder="Nhập tên hiển thị của người dùng mới"
+        />
+      </div>
+      <div>
+        <input
+          (blur)="checkExistPhone($event)"
+          type="number"
+          formControlName="phone"
+          placeholder="Nhập số điện thoại của người dùng mới"
+        />
+      </div>
+      <div>
+        <span>Quyền của người này:</span>
+        <select formControlName="role">
+          <option [ngValue]="'MANAGER'">MANAGER</option>
+          <option [ngValue]="'ADMIN'">ADMIN</option>
+        </select>
+      </div>
+    </div>
+    <div class="form__btns">
+      <button type="submit" class="form__btns-add">Thêm</button>
+      <button
+        (click)="hideModalAddUser()"
+        type="button"
+        class="form__btns-cancel"
+      >
+        Huỷ
+      </button>
+    </div>
+  </form>
+</app-modal>

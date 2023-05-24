@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ROUND_TYPE_4_INIT_VALUE } from 'src/app/core/constants';
-import { ESnackbarStatus } from 'src/app/core/models';
+import { ESnackbarStatus, IRoundType4 } from 'src/app/core/models';
 import { RoundService } from 'src/app/core/services/round-service/round.service';
 import { SnackbarService } from 'src/app/core/services/snackbar-service/snackbar.service';
 
@@ -10,7 +10,9 @@ import { SnackbarService } from 'src/app/core/services/snackbar-service/snackbar
   templateUrl: './round-type-four.component.html',
   styleUrls: ['./round-type-four.component.scss'],
 })
-export class RoundTypeFourComponent {
+export class RoundTypeFourComponent implements OnInit {
+  @Input() currentRound: IRoundType4;
+
   newRound = ROUND_TYPE_4_INIT_VALUE;
 
   correctAnsSplited: any = [];
@@ -21,6 +23,14 @@ export class RoundTypeFourComponent {
     private roundService: RoundService,
     private snackbarService: SnackbarService
   ) {}
+
+  ngOnInit(): void {
+    if (this.currentRound) {
+      this.newRound = this.currentRound;
+
+      this.correctAnsSplited = this.currentRound.correctAns.split(' ');
+    }
+  }
 
   isNewRoundValid() {
     if (this.newRound.question === '') {

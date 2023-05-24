@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -6,7 +6,12 @@ import {
   ROUND_TYPE_6_INIT_VALUE,
   ROUND_TYPE_6_QUESTIONS_TYPE,
 } from 'src/app/core/constants';
-import { ESnackbarStatus, IType6Card, IWord } from 'src/app/core/models';
+import {
+  ESnackbarStatus,
+  IRoundType6,
+  IType6Card,
+  IWord,
+} from 'src/app/core/models';
 import { ArrayService } from 'src/app/core/services/array-service/array.service';
 import { RandomService } from 'src/app/core/services/random-service/random.service';
 import { RoundService } from 'src/app/core/services/round-service/round.service';
@@ -19,6 +24,8 @@ import { WordService } from 'src/app/core/services/word-service/word.service';
   styleUrls: ['./round-type-six.component.scss'],
 })
 export class RoundTypeSixComponent implements OnInit {
+  @Input() currentRound: IRoundType6;
+
   newRound = ROUND_TYPE_6_INIT_VALUE;
 
   selectedQuestionType = ROUND_TYPE_6_QUESTIONS_TYPE[0].value;
@@ -60,6 +67,10 @@ export class RoundTypeSixComponent implements OnInit {
     this.searchForm = this.fb.group({
       eng: '',
     });
+
+    if (this.currentRound) {
+      this.newRound = this.currentRound;
+    }
   }
 
   genCardsBasedOnCardsPairsQty(qty: number) {

@@ -73,7 +73,6 @@
         <div class="table-row-cell table-header-index">STT</div>
         <div class="table-row-cell table-header-title">Phần</div>
         <div class="table-row-cell table-header-lession">Số cửa</div>
-        <div class="table-row-cell table-header-level">Cấp độ</div>
         <div class="table-row-cell table-header-desc">Mô tả</div>
       </div>
       <ng-container *ngFor="let course of allCourses; let i = index">
@@ -85,9 +84,6 @@
           <div class="table-row-cell table-data-title">{{ course.title }}</div>
           <div class="table-row-cell table-data-lession">
             {{ course.lessions.length }}
-          </div>
-          <div class="table-row-cell table-data-level">
-            {{ getCourseLevelFromEnum(course.level) }}
           </div>
           <div class="table-row-cell table-data-desc">
             {{ course.description }}
@@ -144,19 +140,7 @@
         Hãy nhập mô tả của phần học
       </p>
     </div>
-    <div class="new-course-form__component">
-      <span>Cấp độ: </span>
-      <select
-        [value]="currentCourseType"
-        (change)="onChangeNewCourseType($event)"
-      >
-        <ng-container *ngFor="let level of allCourseLevels">
-          <option value="{{ level.value }}" title="{{ level.description }}">
-            {{ level.label }}
-          </option>
-        </ng-container>
-      </select>
-    </div>
+
     <app-button type="submit">Tạo phần mới</app-button>
   </form>
 </app-modal>

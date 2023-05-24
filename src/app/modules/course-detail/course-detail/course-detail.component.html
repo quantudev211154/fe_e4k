@@ -8,7 +8,9 @@
       <app-button (click)="showEditCourseModal()"
         >Cập nhật thông tin phần học</app-button
       >
-      <app-button (click)="showAddLessionModal()">Thêm cửa</app-button>
+      <ng-container *ngIf="currentCourse && currentCourse.type === 'DRAFT'">
+        <app-button (click)="showAddLessionModal()">Thêm cửa</app-button>
+      </ng-container>
     </div>
     <div class="course-detail__main">
       <div
@@ -20,8 +22,8 @@
       <div class="table" *ngIf="currentCourse.lessions.length !== 0">
         <div class="table-row table-header">
           <div class="table-row-cell table-header-index">STT</div>
-          <div class="table-row-cell table-header-title">Tên chương</div>
-          <div class="table-row-cell table-header-lession">Số chương</div>
+          <div class="table-row-cell table-header-title">Tên cửa</div>
+          <div class="table-row-cell table-header-lession">Số màn chơi</div>
           <div class="table-row-cell table-header-desc">Mô tả</div>
         </div>
         <ng-container
@@ -140,20 +142,6 @@
       >
         Hãy nhập mô tả của phần này
       </p>
-    </div>
-    <div *ngIf="editingCourse" class="edit-course-form-select">
-      <span>Trạng thái của phần học: &nbsp;</span>
-      <select
-        (change)="onChangeEditingCourseType($event)"
-        [value]="editingCourse.type"
-      >
-        <option value="PUBLISHED" title="{{ allCourseType[0].description }}">
-          Đã ra mắt
-        </option>
-        <option value="DRAFT" title="{{ allCourseType[1].description }}">
-          Đang thử nghiệm
-        </option>
-      </select>
     </div>
     <app-button type="submit">Cập nhật</app-button>
   </form>

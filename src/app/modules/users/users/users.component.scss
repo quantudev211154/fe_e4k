@@ -1,0 +1,243 @@
+@import "../../../styles/color";
+@import "../../../styles/mixins";
+
+$TABLE_ROW_HEIGHT: 3rem;
+$TABLE_STT_WIDTH: 5rem;
+$TABLE_ROLE_WIDTH: 5rem;
+$TABLE_DATE_WIDTH: 15rem;
+$TABLE_ACTION_WIDHT: 10rem;
+
+.users {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+
+    &_left {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      gap: 1rem;
+
+      & p {
+        color: $color-blue-50;
+        font-weight: bolder;
+
+        font-size: 1.5rem;
+      }
+
+      &_search {
+        position: relative;
+
+        & input {
+          @include custom-input;
+          width: 20rem;
+
+          padding: 0.6rem 0.8rem;
+          font-size: 0.8rem;
+        }
+
+        & .search-suggestion {
+          position: absolute;
+          background-color: white;
+
+          top: 105%;
+          left: 0;
+          width: 22rem;
+          box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+            rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+          z-index: 300;
+
+          &-item {
+            width: 100%;
+            height: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 0.8rem;
+            border-bottom: 1px dashed $color-gray-90;
+
+            & p {
+              font-size: 1rem;
+              color: black;
+            }
+          }
+        }
+      }
+    }
+
+    &_right {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      & button {
+        @include custom-button;
+        width: max-content;
+
+        padding: 0.6rem 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  &__main {
+    width: 100%;
+
+    & .table {
+      display: flex;
+      flex-direction: column;
+
+      width: 100%;
+
+      &__row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: $TABLE_ROW_HEIGHT;
+
+        width: 100%;
+        border-bottom: 1px solid $color-gray-90;
+
+        &__cell {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+
+          padding-left: 0.5rem;
+          height: 100%;
+        }
+
+        &__index,
+        &__role {
+          width: $TABLE_STT_WIDTH;
+        }
+
+        &__action {
+          width: $TABLE_ACTION_WIDHT;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+
+          & button {
+            @include custom-button;
+            width: max-content;
+
+            padding: 0.6rem 0.8rem;
+            font-size: 0.8rem;
+          }
+        }
+
+        &__date {
+          width: $TABLE_DATE_WIDTH;
+        }
+
+        &__name {
+          width: calc(
+            100% - ($TABLE_STT_WIDTH * 3) - $TABLE_DATE_WIDTH -
+              $TABLE_ACTION_WIDHT
+          );
+        }
+      }
+
+      &__header {
+        & div {
+          font-weight: bolder;
+        }
+      }
+    }
+  }
+}
+
+.form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 40%;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 0.3rem;
+
+  &__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    & p {
+      font-size: 1.5rem;
+      color: $color-blue-50;
+      font-weight: bolder;
+    }
+  }
+
+  &__error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    width: 100%;
+    margin-top: 1rem;
+
+    & p {
+      font-size: 1rem;
+      font-weight: bolder;
+      color: $color-red-50;
+    }
+  }
+
+  &__main {
+    width: 100%;
+    padding: 0.5rem 0;
+
+    & div {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      gap: 1rem;
+      width: 100%;
+      margin-top: 1rem;
+
+      & input {
+        @include custom-input;
+
+        padding: 0.6rem 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  &__btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    gap: 1rem;
+
+    & button {
+      @include custom-button;
+      width: max-content;
+
+      padding: 0.6rem 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    &-cancel {
+      background-color: white !important;
+      color: black !important;
+    }
+  }
+}

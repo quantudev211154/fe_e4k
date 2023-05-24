@@ -1,5 +1,7 @@
 <div class="lession-detail__tools">
-  <app-button (click)="goToAddRoundPage()">Thêm màn chơi</app-button>
+  <ng-container *ngIf="currentCourse && currentCourse.type === 'DRAFT'">
+    <app-button (click)="goToAddRoundPage()">Thêm màn chơi</app-button>
+  </ng-container>
 </div>
 <div class="lession-detail__main">
   <div class="lession-detail__main-empty" *ngIf="allRounds.length === 0">
@@ -14,7 +16,10 @@
       <div class="table-row-cell table-header-actions"></div>
     </div>
     <ng-container *ngFor="let round of allRounds; let i = index">
-      <div class="table-row table-data">
+      <div
+        (click)="goToViewRoundPage(round.roundId)"
+        class="table-row table-data"
+      >
         <div class="table-row-cell table-data-index">{{ i + 1 }}</div>
         <div class="table-row-cell table-data-title">
           Màn chơi số {{ i + 1 }}
@@ -23,7 +28,7 @@
           {{ round.playType }}
         </div>
         <div class="table-row-cell table-data-date">
-          {{ dateService.formatToDateTime(round.createdAt) }}
+          {{ dateService.formatDateStringToDateTime(round.createdAt) }}
         </div>
         <div class="table-row-cell table-data-actions">
           <button value="{{ round.roundId }}" (click)="onDeleteRound($event)">

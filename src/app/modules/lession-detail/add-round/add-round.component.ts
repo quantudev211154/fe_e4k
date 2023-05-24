@@ -24,13 +24,47 @@ import { WordService } from 'src/app/core/services/word-service/word.service';
   styleUrls: ['./add-round.component.scss'],
 })
 export class AddRoundComponent implements OnInit {
+  mode: string;
+  currentCourseId: string;
+  currentLessionId: string;
+  roundId: string;
+
+  currentRound: any;
+
   currentPlayType = ROUND_TYPE_1_INIT_VALUE.playType;
 
   roundTypeInfo = ROUND_TYPES_INFO;
 
-  constructor() {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private roundService: RoundService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    (this.activatedRoute.parent as ActivatedRoute).params.subscribe(
+      (params) => {
+        const { courseId, lessionId } = params;
+        this.currentCourseId = courseId;
+        this.currentLessionId = lessionId;
+
+        this.activatedRoute.queryParams.subscribe((query) => {
+          const { mode, roundId } = query;
+
+          this.mode = mode;
+          this.roundId = roundId;
+
+          if (mode === 'view') {
+            this.roundService
+              .getRound(courseId, lessionId, roundId)
+              .subscribe((res: any) => {
+                this.currentRound = res.data.round;
+                console.log(this.currentRound);
+              });
+          }
+        });
+      }
+    );
+  }
 
   onPlayTypeSelectChange(event: Event) {
     const target = event.target as HTMLSelectElement;

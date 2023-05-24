@@ -26,6 +26,13 @@ export const GET_LESSION_BY_ID_URL = BASE_URL + '/lession';
 export const CREATE_NEW_ROUND_URL = BASE_URL + '/round';
 export const DELETE_ROUND_URL = BASE_URL + '/round';
 export const GET_ALL_ROUNDS_URL = BASE_URL + '/round';
+export const GET_ROUND_URL = BASE_URL + '/round';
 
 export const CREATE_NEW_TEST_URL = BASE_URL + '/test';
 export const GET_ALL_TEST_URL = BASE_URL + '/test';
+
+export const GET_ALL_USERS_URL = BASE_URL + '/user';
+export const DELETE_USER_URL = BASE_URL + '/user';
+export const FIND_USER_URL = BASE_URL + '/user/search?keyword=';
+export const GET_USER_BY_PHONE_URL = BASE_URL + '/user/';
+export const ADD_NEW_USER_URL = BASE_URL + '/user';

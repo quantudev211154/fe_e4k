@@ -1,5 +1,5 @@
 <div class="three">
-  <div class="three__left">
+  <div *ngIf="!currentRound" class="three__left">
     <div class="three__left-top">
       <form class="three__left-top-form" [formGroup]="questionForm">
         <input
@@ -56,7 +56,7 @@
       </div>
     </div>
   </div>
-  <div class="three__bot">
+  <div *ngIf="!currentRound" class="three__bot">
     <app-button (click)="onSaveRound()">Lưu màn chơi</app-button>
   </div>
 </div>

@@ -1,5 +1,5 @@
 <div class="two">
-  <div class="two__left">
+  <div *ngIf="!currentRound" class="two__left">
     <div class="two__left-select">
       <select
         (change)="onChangeQuestionType($event)"
@@ -144,7 +144,7 @@
       </div>
     </div>
   </div>
-  <div class="two__bot">
+  <div *ngIf="!currentRound" class="two__bot">
     <app-button (click)="onSaveRound()">Lưu màn chơi</app-button>
   </div>
 </div>

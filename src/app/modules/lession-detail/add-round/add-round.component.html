@@ -1,5 +1,5 @@
 <div class="add-round">
-  <div class="add-round__header">
+  <div *ngIf="mode === 'add'" class="add-round__header">
     <div class="add-round__header-left">
       <select
         (change)="onPlayTypeSelectChange($event)"
@@ -14,7 +14,7 @@
       </select>
     </div>
   </div>
-  <div class="add-round__main">
+  <div *ngIf="mode === 'add'" class="add-round__main">
     <ng-container *ngIf="currentPlayType === roundTypeInfo[0].value">
       <app-round-type-one></app-round-type-one>
     </ng-container>
@@ -32,6 +32,28 @@
     </ng-container>
     <ng-container *ngIf="currentPlayType === roundTypeInfo[5].value">
       <app-round-type-six></app-round-type-six>
+    </ng-container>
+  </div>
+  <div *ngIf="mode === 'view' && currentRound" class="add-round__main">
+    <ng-container *ngIf="currentRound.playType === roundTypeInfo[0].value">
+      <app-round-type-one [currentRound]="currentRound"></app-round-type-one>
+    </ng-container>
+    <ng-container *ngIf="currentRound.playType === roundTypeInfo[1].value">
+      <app-round-type-two [currentRound]="currentRound"></app-round-type-two>
+    </ng-container>
+    <ng-container *ngIf="currentRound.playType === roundTypeInfo[2].value">
+      <app-round-type-three
+        [currentRound]="currentRound"
+      ></app-round-type-three>
+    </ng-container>
+    <ng-container *ngIf="currentRound.playType === roundTypeInfo[3].value">
+      <app-round-type-four [currentRound]="currentRound"></app-round-type-four>
+    </ng-container>
+    <ng-container *ngIf="currentRound.playType === roundTypeInfo[4].value">
+      <app-round-type-five [currentRound]="currentRound"></app-round-type-five>
+    </ng-container>
+    <ng-container *ngIf="currentRound.playType === roundTypeInfo[5].value">
+      <app-round-type-six [currentRound]="currentRound"></app-round-type-six>
     </ng-container>
   </div>
 </div>

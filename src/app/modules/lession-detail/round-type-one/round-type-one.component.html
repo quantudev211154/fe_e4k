@@ -1,5 +1,5 @@
 <div class="one">
-  <div class="one__left">
+  <div *ngIf="!currentRound" class="one__left">
     <div class="one__left-pairs">
       <button
         (click)="onChangeRoundTotalPairs(2)"
@@ -105,7 +105,7 @@
       </ng-container>
     </div>
   </div>
-  <div class="one__bot">
+  <div *ngIf="!currentRound" class="one__bot">
     <app-button (click)="onSaveRound()">Lưu màn chơi</app-button>
   </div>
 </div>

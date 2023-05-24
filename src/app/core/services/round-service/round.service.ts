@@ -25,4 +25,10 @@ export class RoundService {
 
     return this.httpService.delete(fullUrl);
   }
+
+  getRound(courseId: string, lessionId: string, roundId: string) {
+    const fullUrl = `${API.GET_ROUND_URL}/${courseId}/${lessionId}/${roundId}`;
+
+    return this.httpService.get(fullUrl);
+  }
 }

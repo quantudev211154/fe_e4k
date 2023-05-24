@@ -1,5 +1,5 @@
 <div class="four">
-  <div class="four__left">
+  <div *ngIf="!currentRound" class="four__left">
     <div class="four__left-input">
       <input
         placeholder="Hãy nhập câu hỏi của bạn (đánh dấu vị trí cần điền bằng dấu ...)"
@@ -34,7 +34,7 @@
       </div>
     </div>
   </div>
-  <div class="four__bot">
+  <div *ngIf="!currentRound" class="four__bot">
     <app-button (click)="onSaveRound()">Lưu màn chơi</app-button>
   </div>
 </div>

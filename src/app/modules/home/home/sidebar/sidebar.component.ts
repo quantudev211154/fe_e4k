@@ -37,8 +37,8 @@ export class SidebarComponent implements OnInit {
     {
       value: '/' + RouteConstant.ROUTE_USERS + '?page=1',
       icon: IconUserComponent,
-      label: 'Tất cả người dùng',
-      description: 'Tất cả người dùng',
+      label: 'Các người dùng cấp cao',
+      description: 'Các người dùng cấp cao',
     },
   ];
   selectedSidebarItem = this.sidebarItems[0];

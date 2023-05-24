@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ROUND_TYPE_3_INIT_VALUE } from 'src/app/core/constants';
-import { ESnackbarStatus } from 'src/app/core/models';
+import { ESnackbarStatus, IRoundType3 } from 'src/app/core/models';
 import { ArrayService } from 'src/app/core/services/array-service/array.service';
 import { RoundService } from 'src/app/core/services/round-service/round.service';
 import { SnackbarService } from 'src/app/core/services/snackbar-service/snackbar.service';
@@ -13,6 +13,8 @@ import { SnackbarService } from 'src/app/core/services/snackbar-service/snackbar
   styleUrls: ['./round-type-three.component.scss'],
 })
 export class RoundTypeThreeComponent implements OnInit {
+  @Input() currentRound: IRoundType3;
+
   newRound = ROUND_TYPE_3_INIT_VALUE;
   flashWords = '';
 
@@ -47,6 +49,19 @@ export class RoundTypeThreeComponent implements OnInit {
     this.flashForm = this.fb.group({
       flash: '',
     });
+
+    if (this.currentRound) {
+      this.newRound = this.currentRound;
+
+      const splitedCorrectAnswer = this.newRound.correctAns.split(' ');
+
+      this.allWords = this.currentRound.randomWords.map((word) => {
+        return {
+          isRightAnswer: splitedCorrectAnswer.includes(word),
+          word: word,
+        };
+      });
+    }
   }
 
   onQuestionInputChange(event: Event) {

@@ -28,7 +28,7 @@
             {{ test.level === "EASY" ? "Dễ" : "Trung bình" }}
           </div>
           <div class="table-row-cell table-data-time">
-            {{ dateService.formatToDateTime(test.createdAt) }}
+            {{ dateService.formatDateStringToDateTime(test.createdAt) }}
           </div>
           <div class="table-row-cell table-data-actions">
             <!-- <button (click)="goToEditWordPage(word._id)">Chỉnh sửa</button> -->

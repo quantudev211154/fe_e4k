@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -6,7 +6,12 @@ import {
   ROUND_TYPE_5_MAX_CARDS,
   ROUND_TYPE_5_QUESTION_TYPE,
 } from 'src/app/core/constants';
-import { ESnackbarStatus, IType5Card, IWord } from 'src/app/core/models';
+import {
+  ESnackbarStatus,
+  IRoundType5,
+  IType5Card,
+  IWord,
+} from 'src/app/core/models';
 import { RandomService } from 'src/app/core/services/random-service/random.service';
 import { RoundService } from 'src/app/core/services/round-service/round.service';
 import { SnackbarService } from 'src/app/core/services/snackbar-service/snackbar.service';
@@ -18,6 +23,8 @@ import { WordService } from 'src/app/core/services/word-service/word.service';
   styleUrls: ['./round-type-five.component.scss'],
 })
 export class RoundTypeFiveComponent implements OnInit {
+  @Input() currentRound: IRoundType5;
+
   @ViewChild('audioElement', { static: false })
   public _audioRef: ElementRef<HTMLAudioElement>;
 
@@ -60,6 +67,10 @@ export class RoundTypeFiveComponent implements OnInit {
     this.answerForm = this.fb.group({
       answer: '',
     });
+
+    if (this.currentRound) {
+      this.newRound = this.currentRound;
+    }
   }
 
   genInitCardsForNewRound() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -24,6 +24,8 @@ import { WordService } from 'src/app/core/services/word-service/word.service';
   styleUrls: ['./round-type-two.component.scss'],
 })
 export class RoundTypeTwoComponent implements OnInit {
+  @Input() currentRound: IRoundType2;
+
   newRound: IRoundType2 = ROUND_TYPE_2_INIT_VALUE;
   selectedCard: IType2Card | undefined = undefined;
 
@@ -55,6 +57,8 @@ export class RoundTypeTwoComponent implements OnInit {
     this.searchForm = this.fb.group({
       eng: '',
     });
+
+    if (this.currentRound) this.newRound = this.currentRound;
   }
 
   genInitCardsForNewRound() {
