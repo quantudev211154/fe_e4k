@@ -16,6 +16,10 @@ export class AllTestsComponent implements OnInit {
 
   currentPage = 1;
 
+  searchTestDebounce = -1;
+
+  searchSuggestion: ITest[] = [];
+
   constructor(
     private router: Router,
     private testService: TestService,
@@ -45,7 +49,7 @@ export class AllTestsComponent implements OnInit {
 
   goToAddTestRoute() {
     this.router.navigateByUrl(
-      `${RouteConstant.ROUTE_TEST_BANK}/customize-test`
+      `${RouteConstant.ROUTE_TEST_BANK}/customize-test?mode=add`
     );
   }
 
@@ -71,5 +75,51 @@ export class AllTestsComponent implements OnInit {
     });
 
     this.getTests(this.currentPage);
+  }
+
+  onSearchTest(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const value = target.value;
+
+    window.clearTimeout(this.searchTestDebounce);
+
+    if (value === '') {
+      this.searchSuggestion = [];
+      return;
+    }
+
+    this.searchTestDebounce = window.setTimeout(() => {
+      this.testService.searchTestsByQuestion(value).subscribe((res: any) => {
+        console.log(res.data.tests);
+        this.searchSuggestion = res.data.tests;
+      });
+    }, 300);
+  }
+
+  goToTestDetail(testId: string) {
+    this.router.navigateByUrl(
+      `/tests/customize-test?testId=${testId}&mode=view`
+    );
+  }
+
+  onDeleteTest(id: string, event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const isConfirmedToDeleteTest = window.confirm(
+      'Bạn thực sự muốn xoá bài kiểm tra này chứ?'
+    );
+
+    if (isConfirmedToDeleteTest) {
+      this.testService.deleteTestById(id).subscribe((res: any) => {
+        const deletedTest = res.data.deletedTest;
+
+        const newTest = this.allTest.filter(
+          (test) => test._id !== deletedTest._id
+        );
+
+        this.allTest = newTest;
+      });
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   ALL_TEST_LEVELS,
   ERR_TEST_ANSWER_MUST_BE_FILLED,
@@ -31,6 +31,8 @@ export class AddTestComponent implements OnInit {
   public figAudio: ElementRef<HTMLAudioElement>; // audio tag reference
   newTest = NEW_TEST_INIT_VALUE;
 
+  mode = 'add';
+
   selectedAnswerId = '';
 
   newTestForm: FormGroup;
@@ -50,7 +52,8 @@ export class AddTestComponent implements OnInit {
     private snackbarService: SnackbarService,
     private firebaseService: FirebaseService,
     private testService: TestService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -61,6 +64,19 @@ export class AddTestComponent implements OnInit {
     });
 
     this.genInitAnswerForNewTest();
+
+    this.activatedRoute.queryParams.subscribe((params) => {
+      const testId = params['testId'];
+      const mode = params['mode'];
+
+      if (mode === 'edit' || mode === 'view') {
+        this.testService.getTestById(testId).subscribe((res: any) => {
+          this.newTest = res.data.test;
+        });
+      }
+
+      this.mode = mode;
+    });
   }
 
   genAnswerBasedOnQty(qty: number) {

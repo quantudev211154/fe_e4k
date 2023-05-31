@@ -19,7 +19,7 @@
         (click)="onClickSidebarItem(item)"
         value="{{ item.value }}"
         class="sidebar-child__item {{
-          item.value === selectedSidebarItem.value
+          item.value === selectedSidebarItem
             ? 'sidebar-child__item--selected'
             : ''
         }}"
@@ -33,7 +33,12 @@
     </ng-container>
   </div>
   <div class="sidebar-child sidebar-bot">
-    <button class="sidebar-child__item sidebar-bot__user">
+    <button
+      (click)="goToPaPage()"
+      class="sidebar-child__item sidebar-bot__user {{
+        selectedSidebarItem === 'pa' ? 'sidebar-child__item--selected' : ''
+      }}"
+    >
       <figure class="sidebar-child__item-icon sidebar-bot__user-icon">
         <app-icon-user-circle></app-icon-user-circle>
       </figure>

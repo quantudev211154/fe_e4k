@@ -43,7 +43,8 @@ $CELL-ACTIONS-WIDTH: 8rem;
 
         &-input {
           @include custom-input;
-          padding: 0.5rem 0.8rem;
+          padding: 0.6rem 0.8rem;
+          font-size: 0.8rem;
         }
 
         &__suggestion {

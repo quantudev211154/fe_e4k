@@ -1,7 +1,12 @@
 <div class="new-test">
   <div class="new-test__header">
     <div class="new-test__header-left">
-      <p class="new-test__header-left-title">Thêm đề mới</p>
+      <p *ngIf="mode === 'add'" class="new-test__header-left-title">
+        Thêm đề mới
+      </p>
+      <p *ngIf="mode === 'view'" class="new-test__header-left-title">
+        Thông tin của đề
+      </p>
     </div>
     <div class="new-test__header-right">
       <button
@@ -10,14 +15,18 @@
       >
         Thoát
       </button>
-      <button class="new-test__header-right-btn" (click)="onSaveTest()">
+      <button
+        *ngIf="mode === 'add'"
+        class="new-test__header-right-btn"
+        (click)="onSaveTest()"
+      >
         Lưu đề
       </button>
     </div>
   </div>
   <form class="new-test__form" [formGroup]="newTestForm">
     <div class="new-test__form_main">
-      <div class="new-test__form_main-left">
+      <div *ngIf="mode === 'add'" class="new-test__form_main-left">
         <div class="new-test__form_main-left-input">
           <input
             (input)="onQuestionInputChange($event)"

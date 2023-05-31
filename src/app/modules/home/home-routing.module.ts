@@ -63,6 +63,11 @@ const routes: Routes = [
             (m) => m.LessionDetailModule
           ),
       },
+      {
+        path: 'pa',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('../pa/pa.module').then((m) => m.PaModule),
+      },
     ],
   },
 ];

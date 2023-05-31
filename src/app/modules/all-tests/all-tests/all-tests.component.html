@@ -2,6 +2,25 @@
   <div class="tests__header">
     <div class="tests__header-left">
       <p class="tests__header-left-title">Ngân hàng đề</p>
+      <div class="tests__header-left-search">
+        <input
+          (input)="onSearchTest($event)"
+          placeholder="Tìm đề theo câu hỏi"
+        />
+        <div
+          class="tests__header-left-search-suggestion"
+          *ngIf="searchSuggestion.length > 0"
+        >
+          <ng-container *ngFor="let test of searchSuggestion">
+            <div
+              (click)="goToTestDetail(test._id)"
+              class="tests__header-left-search-suggestion-item"
+            >
+              <p>{{ test.question }}</p>
+            </div>
+          </ng-container>
+        </div>
+      </div>
     </div>
     <div class="tests__header-right">
       <button (click)="goToAddTestRoute()" class="tests__header-right-btn">
@@ -18,7 +37,7 @@
         <div class="table-row-cell table-header-actions"></div>
       </div>
       <ng-container *ngFor="let test of allTest; let i = index">
-        <div class="table-row table-data">
+        <div (click)="goToTestDetail(test._id)" class="table-row table-data">
           <div class="table-row-cell table-data-index">{{ i + 1 }}</div>
           <div class="table-row-cell table-data-question">
             {{ test.question }}
@@ -27,7 +46,7 @@
             {{ dateService.formatDateStringToDateTime(test.createdAt) }}
           </div>
           <div class="table-row-cell table-data-actions">
-            <!-- <button (click)="goToEditWordPage(word._id)">Chỉnh sửa</button> -->
+            <button (click)="onDeleteTest(test._id, $event)">Xoá</button>
           </div>
         </div>
       </ng-container>

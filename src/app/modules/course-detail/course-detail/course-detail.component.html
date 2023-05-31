@@ -75,7 +75,7 @@
             newLessionForm.get('title')!.touched)
         "
       >
-        Hãy nhập tên cửa cửa này
+        Hãy nhập tên của cửa này
       </p>
     </div>
     <div class="new-lession-form__component new-lession-form__description">
@@ -142,6 +142,20 @@
       >
         Hãy nhập mô tả của phần này
       </p>
+    </div>
+    <div *ngIf="editingCourse" class="edit-course-form-select">
+      <span>Trạng thái khoá học: &nbsp;</span>
+      <select
+        (change)="onChangeEditingCourseType($event)"
+        [value]="editingCourse.type"
+      >
+        <option value="PUBLISHED" title="{{ allCourseType[0].description }}">
+          Đã ra mắt
+        </option>
+        <option value="DRAFT" title="{{ allCourseType[1].description }}">
+          Đang thử nghiệm
+        </option>
+      </select>
     </div>
     <app-button type="submit">Cập nhật</app-button>
   </form>

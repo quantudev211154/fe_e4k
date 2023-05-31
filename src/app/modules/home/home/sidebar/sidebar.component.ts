@@ -41,7 +41,7 @@ export class SidebarComponent implements OnInit {
       description: 'Các người dùng cấp cao',
     },
   ];
-  selectedSidebarItem = this.sidebarItems[0];
+  selectedSidebarItem = this.sidebarItems[0].value;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -91,6 +91,12 @@ export class SidebarComponent implements OnInit {
   onClickSidebarItem(selectedItem: ISidebarItem) {
     this.router.navigateByUrl(selectedItem.value);
     this.isOpenFullSidebar = false;
-    this.selectedSidebarItem = selectedItem;
+    this.selectedSidebarItem = selectedItem.value;
+  }
+
+  goToPaPage() {
+    this.router.navigateByUrl('/pa');
+    this.isOpenFullSidebar = false;
+    this.selectedSidebarItem = 'pa';
   }
 }

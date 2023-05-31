@@ -1,1 +1,35 @@
-<p>pa works!</p>
+<div class="pa">
+  <div *ngIf="authState && authState.user" class="pa__center">
+    <div class="pa__center_header">
+      <p>{{ authState.user.username }}</p>
+    </div>
+    <div class="pa__center_main">
+      <div class="pa__center_main-component">
+        <span>Quyền:&nbsp;</span>
+        <p>
+          <strong>{{ authState.user.role }}</strong>
+        </p>
+      </div>
+      <div class="pa__center_main-component">
+        <span>Số điện thoại:&nbsp;</span>
+        <p>
+          <strong>{{ authState.user.phone }}</strong>
+        </p>
+      </div>
+      <div class="pa__center_main-component">
+        <button (click)="openChangePasswordModal()">Đổi mật khẩu</button>
+        <button (click)="logout()">Đăng xuất</button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-modal [isOpen]="isShowChangePwdModal" (click)="hideChangePasswordModal()">
+  <form class="form" [formGroup]="changePwdForm">
+    <p class="form-header">Đổi mật khẩu</p>
+
+    <p *ngIf="formError !== ''" class="form-error">{{ formError }}</p>
+    <input type="password" formControlName="old" placeholder="Mật khẩu cũ" />
+    <input type="password" formControlName="new" placeholder="Mật khẩu mới" />
+    <button (click)="onFormSubmit()">Cập nhật</button>
+  </form>
+</app-modal>
