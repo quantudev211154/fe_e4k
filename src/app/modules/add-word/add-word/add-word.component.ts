@@ -28,6 +28,9 @@ export class AddWordComponent implements OnInit {
   imageFiles: FileList;
   audioFiles: FileList;
 
+  allImgs: string[] = [];
+  allAudios: string[] = [];
+
   constructor(
     private fb: FormBuilder,
     private wordService: WordService,
@@ -102,6 +105,18 @@ export class AddWordComponent implements OnInit {
     if (!target.files || target.files.length === 0) return;
 
     this.imageFiles = target.files;
+
+    console.log(this.imageFiles.length);
+
+    const newImgs = this.allImgs;
+
+    for (let i = 0; i < this.imageFiles.length; ++i) {
+      const file = this.imageFiles[i];
+
+      newImgs.push(URL.createObjectURL(file));
+    }
+
+    this.allImgs = newImgs;
   }
 
   onUploadAudios(event: Event) {
@@ -110,6 +125,16 @@ export class AddWordComponent implements OnInit {
     if (!target.files || target.files.length === 0) return;
 
     this.audioFiles = target.files;
+
+    const newAudios = this.allAudios;
+
+    for (let i = 0; i < this.audioFiles.length; ++i) {
+      const file = this.audioFiles[i];
+
+      newAudios.push(URL.createObjectURL(file));
+    }
+
+    this.allAudios = newAudios;
   }
 
   saveNewWord(imageUrls: string[], audioUrls: string[]) {
@@ -139,7 +164,7 @@ export class AddWordComponent implements OnInit {
       return;
     }
 
-    if (this.newWord.vieVers.length !== 0) {
+    if (this.newWord.vieVers.length === 0) {
       this.snackbarService.showSnackbar(
         ESnackbarStatus.WARNING,
         'Hãy cung cấp các nghĩa tiếng Việt tương  ứng'

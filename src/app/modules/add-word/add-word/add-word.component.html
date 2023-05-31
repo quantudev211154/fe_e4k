@@ -66,17 +66,21 @@
       <p>Ảnh minh hoạ:</p>
     </div>
     <div class="add-word__child-right">
-      <div
-        class="add-word__child-right_images"
-        *ngIf="wordId && newWord.images.length > 0"
-      >
-        <ng-container *ngFor="let image of newWord.images">
-          <img class="add-word__child-right_images-img" src="{{ image }}" />
+      <div class="add-word__child-right_images" *ngIf="wordId">
+        <ng-container *ngIf="newWord.images.length > 0">
+          <ng-container *ngFor="let image of newWord.images">
+            <img class="add-word__child-right_images-img" src="{{ image }}" />
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="allImgs.length > 0">
+          <ng-container *ngFor="let img of allImgs">
+            <img class="add-word__child-right_images-img" src="{{ img }}" />
+          </ng-container>
         </ng-container>
       </div>
       <p
         class="add-word__child-right_noImg"
-        *ngIf="wordId && newWord.images.length === 0"
+        *ngIf="wordId && newWord.images.length === 0 && allImgs.length === 0"
       >
         Chưa có ảnh nào
       </p>
@@ -100,19 +104,25 @@
       <p>Audio:</p>
     </div>
     <div class="add-word__child-right">
-      <div
-        class="add-word__child-right_audios"
-        *ngIf="wordId && newWord.audios.length > 0"
-      >
-        <ng-container *ngFor="let audio of newWord.audios">
-          <audio controls>
-            <source src="{{ audio }}" type="audio/mpeg" />
-          </audio>
+      <div class="add-word__child-right_audios" *ngIf="wordId">
+        <ng-container *ngIf="newWord.audios.length > 0">
+          <ng-container *ngFor="let audio of newWord.audios">
+            <audio controls>
+              <source src="{{ audio }}" type="audio/mpeg" />
+            </audio>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="allAudios.length > 0">
+          <ng-container *ngFor="let audio of allAudios">
+            <audio controls>
+              <source src="{{ audio }}" type="audio/mpeg" />
+            </audio>
+          </ng-container>
         </ng-container>
       </div>
       <p
         class="add-word__child-right_noAudio"
-        *ngIf="wordId && newWord.audios.length === 0"
+        *ngIf="wordId && newWord.audios.length === 0 && allAudios.length === 0"
       >
         Chưa có audio nào
       </p>
