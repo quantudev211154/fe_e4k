@@ -1,11 +1,12 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { INewWord, IWord } from 'src/app/core/models';
+import { ESnackbarStatus, INewWord, IWord } from 'src/app/core/models';
 import { FirebaseService } from 'src/app/core/services/firebase/firebase.service';
 import { WordService } from 'src/app/core/services/word-service/word.service';
 import { combineLatestWith } from 'rxjs';
 import { RouteConstant } from 'src/app/core/constants';
+import { SnackbarService } from 'src/app/core/services/snackbar-service/snackbar.service';
 
 @Component({
   selector: 'app-add-word',
@@ -32,7 +33,8 @@ export class AddWordComponent implements OnInit {
     private wordService: WordService,
     private router: Router,
     private firebaseService: FirebaseService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -129,21 +131,35 @@ export class AddWordComponent implements OnInit {
   }
 
   updateWord(imageUrls: string[], audioUrls: string[]) {
-    if (this.newWord.engVer !== '' && this.newWord.vieVers.length !== 0) {
-      const { engVer, vieVers, ...rest } = this.newWord;
-
-      const word: INewWord = {
-        engVer: engVer.toLowerCase(),
-        vieVers: vieVers.map((vieVer) => vieVer.toLowerCase()),
-        ...rest,
-      };
-      word.images = imageUrls;
-      word.audios = audioUrls;
-
-      this.wordService.updateWord(word, this.wordId as string).subscribe(() => {
-        this.router.navigateByUrl('/words');
-      });
+    if (this.newWord.engVer === '') {
+      this.snackbarService.showSnackbar(
+        ESnackbarStatus.WARNING,
+        'Hãy cung cấp từ tiếng Anh'
+      );
+      return;
     }
+
+    if (this.newWord.vieVers.length !== 0) {
+      this.snackbarService.showSnackbar(
+        ESnackbarStatus.WARNING,
+        'Hãy cung cấp các nghĩa tiếng Việt tương  ứng'
+      );
+      return;
+    }
+
+    const { engVer, vieVers, ...rest } = this.newWord;
+
+    const word: INewWord = {
+      engVer: engVer.toLowerCase(),
+      vieVers: vieVers.map((vieVer) => vieVer.toLowerCase()),
+      ...rest,
+    };
+    word.images = imageUrls;
+    word.audios = audioUrls;
+
+    this.wordService.updateWord(word, this.wordId as string).subscribe(() => {
+      this.router.navigateByUrl('/words');
+    });
   }
 
   onClickSaveWordBtn() {

@@ -29,4 +29,10 @@ export class UserService {
 
     return this.httpService.post(API.ADD_NEW_USER_URL, payload);
   }
+
+  changePassword(oldPwd: string, newPwd: string) {
+    const payload = { oldPassword: oldPwd, newPassword: newPwd };
+
+    return this.httpService.put(API.CHANGE_USER_PASSWORD_URL, payload);
+  }
 }

@@ -30,9 +30,13 @@ export const GET_ROUND_URL = BASE_URL + '/round';
 
 export const CREATE_NEW_TEST_URL = BASE_URL + '/test';
 export const GET_ALL_TEST_URL = BASE_URL + '/test';
+export const SEARCH_TESTS_URL = BASE_URL + '/test/search/';
+export const GET_TEST_BY_ID_URL = BASE_URL + '/test/';
+export const DELETE_TEST_BY_ID_URL = BASE_URL + '/test/';
 
 export const GET_ALL_USERS_URL = BASE_URL + '/user';
 export const DELETE_USER_URL = BASE_URL + '/user';
 export const FIND_USER_URL = BASE_URL + '/user/search?keyword=';
 export const GET_USER_BY_PHONE_URL = BASE_URL + '/user/';
 export const ADD_NEW_USER_URL = BASE_URL + '/user';
+export const CHANGE_USER_PASSWORD_URL = BASE_URL + '/user/change-pwd';

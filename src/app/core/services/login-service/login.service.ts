@@ -29,16 +29,14 @@ export class LoginService {
         const newAuthState: IAuthState = {
           isAuth: true,
           user: {
-            phone: data.phone,
-            role: data.role,
-            username: data.username,
-            _id: data._id,
-            registerDate: new Date(data.registerDate),
+            phone: data.user.phone,
+            role: data.user.role,
+            username: data.user.username,
+            _id: data.user._id,
+            registerDate: new Date(data.user.registerDate),
           },
         };
         this.authService.setAuthState(newAuthState);
-
-        console.log('Rs: Login failed - Login.service');
 
         this.router.navigateByUrl('/');
       },
@@ -50,16 +48,16 @@ export class LoginService {
     );
   }
 
-  public logout() {
-    this.authService.authState.subscribe((data: IAuthState) => {
-      const currentUserId = data.user?._id;
+  public logout(userId: string) {
+    const currentUserId = userId;
 
-      this.httpService.post(API.LOGOUT_URL, { id: currentUserId });
+    this.httpService
+      .post(API.LOGOUT_URL, { id: currentUserId })
+      .subscribe((res: any) => {
+        this.tokenStorageService.removeToken();
+        this.authService.resetAuthState();
 
-      this.tokenStorageService.removeToken();
-      this.authService.resetAuthState();
-
-      this.router.navigateByUrl('/login');
-    });
+        this.router.navigateByUrl('/login');
+      });
   }
 }
