@@ -4,7 +4,7 @@ import { API, AUTH_STATE_INIT_VALUE } from '../../constants';
 import { HttpService } from '../http-services/http.service';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../token-service/token-storage.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +13,10 @@ export class AuthService {
   authState: BehaviorSubject<IAuthState> = new BehaviorSubject<IAuthState>(
     AUTH_STATE_INIT_VALUE
   );
+  public isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+  public isLoggedIn$ = this.isLoggedIn.asObservable();
 
   constructor(
     private httpService: HttpService,
@@ -25,6 +29,7 @@ export class AuthService {
       ...this.authState.value,
       ...newAuthState,
     });
+    this.isLoggedIn.next(newAuthState.isAuth);
   }
 
   public getAuthState() {
@@ -32,12 +37,18 @@ export class AuthService {
   }
 
   public resetAuthState() {
+    this.isLoggedIn.next(false);
     this.authState.next(AUTH_STATE_INIT_VALUE);
   }
 
   public checkSSO() {
     if (!this.tokenStorageService.getToken()) {
       this.router.navigateByUrl('/login');
+      this.authState.next({
+        isAuth: false,
+        user: null,
+      });
+      this.isLoggedIn.next(false);
       return;
     }
 
@@ -62,6 +73,12 @@ export class AuthService {
       },
       error: () => {
         this.tokenStorageService.removeToken();
+
+        this.authState.next({
+          isAuth: false,
+          user: null,
+        });
+        this.isLoggedIn.next(false);
 
         this.router.navigateByUrl('/login');
       },

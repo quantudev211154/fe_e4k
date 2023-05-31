@@ -1,6 +1,6 @@
 export const environment = {
-  production: false,
-  baseUrl: 'http://localhost:8081/api',
+  production: true,
+  baseUrl: 'https://bee4k-production.up.railway.app/api',
   firebase: {
     projectId: 'e4k-db',
     appId: '1:685589765775:web:706e3a3178cbf1147e5afa',
