@@ -14,7 +14,6 @@
       <div class="table-row table-header">
         <div class="table-row-cell table-header-index">STT</div>
         <div class="table-row-cell table-header-question">Câu hỏi</div>
-        <div class="table-row-cell table-header-level">Độ khó</div>
         <div class="table-row-cell table-header-time">Thời gian tạo</div>
         <div class="table-row-cell table-header-actions"></div>
       </div>
@@ -23,9 +22,6 @@
           <div class="table-row-cell table-data-index">{{ i + 1 }}</div>
           <div class="table-row-cell table-data-question">
             {{ test.question }}
-          </div>
-          <div class="table-row-cell table-data-level">
-            {{ test.level === "EASY" ? "Dễ" : "Trung bình" }}
           </div>
           <div class="table-row-cell table-data-time">
             {{ dateService.formatDateStringToDateTime(test.createdAt) }}

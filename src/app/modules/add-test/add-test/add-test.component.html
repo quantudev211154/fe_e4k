@@ -16,22 +16,6 @@
     </div>
   </div>
   <form class="new-test__form" [formGroup]="newTestForm">
-    <div class="new-test__form_select">
-      <span>Mức độ khó của đề này: </span>
-      <select
-        (change)="onChangeNewTestLevel($event)"
-        [value]="newTest.level"
-        formControlName="level"
-      >
-        <option
-          *ngFor="let level of allTestLevels"
-          value="{{ level.value }}"
-          title="{{ level.description }}"
-        >
-          {{ level.label }}
-        </option>
-      </select>
-    </div>
     <div class="new-test__form_main">
       <div class="new-test__form_main-left">
         <div class="new-test__form_main-left-input">

@@ -47,7 +47,12 @@
           *ngIf="currentUser && currentUser.role === 'ADMIN'"
           class="table__row__cell table__row__action"
         >
-          <button (click)="deleteUser(user._id)">Xoá người dùng</button>
+          <button
+            *ngIf="currentUser._id.toString() != user._id.toString()"
+            (click)="deleteUser(user._id)"
+          >
+            Xoá người dùng
+          </button>
         </div>
       </div>
     </div>
